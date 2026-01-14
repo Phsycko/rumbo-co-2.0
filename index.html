@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Rumbo Co. - Diseñamos experiencias de viaje a tu medida. Planeación, hospedaje, tours y experiencias personalizadas.">
+    <title>Rumbo Co. - Viajar bien planeado se disfruta el doble</title>
+    
+    <!-- Favicon -->
+    <!-- Formato ICO para máxima compatibilidad -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <!-- Formatos PNG para diferentes tamaños -->
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <!-- Apple Touch Icon para dispositivos iOS -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <!-- Web Manifest para PWA -->
+    <link rel="manifest" href="site.webmanifest">
+    <!-- Fallback: usar imagen JPEG existente si los formatos específicos no están disponibles -->
+    <link rel="icon" type="image/jpeg" href="images/favicon logo.jpeg">
+    
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- HEADER / MENÚ -->
+    <header class="header" id="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <h1>RUMBO CO.</h1>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#inicio" class="nav-link" data-i18n="nav.inicio">Inicio</a></li>
+                <li><a href="#destinos" class="nav-link" data-i18n="nav.destinos">Destinos</a></li>
+                <li><a href="#cotizacion" class="nav-link" data-i18n="nav.cotizacion">Cotización</a></li>
+                <li><a href="#quienes-somos" class="nav-link" data-i18n="nav.quienes-somos">Quiénes somos</a></li>
+                <li><a href="#contacto" class="nav-link" data-i18n="nav.contacto">Contacto</a></li>
+            </ul>
+            <div class="header-controls">
+                <button class="lang-toggle" id="langToggle" aria-label="Toggle language">ES</button>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀️</button>
+                <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- HERO PRINCIPAL -->
+    <section class="hero" id="inicio">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h2 class="hero-title">RUMBO CO.</h2>
+            <p class="hero-subtitle" data-i18n="hero.subtitle">No vendemos viajes.<br>Diseñamos recuerdos que se quedan contigo.</p>
+            <p class="hero-description" data-i18n="hero.description"></p>
+            <a href="#cotizacion" class="btn-primary" data-i18n="hero.cta">Diseñar mi experiencia</a>
+        </div>
+    </section>
+
+    <!-- SECCIÓN: QUÉ TIPO DE VIAJES COTIZAMOS -->
+    <section class="travel-types">
+        <div class="container">
+            <p class="section-label" data-i18n="travel.label">Cotizamos experiencias de viaje para:</p>
+            <div class="travel-grid">
+                <div class="travel-card" data-category="familiares">
+                    <div class="travel-card-bg" style="background-image: url('images/modales/VIAJE EN FAMILIA.jpg');"></div>
+                    <div class="travel-card-overlay"></div>
+                    <div class="travel-card-content">
+                        <h3 data-i18n="travel.familiares">Viajes familiares</h3>
+                        <p class="travel-card-description" data-i18n="travel.familiares.desc">Para viajar en familia sin complicaciones</p>
+                        <span class="travel-card-cta" data-i18n="travel.card.cta">Diseñar mi experiencia</span>
+                    </div>
+                </div>
+                <div class="travel-card" data-category="lunas-miel">
+                    <div class="travel-card-bg" style="background-image: url('images/modales/LUNA DE MIEL.jpg');"></div>
+                    <div class="travel-card-overlay"></div>
+                    <div class="travel-card-content">
+                        <h3 data-i18n="travel.lunas-miel">Lunas de miel</h3>
+                        <p class="travel-card-description" data-i18n="travel.lunas-miel.desc">Experiencias exclusivas para recién casados</p>
+                        <span class="travel-card-cta" data-i18n="travel.card.cta">Diseñar mi experiencia</span>
+                    </div>
+                </div>
+                <div class="travel-card" data-category="escolares">
+                    <div class="travel-card-bg" style="background-image: url('images/modales/VIAJE ESCOLAR.jpg');"></div>
+                    <div class="travel-card-overlay"></div>
+                    <div class="travel-card-content">
+                        <h3 data-i18n="travel.escolares">Viajes escolares</h3>
+                        <p class="travel-card-description" data-i18n="travel.escolares.desc">Viajes organizados para grupos escolares</p>
+                        <span class="travel-card-cta" data-i18n="travel.card.cta">Diseñar mi experiencia</span>
+                    </div>
+                </div>
+                <div class="travel-card" data-category="corporativos">
+                    <div class="travel-card-bg" style="background-image: url('images/modales/VIAJE CORPORATIVO.jpg');"></div>
+                    <div class="travel-card-overlay"></div>
+                    <div class="travel-card-content">
+                        <h3 data-i18n="travel.corporativos">Viajes corporativos</h3>
+                        <p class="travel-card-description" data-i18n="travel.corporativos.desc">Viajes de trabajo y eventos empresariales</p>
+                        <span class="travel-card-cta" data-i18n="travel.card.cta">Diseñar mi experiencia</span>
+                    </div>
+                </div>
+                <div class="travel-card" data-category="individuales">
+                    <div class="travel-card-bg" style="background-image: url('images/modales/VIAJE INDIVIDUAL.png');"></div>
+                    <div class="travel-card-overlay"></div>
+                    <div class="travel-card-content">
+                        <h3 data-i18n="travel.individuales">Viajes individuales</h3>
+                        <p class="travel-card-description" data-i18n="travel.individuales.desc">Viajes diseñados para una sola persona</p>
+                        <span class="travel-card-cta" data-i18n="travel.card.cta">Diseñar mi experiencia</span>
+                    </div>
+                </div>
+                <div class="travel-card" data-category="grupos-especiales">
+                    <div class="travel-card-bg" style="background-image: url('images/modales/VIAJE GRUPAL.jpg');"></div>
+                    <div class="travel-card-overlay"></div>
+                    <div class="travel-card-content">
+                        <h3 data-i18n="travel.grupos-especiales">Grupos especiales</h3>
+                        <p class="travel-card-description" data-i18n="travel.grupos-especiales.desc">Viajes para grupos grandes o personalizados</p>
+                        <span class="travel-card-cta" data-i18n="travel.card.cta">Diseñar mi experiencia</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-quote">
+                <h2 class="quote-text" data-i18n="travel.quote">NO VENDEMOS VIAJES, VENDEMOS EXPERIENCIAS</h2>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODALES DE CATEGORÍAS DE VIAJE -->
+    <!-- Modal Viajes Familiares -->
+    <div class="category-modal-overlay" id="modal-familiares">
+        <div class="category-modal-content">
+            <button class="category-modal-close" aria-label="Cerrar modal" data-i18n="modal.close">&times;</button>
+            <div class="category-modal-image" style="background-image: url('images/modales/VIAJE EN FAMILIA.jpg');"></div>
+            <div class="category-modal-body">
+                <h2 class="category-modal-title" data-i18n="modal.familiares.title">Viajes familiares</h2>
+                <p class="category-modal-description" data-i18n="modal.familiares.desc">Diseñamos experiencias perfectas para toda la familia, donde cada miembro encuentre algo especial. Creemos recuerdos inolvidables juntos, con actividades adaptadas a todas las edades y necesidades.</p>
+                <h3 class="category-modal-list-title" data-i18n="modal.familiares.list">Lo que podemos organizar:</h3>
+                <ul class="category-modal-list">
+                    <li data-i18n="modal.familiares.item1">Hospedaje familiar con todas las comodidades</li>
+                    <li data-i18n="modal.familiares.item2">Actividades para niños, jóvenes y adultos</li>
+                    <li data-i18n="modal.familiares.item3">Planeación de itinerarios flexibles</li>
+                    <li data-i18n="modal.familiares.item4">Experiencias educativas y recreativas</li>
+                    <li data-i18n="modal.familiares.item5">Traslados seguros y cómodos</li>
+                    <li data-i18n="modal.familiares.item6">Asesoría personalizada para tu familia</li>
+                </ul>
+                
+                <div class="category-quote-section">
+                    <h3 class="category-quote-title" data-i18n="form.quote.title">Diseña tu experiencia</h3>
+                    <form class="category-quote-form" data-category="familiares">
+                        <div class="category-form-row">
+                            <div class="category-form-group">
+                                <label for="personas-familiares" data-i18n="form.personas">Número de personas</label>
+                                <input type="number" id="personas-familiares" name="personas" min="1" required>
+                            </div>
+                            <div class="category-form-group">
+                                <label for="dias-familiares" data-i18n="form.dias">Número de días</label>
+                                <input type="number" id="dias-familiares" name="dias" min="1" required>
+                            </div>
+                        </div>
+                        <div class="category-form-group">
+                            <label data-i18n="form.cotizar">¿Qué experiencia desean vivir?</label>
+                            <div class="category-checkboxes">
+                                <label class="category-checkbox-label">
+                                    <input type="checkbox" name="servicios" value="hospedaje">
+                                    <span data-i18n="form.hospedaje">Hospedaje</span>
+                                </label>
+                                <label class="category-checkbox-label">
+                                    <input type="checkbox" name="servicios" value="tours-actividades">
+                                    <span data-i18n="form.tours">Tours / actividades</span>
+                                </label>
+                                <label class="category-checkbox-label">
+                                    <input type="checkbox" name="servicios" value="tren">
+                                    <span data-i18n="form.tren">Tren (si aplica)</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary category-quote-submit" data-i18n="form.submit">Diseñar mi experiencia</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Lunas de Miel -->
+    <div class="category-modal-overlay" id="modal-lunas-miel">
+        <div class="category-modal-content">
+            <button class="category-modal-close" aria-label="Cerrar modal">&times;</button>
+            <div class="category-modal-image" style="background-image: url('images/modales/LUNA DE MIEL.jpg');"></div>
+            <div class="category-modal-body">
+                <h2 class="category-modal-title" data-i18n="modal.lunas-miel.title">Lunas de miel</h2>
+                <p class="category-modal-description" data-i18n="modal.lunas-miel.desc">Creamos experiencias románticas e inolvidables para celebrar el inicio de su vida juntos. Cada detalle está pensado para hacer de su luna de miel un momento único y especial.</p>
+                <h3 class="category-modal-list-title" data-i18n="modal.familiares.list">Lo que podemos organizar:</h3>
+                <ul class="category-modal-list">
+                    <li data-i18n="modal.lunas-miel.item1">Hoteles boutique y resorts exclusivos</li>
+                    <li data-i18n="modal.lunas-miel.item2">Experiencias románticas y privadas</li>
+                    <li data-i18n="modal.lunas-miel.item3">Cenas especiales y momentos únicos</li>
+                    <li data-i18n="modal.lunas-miel.item4">Actividades para parejas</li>
+                    <li data-i18n="modal.lunas-miel.item5">Traslados privados y discretos</li>
+                    <li data-i18n="modal.lunas-miel.item6">Asesoría para crear el viaje perfecto</li>
+                </ul>
+                
+                <div class="category-quote-section">
+                    <h3 class="category-quote-title" data-i18n="form.quote.title">Diseña tu experiencia</h3>
+                    <form class="category-quote-form" data-category="lunas-miel">
+                        <div class="category-form-group">
+                            <div class="category-fixed-info">
+                                <span class="category-info-icon">💕</span>
+                                <span class="category-info-text" data-i18n="modal.lunas-miel.fixed">Viaje para 2 personas</span>
+                            </div>
+                        </div>
+                        <div class="category-form-row">
+                            <div class="category-form-group">
+                                <label for="dias-lunas" data-i18n="form.dias">Número de días</label>
+                                <input type="number" id="dias-lunas" name="dias" min="1" required>
+                            </div>
+                        </div>
+                        <div class="category-form-group">
+                            <label data-i18n="form.cotizar">¿Qué experiencia desean vivir?</label>
+                            <div class="category-checkboxes">
+                                <label class="category-checkbox-label">
+                                    <input type="checkbox" name="servicios" value="hospedaje">
+                                    <span data-i18n="form.hospedaje">Hospedaje</span>
+                                </label>
+                                <label class="category-checkbox-label">
+                                    <input type="checkbox" name="servicios" value="experiencias-romanticas">
+                                    <span data-i18n="form.romanticas">Experiencias románticas</span>
+                                </label>
+                                <label class="category-checkbox-label">
+                                    <input type="checkbox" name="servicios" value="tours-actividades">
+                                    <span data-i18n="form.tours">Tours / actividades</span>
+                                </label>
+                                <label class="category-checkbox-label">
+                                    <input type="checkbox" name="servicios" value="tren">
+                                    <span data-i18n="form.tren">Tren (si aplica)</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary category-quote-submit" data-i18n="form.submit">Diseñar mi experiencia</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Viajes Escolares -->
+    <div class="category-modal-overlay" id="modal-escolares">
+        <div class="category-modal-content">
+            <button class="category-modal-close" aria-label="Cerrar modal">&times;</button>
+            <div class="category-modal-image" style="background-image: url('images/modales/VIAJE ESCOLAR.jpg');"></div>
+            <div class="category-modal-body">
+                <h2 class="category-modal-title" data-i18n="modal.escolares.title">Viajes escolares</h2>
+                <p class="category-modal-description" data-i18n="modal.escolares.desc">Organizamos viajes educativos seguros y enriquecedores que combinan aprendizaje con diversión. Facilitamos experiencias que complementan la formación académica de los estudiantes.</p>
+                <h3 class="category-modal-list-title" data-i18n="modal.familiares.list">Lo que podemos organizar:</h3>
+                <ul class="category-modal-list">
+                    <li data-i18n="modal.escolares.item1">Hospedaje seguro y adecuado para grupos</li>
+                    <li data-i18n="modal.escolares.item2">Actividades educativas y culturales</li>
+                    <li data-i18n="modal.escolares.item3">Visitas a museos, sitios históricos y naturales</li>
+                    <li data-i18n="modal.escolares.item4">Transporte grupal confiable</li>
+                    <li data-i18n="modal.escolares.item5">Supervisión y acompañamiento durante el viaje</li>
+                    <li data-i18n="modal.escolares.item6">Coordinación con instituciones educativas</li>
+                </ul>
+                
+                <div class="category-quote-section">
+                    <h3 class="category-quote-title" data-i18n="form.quote.title">Diseña tu experiencia</h3>
+                    <form class="category-quote-form" data-category="escolares">
+                        <div class="category-form-row">
+                            <div class="category-form-group">
+                                <label for="personas-escolares" data-i18n="form.personas">Número de personas</label>
+                                <input type="number" id="personas-escolares" name="personas" min="1" required>
+                            </div>
+                            <div class="category-form-group">
+                                <label for="dias-escolares" data-i18n="form.dias">Número de días</label>
+                                <input type="number" id="dias-escolares" name="dias" min="1" required>
+                            </div>
+                        </div>
+                        <div class="category-form-group">
+                            <label for="escuela-escolares" data-i18n="form.escuela">Nombre de la escuela o grupo</label>
+                            <input type="text" id="escuela-escolares" name="escuela" required>
+                        </div>
+                        <div class="category-form-group">
+                            <label data-i18n="form.cotizar">¿Qué experiencia desean vivir?</label>
+                            <div class="category-checkboxes">
+                                <label class="category-checkbox-label">
+                                    <input type="checkbox" name="servicios" value="traslado-terrestre">
+                                    <span data-i18n="form.traslado">Traslado terrestre</span>
+                                </label>
+                                <label class="category-checkbox-label">
+                                    <input type="checkbox" name="servicios" value="hospedaje">
+                                    <span data-i18n="form.hospedaje">Hospedaje</span>
+                                </label>
+                                <label class="category-checkbox-label">
+                                    <input type="checkbox" name="servicios" value="tours-actividades">
+                                    <span data-i18n="form.tours">Tours / actividades</span>
+                                </label>
+                                <label class="category-checkbox-label">
+                                    <input type="checkbox" name="servicios" value="tren">
+                                    <span data-i18n="form.tren">Tren (si aplica)</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary category-quote-submit" data-i18n="form.submit">Diseñar mi experiencia</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Viajes Corporativos -->
+    <div class="category-modal-overlay" id="modal-corporativos">
+        <div class="category-modal-content">
+            <button class="category-modal-close" aria-label="Cerrar modal">&times;</button>
+            <div class="category-modal-image" style="background-image: url('images/modales/VIAJE CORPORATIVO.jpg');"></div>
+            <div class="category-modal-body">
+                <h2 class="category-modal-title" data-i18n="modal.corporativos.title">Viajes corporativos</h2>
+                <p class="category-modal-description" data-i18n="modal.corporativos.desc">Gestionamos viajes de negocios y eventos corporativos con profesionalismo y eficiencia. Nos encargamos de todos los detalles para que su equipo se enfoque en lo importante.</p>
+                <h3 class="category-modal-list-title" data-i18n="modal.familiares.list">Lo que podemos organizar:</h3>
+                <ul class="category-modal-list">
+                    <li data-i18n="modal.corporativos.item1">Hospedaje en hoteles de negocios</li>
+                    <li data-i18n="modal.corporativos.item2">Organización de eventos y conferencias</li>
+                    <li data-i18n="modal.corporativos.item3">Traslados corporativos y logística</li>
+                    <li data-i18n="modal.corporativos.item4">Actividades de team building</li>
+                    <li data-i18n="modal.corporativos.item5">Gestión de grupos empresariales</li>
+                    <li data-i18n="modal.corporativos.item6">Asesoría para viajes ejecutivos</li>
+                </ul>
+                
+                <div class="category-quote-section">
+                    <h3 class="category-quote-title" data-i18n="form.quote.title">Diseña tu experiencia</h3>
+                    <form class="category-quote-form" data-category="corporativos">
+                        <div class="category-form-row">
+                            <div class="category-form-group">
+                                <label for="personas-corporativos" data-i18n="form.personas">Número de personas</label>
+                                <input type="number" id="personas-corporativos" name="personas" min="1" required>
+                            </div>
+                            <div class="category-form-group">
+                                <label for="dias-corporativos" data-i18n="form.dias">Número de días</label>
+                                <input type="number" id="dias-corporativos" name="dias" min="1" required>
+                            </div>
+                        </div>
+                        <div class="category-form-group">
+                            <label data-i18n="form.cotizar">¿Qué experiencia desean vivir?</label>
+                            <div class="category-checkboxes">
+                                <label class="category-checkbox-label">
+                                    <input type="checkbox" name="servicios" value="hospedaje">
+                                    <span data-i18n="form.hospedaje">Hospedaje</span>
+                                </label>
+                                <label class="category-checkbox-label">
+                                    <input type="checkbox" name="servicios" value="tours-actividades">
+                                    <span data-i18n="form.tours">Tours / actividades</span>
+                                </label>
+                                <label class="category-checkbox-label">
+                                    <input type="checkbox" name="servicios" value="tren">
+                                    <span data-i18n="form.tren">Tren (si aplica)</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary category-quote-submit" data-i18n="form.submit">Diseñar mi experiencia</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Viajes Individuales -->
+    <div class="category-modal-overlay" id="modal-individuales">
+        <div class="category-modal-content">
+            <button class="category-modal-close" aria-label="Cerrar modal">&times;</button>
+            <div class="category-modal-image" style="background-image: url('images/modales/VIAJE INDIVIDUAL.png');"></div>
+            <div class="category-modal-body">
+                <h2 class="category-modal-title" data-i18n="modal.individuales.title">Viajes individuales</h2>
+                <p class="category-modal-description" data-i18n="modal.individuales.desc">Diseñamos experiencias personalizadas para viajeros independientes que buscan libertad y autenticidad. Cada viaje se adapta a tus intereses, ritmo y preferencias únicas.</p>
+                <h3 class="category-modal-list-title" data-i18n="modal.familiares.list">Lo que podemos organizar:</h3>
+                <ul class="category-modal-list">
+                    <li data-i18n="modal.individuales.item1">Hospedaje según tus preferencias</li>
+                    <li data-i18n="modal.individuales.item2">Itinerarios flexibles y personalizados</li>
+                    <li data-i18n="modal.individuales.item3">Experiencias auténticas y locales</li>
+                    <li data-i18n="modal.individuales.item4">Traslados individuales</li>
+                    <li data-i18n="modal.individuales.item5">Recomendaciones personalizadas</li>
+                    <li data-i18n="modal.individuales.item6">Asesoría para viajeros independientes</li>
+                </ul>
+                
+                <div class="category-quote-section">
+                    <h3 class="category-quote-title" data-i18n="form.quote.title">Diseña tu experiencia</h3>
+                    <form class="category-quote-form" data-category="individuales">
+                        <div class="category-form-group">
+                            <div class="category-fixed-info">
+                                <span class="category-info-icon">🧳</span>
+                                <span class="category-info-text" data-i18n="modal.individuales.fixed">Viaje para 1 persona</span>
+                            </div>
+                        </div>
+                        <div class="category-form-row">
+                            <div class="category-form-group">
+                                <label for="dias-individuales" data-i18n="form.dias">Número de días</label>
+                                <input type="number" id="dias-individuales" name="dias" min="1" required>
+                            </div>
+                        </div>
+                        <div class="category-form-group">
+                            <label data-i18n="form.cotizar">¿Qué experiencia desean vivir?</label>
+                            <div class="category-checkboxes">
+                                <label class="category-checkbox-label">
+                                    <input type="checkbox" name="servicios" value="hospedaje">
+                                    <span data-i18n="form.hospedaje">Hospedaje</span>
+                                </label>
+                                <label class="category-checkbox-label">
+                                    <input type="checkbox" name="servicios" value="tours-actividades">
+                                    <span data-i18n="form.tours">Tours / actividades</span>
+                                </label>
+                                <label class="category-checkbox-label">
+                                    <input type="checkbox" name="servicios" value="experiencias-personalizadas">
+                                    <span data-i18n="form.personalizadas">Experiencias personalizadas</span>
+                                </label>
+                                <label class="category-checkbox-label">
+                                    <input type="checkbox" name="servicios" value="tren">
+                                    <span data-i18n="form.tren">Tren (si aplica)</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary category-quote-submit" data-i18n="form.submit">Diseñar mi experiencia</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Grupos Especiales -->
+    <div class="category-modal-overlay" id="modal-grupos-especiales">
+        <div class="category-modal-content">
+            <button class="category-modal-close" aria-label="Cerrar modal">&times;</button>
+            <div class="category-modal-image" style="background-image: url('images/modales/VIAJE GRUPAL.jpg');"></div>
+            <div class="category-modal-body">
+                <h2 class="category-modal-title" data-i18n="modal.grupos-especiales.title">Grupos especiales</h2>
+                <p class="category-modal-description" data-i18n="modal.grupos-especiales.desc">Organizamos viajes para grupos con necesidades específicas, adaptándonos a cada situación. Ya sea un grupo de amigos, adultos mayores, o grupos con requerimientos particulares, creamos la experiencia perfecta.</p>
+                <h3 class="category-modal-list-title" data-i18n="modal.familiares.list">Lo que podemos organizar:</h3>
+                <ul class="category-modal-list">
+                    <li data-i18n="modal.grupos-especiales.item1">Hospedaje adaptado a necesidades del grupo</li>
+                    <li data-i18n="modal.grupos-especiales.item2">Actividades diseñadas para el grupo</li>
+                    <li data-i18n="modal.grupos-especiales.item3">Itinerarios personalizados</li>
+                    <li data-i18n="modal.grupos-especiales.item4">Transporte grupal cómodo</li>
+                    <li data-i18n="modal.grupos-especiales.item5">Acompañamiento y asistencia</li>
+                    <li data-i18n="modal.grupos-especiales.item6">Asesoría especializada para grupos</li>
+                </ul>
+                
+                <div class="category-quote-section">
+                    <h3 class="category-quote-title" data-i18n="form.quote.title">Diseña tu experiencia</h3>
+                    <form class="category-quote-form" data-category="grupos-especiales">
+                        <div class="category-form-row">
+                            <div class="category-form-group">
+                                <label for="personas-grupos" data-i18n="form.personas">Número de personas</label>
+                                <input type="number" id="personas-grupos" name="personas" min="1" required>
+                            </div>
+                            <div class="category-form-group">
+                                <label for="dias-grupos" data-i18n="form.dias">Número de días</label>
+                                <input type="number" id="dias-grupos" name="dias" min="1" required>
+                            </div>
+                        </div>
+                        <div class="category-form-group">
+                            <label for="escuela-grupos" data-i18n="form.escuela">Nombre de la escuela o grupo</label>
+                            <input type="text" id="escuela-grupos" name="escuela" required>
+                        </div>
+                        <div class="category-form-group">
+                            <label data-i18n="form.cotizar">¿Qué experiencia desean vivir?</label>
+                            <div class="category-checkboxes">
+                                <label class="category-checkbox-label">
+                                    <input type="checkbox" name="servicios" value="traslado-terrestre">
+                                    <span data-i18n="form.traslado">Traslado terrestre</span>
+                                </label>
+                                <label class="category-checkbox-label">
+                                    <input type="checkbox" name="servicios" value="hospedaje">
+                                    <span data-i18n="form.hospedaje">Hospedaje</span>
+                                </label>
+                                <label class="category-checkbox-label">
+                                    <input type="checkbox" name="servicios" value="tours-actividades">
+                                    <span data-i18n="form.tours">Tours / actividades</span>
+                                </label>
+                                <label class="category-checkbox-label">
+                                    <input type="checkbox" name="servicios" value="tren">
+                                    <span data-i18n="form.tren">Tren (si aplica)</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary category-quote-submit" data-i18n="form.submit">Diseñar mi experiencia</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN: NUESTRA ESENCIA -->
+    <section class="essence">
+        <div class="container">
+            <h2 class="section-title" data-i18n="essence.title">Nuestra esencia</h2>
+            <div class="essence-grid">
+                <div class="essence-card">
+                    <h3 class="essence-title" data-i18n="essence.mision">MISIÓN</h3>
+                    <p class="essence-text" data-i18n="essence.mision.text">Diseñar experiencias de viaje personalizadas, seguras y memorables, cuidando cada detalle para que nuestros clientes vivan cada destino sin preocupaciones.</p>
+                </div>
+                <div class="essence-card">
+                    <h3 class="essence-title" data-i18n="essence.vision">VISIÓN</h3>
+                    <p class="essence-text" data-i18n="essence.vision.text">Ser una agencia referente en la creación de experiencias de viaje bien planeadas, humanas y confiables.</p>
+                </div>
+                <div class="essence-card">
+                    <h3 class="essence-title" data-i18n="essence.valores">VALORES</h3>
+                    <ul class="values-list">
+                        <li data-i18n="essence.valor1">Atención personalizada</li>
+                        <li data-i18n="essence.valor2">Transparencia y confianza</li>
+                        <li data-i18n="essence.valor3">Amor por viajar</li>
+                        <li data-i18n="essence.valor4">Compromiso con cada cliente</li>
+                        <li data-i18n="essence.valor5">Calidad en cada experiencia</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN: TRANSPORTE -->
+    <section class="transport">
+        <div class="container">
+            <h2 class="transport-headline" data-i18n="transport.headline">¿Ya tienes tu itinerario, pero te falta el transporte?</h2>
+            <p class="transport-subtitle" data-i18n="transport.subtitle">Nosotros te ayudamos a completar tu viaje.</p>
+            <div class="transport-cards">
+                <div class="transport-card" data-transport="autobuses">
+                    <div class="transport-icon" style="background-image: url('images/modales/AUTOBUS.jpg');"></div>
+                    <h3 class="transport-card-title" data-i18n="transport.autobuses">Autobuses a tu medida</h3>
+                    <p class="transport-card-description" data-i18n="transport.autobuses.desc">Traslados terrestres privados o grupales según tu viaje.</p>
+                </div>
+                <div class="transport-card" data-transport="chepe-regional">
+                    <div class="transport-icon" style="background-image: url('images/modales/CHEPE REGIONAL.jpg');"></div>
+                    <h3 class="transport-card-title" data-i18n="transport.chepe-regional">Chepe Regional</h3>
+                    <p class="transport-card-description" data-i18n="transport.chepe-regional.desc">El recorrido completo por la Sierra Tarahumara, con múltiples estaciones intermedias.</p>
+                </div>
+                <div class="transport-card" data-transport="chepe-express">
+                    <div class="transport-icon" style="background-image: url('images/modales/CHEPE EXPRESS.jpeg');"></div>
+                    <h3 class="transport-card-title" data-i18n="transport.chepe-express">Chepe Express</h3>
+                    <p class="transport-card-description" data-i18n="transport.chepe-express.desc">La experiencia premium del Chepe con servicios de lujo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODALES DE TRANSPORTE -->
+    <!-- Modal Autobuses -->
+    <div class="transport-modal-overlay" id="modal-autobuses">
+        <div class="transport-modal-content">
+            <button class="transport-modal-close" aria-label="Cerrar modal">&times;</button>
+            <div class="transport-modal-image" style="background-image: url('images/modales/AUTOBUS.jpg');"></div>
+            <div class="transport-modal-body">
+                <h2 class="transport-modal-title" data-i18n="transport.autobuses.title">Autobuses a tu medida</h2>
+                <p class="transport-modal-description" data-i18n="transport.autobuses.desc">Ofrecemos traslados terrestres personalizados, ya sea para grupos grandes o servicios privados. Nos encargamos de coordinar el transporte que mejor se adapte a tu itinerario y necesidades.</p>
+                <form class="transport-form" id="form-autobuses">
+                    <div class="transport-form-row">
+                        <div class="transport-form-group">
+                            <label for="ciudad-salida" data-i18n="transport.autobuses.salida">Ciudad de salida</label>
+                            <input type="text" id="ciudad-salida" name="ciudad-salida" required>
+                        </div>
+                        <div class="transport-form-group">
+                            <label for="ciudad-destino" data-i18n="transport.autobuses.destino">Ciudad de destino</label>
+                            <input type="text" id="ciudad-destino" name="ciudad-destino" required>
+                        </div>
+                    </div>
+                    <div class="transport-form-row">
+                        <div class="transport-form-group">
+                            <label for="personas-autobuses" data-i18n="form.personas">Número de personas</label>
+                            <input type="number" id="personas-autobuses" name="personas" min="1" required>
+                        </div>
+                        <div class="transport-form-group">
+                            <label for="tipo-servicio" data-i18n="transport.autobuses.servicio">Tipo de servicio</label>
+                            <select id="tipo-servicio" name="tipo-servicio" required>
+                                <option value="" data-i18n="transport.autobuses.servicio.select">Selecciona una opción</option>
+                                <option value="privado" data-i18n="transport.autobuses.servicio.privado">Privado</option>
+                                <option value="grupal" data-i18n="transport.autobuses.servicio.grupal">Grupal</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="transport-form-row">
+                        <div class="transport-form-group">
+                            <label for="fecha-salida-autobuses">Fecha de salida</label>
+                            <input type="date" id="fecha-salida-autobuses" name="fecha-salida" required>
+                        </div>
+                        <div class="transport-form-group">
+                            <label for="fecha-regreso-autobuses">Fecha de regreso</label>
+                            <input type="date" id="fecha-regreso-autobuses" name="fecha-regreso" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary transport-submit" data-i18n="transport.autobuses.submit">Solicitar cotización</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Chepe Regional -->
+    <div class="transport-modal-overlay" id="modal-chepe-regional">
+        <div class="transport-modal-content">
+            <button class="transport-modal-close" aria-label="Cerrar modal">&times;</button>
+            <div class="transport-modal-image" style="background-image: url('images/modales/CHEPE REGIONAL.jpg');"></div>
+            <div class="transport-modal-body">
+                <h2 class="transport-modal-title" data-i18n="transport.chepe-regional.title">Chepe Regional</h2>
+                <p class="transport-modal-description" data-i18n="transport.chepe-regional.desc">Selecciona tu estación de salida y destino.</p>
+                <form class="transport-form" id="form-chepe-regional">
+                    <div class="transport-form-row">
+                        <div class="transport-form-group">
+                            <label for="estacion-salida-regional" data-i18n="transport.chepe-regional.salida">Estación de salida</label>
+                            <select id="estacion-salida-regional" name="estacion-salida" required>
+                                <option value="" data-i18n="transport.chepe-regional.select">Selecciona una estación</option>
+                                <option value="Chihuahua">Chihuahua</option>
+                                <option value="Cuauhtémoc">Cuauhtémoc</option>
+                                <option value="San Juanito">San Juanito</option>
+                                <option value="Creel">Creel</option>
+                                <option value="Pitorreal">Pitorreal</option>
+                                <option value="Divisadero">Divisadero</option>
+                                <option value="Posada">Posada</option>
+                                <option value="San Rafael">San Rafael</option>
+                                <option value="Cuiteco">Cuiteco</option>
+                                <option value="Bahuichivo">Bahuichivo</option>
+                                <option value="Témoris">Témoris</option>
+                                <option value="El Fuerte">El Fuerte</option>
+                                <option value="Los Mochis">Los Mochis</option>
+                            </select>
+                        </div>
+                        <div class="transport-form-group">
+                            <label for="estacion-destino-regional" data-i18n="transport.chepe-regional.destino">Estación de destino</label>
+                            <select id="estacion-destino-regional" name="estacion-destino" required>
+                                <option value="" data-i18n="transport.chepe-regional.select">Selecciona una estación</option>
+                                <option value="Chihuahua">Chihuahua</option>
+                                <option value="Cuauhtémoc">Cuauhtémoc</option>
+                                <option value="San Juanito">San Juanito</option>
+                                <option value="Creel">Creel</option>
+                                <option value="Pitorreal">Pitorreal</option>
+                                <option value="Divisadero">Divisadero</option>
+                                <option value="Posada">Posada</option>
+                                <option value="San Rafael">San Rafael</option>
+                                <option value="Cuiteco">Cuiteco</option>
+                                <option value="Bahuichivo">Bahuichivo</option>
+                                <option value="Témoris">Témoris</option>
+                                <option value="El Fuerte">El Fuerte</option>
+                                <option value="Los Mochis">Los Mochis</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="transport-form-group">
+                        <label>Tipo de viaje</label>
+                        <div class="transport-radio-group">
+                            <label class="transport-radio-label">
+                                <input type="radio" name="tipo-viaje-regional" value="solo-ida" required>
+                                <span>Solo ida</span>
+                            </label>
+                            <label class="transport-radio-label">
+                                <input type="radio" name="tipo-viaje-regional" value="redondo" required>
+                                <span>Viaje redondo</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="transport-form-group">
+                        <label data-i18n="transport.chepe-regional.clase">Clase</label>
+                        <div class="transport-radio-group">
+                            <label class="transport-radio-label">
+                                <input type="radio" name="clase-regional" value="Turista" required>
+                                <span data-i18n="transport.chepe-regional.clase.turista">Turista</span>
+                            </label>
+                            <label class="transport-radio-label">
+                                <input type="radio" name="clase-regional" value="Primera" required>
+                                <span data-i18n="transport.chepe-regional.clase.primera">Primera</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div id="dias-disponibles-regional" class="dias-disponibles-info" style="display: none; margin-bottom: 1rem; padding: 0.75rem; background: #f5f3ef; border-radius: 4px; font-size: 0.9rem;"></div>
+                    <div id="nota-estacion-intermedia-regional" class="nota-estacion" style="display: none; margin-bottom: 1rem; padding: 0.75rem; background: #fff3cd; border-radius: 4px; font-size: 0.9rem;"></div>
+                    <div class="transport-form-row" id="fechas-regional-container">
+                        <div class="transport-form-group">
+                            <label for="fecha-inicio-regional" data-i18n="transport.chepe-regional.fecha-salida">Fecha de salida</label>
+                            <input type="date" id="fecha-inicio-regional" name="fecha-inicio" required>
+                        </div>
+                        <div class="transport-form-group" id="fecha-regreso-regional-container" style="display: none;">
+                            <label for="fecha-fin-regional" data-i18n="transport.chepe-regional.fecha-regreso">Fecha de regreso</label>
+                            <input type="date" id="fecha-fin-regional" name="fecha-fin">
+                        </div>
+                    </div>
+                    <div class="transport-form-group">
+                        <div id="fechas-display-regional" class="fechas-display"></div>
+                        <div id="temporada-indicator-regional" class="temporada-indicator" style="display: none;"></div>
+                    </div>
+                    <div class="temporada-leyenda">
+                        <div class="leyenda-item">
+                            <span class="leyenda-color alta"></span>
+                            <span data-i18n="transport.chepe-regional.temporada.alta">Temporada alta</span>
+                        </div>
+                        <div class="leyenda-item">
+                            <span class="leyenda-color baja"></span>
+                            <span data-i18n="transport.chepe-regional.temporada.baja">Temporada baja</span>
+                        </div>
+                    </div>
+                    <div class="transport-form-group">
+                        <label for="personas-regional" data-i18n="form.personas">Número de personas</label>
+                        <input type="number" id="personas-regional" name="personas" min="1" required>
+                    </div>
+                    <button type="submit" class="btn-primary transport-submit" data-i18n="transport.chepe-regional.submit">Solicitar disponibilidad</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Chepe Express -->
+    <div class="transport-modal-overlay" id="modal-chepe-express">
+        <div class="transport-modal-content transport-modal-express">
+            <button class="transport-modal-close" aria-label="Cerrar modal">&times;</button>
+            <div class="transport-modal-image" style="background-image: url('images/modales/CHEPE EXPRESS.jpeg');"></div>
+            <div class="transport-modal-body">
+                <h2 class="transport-modal-title" data-i18n="transport.chepe-express.title">Chepe Express</h2>
+                <p class="transport-modal-description" data-i18n="transport.chepe-express.desc">El Chepe Express ofrece la experiencia premium del Chepe, con servicios de lujo y comodidades excepcionales mientras recorres la Sierra Tarahumara.</p>
+                
+                <!-- Recorrido Chepe Express - Diseño Premium -->
+                <div class="chepe-express-route">
+                    <h3 class="route-title" data-i18n="transport.chepe-express.route">Recorrido Chepe Express</h3>
+                    <div class="route-display-container">
+                        <!-- Recorrido Creel → Los Mochis -->
+                        <div class="route-direction">
+                            <div class="route-direction-label">Creel → Los Mochis</div>
+                            <div class="route-stations-line">
+                                <span class="route-station-chip">Creel</span>
+                                <span class="route-separator">→</span>
+                                <span class="route-station-chip">Divisadero</span>
+                                <span class="route-separator">→</span>
+                                <span class="route-station-chip">Bahuichivo</span>
+                                <span class="route-separator">→</span>
+                                <span class="route-station-chip">El Fuerte</span>
+                                <span class="route-separator">→</span>
+                                <span class="route-station-chip">Los Mochis</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Separador visual -->
+                        <div class="route-divider"></div>
+                        
+                        <!-- Recorrido Los Mochis → Creel -->
+                        <div class="route-direction">
+                            <div class="route-direction-label">Los Mochis → Creel</div>
+                            <div class="route-stations-line">
+                                <span class="route-station-chip">Los Mochis</span>
+                                <span class="route-separator">→</span>
+                                <span class="route-station-chip">El Fuerte</span>
+                                <span class="route-separator">→</span>
+                                <span class="route-station-chip">Bahuichivo</span>
+                                <span class="route-separator">→</span>
+                                <span class="route-station-chip">Divisadero</span>
+                                <span class="route-separator">→</span>
+                                <span class="route-station-chip">Creel</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <form class="transport-form" id="form-chepe-express">
+                    <div class="transport-form-row">
+                        <div class="transport-form-group">
+                            <label for="estacion-salida-express" data-i18n="transport.chepe-express.salida">Estación de salida</label>
+                            <select id="estacion-salida-express" name="estacion-salida" required>
+                                <option value="" data-i18n="transport.chepe-regional.select">Selecciona una estación</option>
+                                <option value="Creel">Creel</option>
+                                <option value="Divisadero">Divisadero</option>
+                                <option value="Bahuichivo">Bahuichivo</option>
+                                <option value="El Fuerte">El Fuerte</option>
+                                <option value="Los Mochis">Los Mochis</option>
+                            </select>
+                        </div>
+                        <div class="transport-form-group">
+                            <label for="estacion-destino-express" data-i18n="transport.chepe-express.destino">Estación de destino</label>
+                            <select id="estacion-destino-express" name="estacion-destino" required>
+                                <option value="" data-i18n="transport.chepe-regional.select">Selecciona una estación</option>
+                                <option value="Creel">Creel</option>
+                                <option value="Divisadero">Divisadero</option>
+                                <option value="Bahuichivo">Bahuichivo</option>
+                                <option value="El Fuerte">El Fuerte</option>
+                                <option value="Los Mochis">Los Mochis</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="transport-form-group">
+                        <label>Tipo de viaje</label>
+                        <div class="transport-radio-group">
+                            <label class="transport-radio-label">
+                                <input type="radio" name="tipo-viaje-express" value="solo-ida" required>
+                                <span>Solo ida</span>
+                            </label>
+                            <label class="transport-radio-label">
+                                <input type="radio" name="tipo-viaje-express" value="redondo" required>
+                                <span>Viaje redondo</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div id="nota-estacion-intermedia" class="nota-estacion" style="display: none;">
+                        <p data-i18n="transport.chepe-express.nota">ℹ️ La disponibilidad depende del sentido del recorrido.</p>
+                    </div>
+                    <div class="transport-form-group">
+                        <label data-i18n="transport.chepe-regional.clase">Clase</label>
+                        <div class="transport-radio-group">
+                            <label class="transport-radio-label">
+                                <input type="radio" name="clase-express" value="Turista" required>
+                                <span data-i18n="transport.chepe-regional.clase.turista">Turista</span>
+                            </label>
+                            <label class="transport-radio-label">
+                                <input type="radio" name="clase-express" value="Ejecutiva" required>
+                                <span data-i18n="transport.chepe-express.clase.ejecutiva">Ejecutiva</span>
+                            </label>
+                            <label class="transport-radio-label">
+                                <input type="radio" name="clase-express" value="Primera" required>
+                                <span data-i18n="transport.chepe-regional.clase.primera">Primera</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div id="dias-disponibles-express" class="dias-disponibles-info" style="display: none; margin-bottom: 1rem; padding: 0.75rem; background: #f5f3ef; border-radius: 4px; font-size: 0.9rem;"></div>
+                    <div class="transport-form-row" id="fechas-express-container">
+                        <div class="transport-form-group">
+                            <label for="fecha-salida-express" data-i18n="transport.chepe-express.fecha">Fecha de salida</label>
+                            <input type="date" id="fecha-salida-express" name="fecha-salida" required>
+                            <div id="fechas-display-express" class="fechas-display"></div>
+                            <div id="temporada-indicator-express" class="temporada-indicator" style="display: none;"></div>
+                        </div>
+                        <div class="transport-form-group" id="fecha-regreso-express-container" style="display: none;">
+                            <label for="fecha-regreso-express">Fecha de regreso</label>
+                            <input type="date" id="fecha-regreso-express" name="fecha-regreso">
+                        </div>
+                    </div>
+                    <div class="temporada-leyenda">
+                        <div class="leyenda-item">
+                            <span class="leyenda-color alta"></span>
+                            <span data-i18n="transport.chepe-regional.temporada.alta">Temporada alta</span>
+                        </div>
+                        <div class="leyenda-item">
+                            <span class="leyenda-color baja"></span>
+                            <span data-i18n="transport.chepe-regional.temporada.baja">Temporada baja</span>
+                        </div>
+                    </div>
+                    <div class="transport-form-group">
+                        <label for="personas-express" data-i18n="form.personas">Número de personas</label>
+                        <input type="number" id="personas-express" name="personas" min="1" required>
+                    </div>
+                    <button type="submit" class="btn-primary transport-submit" data-i18n="transport.chepe-express.submit">Solicitar disponibilidad</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN: DESTINOS DESTACADOS -->
+    <section class="destinations" id="destinos">
+        <div class="container">
+            <h2 class="section-title" data-i18n="destinations.title">Destinos destacados</h2>
+            <div class="destinations-tabs">
+                <button class="tab-button active" data-tab="pueblos" data-i18n="destinations.pueblos">Pueblos Mágicos</button>
+                <button class="tab-button" data-tab="playas" data-i18n="destinations.playas">Playas</button>
+            </div>
+            <div class="destinations-grid" id="destinationsGrid">
+                <!-- Pueblos Mágicos -->
+                <div class="destination-card tab-content active" data-content="pueblos" data-destination="creel">
+                    <div class="destination-image" style="background-image: url('images/modales/CREEL.jpg');"></div>
+                    <div class="destination-info">
+                        <h3>Creel, Chihuahua</h3>
+                        <p class="destination-narrative">Naturaleza, cultura rarámuri y el corazón del Chepe.</p>
+                    </div>
+                </div>
+                <div class="destination-card tab-content active" data-content="pueblos" data-destination="sancristobal">
+                    <div class="destination-image" style="background-image: url('images/modales/SAN CRISTOBAL DE LAS CASAS.jpg');"></div>
+                    <div class="destination-info">
+                        <h3>San Cristóbal de las Casas</h3>
+                        <p class="destination-narrative">Colores, tradición y montañas que inspiran.</p>
+                    </div>
+                </div>
+                <div class="destination-card tab-content active" data-content="pueblos" data-destination="parras">
+                    <div class="destination-image" style="background-image: url('images/modales/PARRAS DE LA FUENTE.jpg');"></div>
+                    <div class="destination-info">
+                        <h3>Parras de la Fuente</h3>
+                        <p class="destination-narrative">Vino, historia y la calma del desierto.</p>
+                    </div>
+                </div>
+                <!-- Playas -->
+                <div class="destination-card tab-content" data-content="playas" data-destination="cancun">
+                    <div class="destination-image" style="background-image: url('images/modales/CANCUN.jpg');"></div>
+                    <div class="destination-info">
+                        <h3>Cancún</h3>
+                        <p class="destination-narrative">Caribe turquesa, arena blanca y momentos que brillan.</p>
+                    </div>
+                </div>
+                <div class="destination-card tab-content" data-content="playas" data-destination="mazatlan">
+                    <div class="destination-image" style="background-image: url('images/modales/MAZATLAN.jpg');"></div>
+                    <div class="destination-info">
+                        <h3>Mazatlán</h3>
+                        <p class="destination-narrative">La Perla del Pacífico, donde la tradición se encuentra con el mar.</p>
+                    </div>
+                </div>
+                <div class="destination-card tab-content" data-content="playas" data-destination="tulum">
+                    <div class="destination-image" style="background-image: url('images/modales/TULUM.jpg');"></div>
+                    <div class="destination-info">
+                        <h3>Tulum</h3>
+                        <p class="destination-narrative">Ruinas mayas frente al mar, bienestar y conexión con la naturaleza.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODALES DE DESTINOS -->
+    <!-- Modal Creel -->
+    <div class="modal-overlay" id="modal-creel">
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Cerrar modal">&times;</button>
+            <div class="modal-image" style="background-image: url('images/modales/CREEL.jpg');"></div>
+            <div class="modal-body">
+                <h2 class="modal-title" data-i18n="dest.creel.title">CREEL, CHIHUAHUA</h2>
+                <p class="modal-description" data-i18n="dest.creel.desc">Creel es la puerta de entrada a la Sierra Tarahumara, un destino donde la naturaleza, la cultura rarámuri y la aventura se encuentran. Ideal para quienes buscan paisajes imponentes, tranquilidad y experiencias auténticas.</p>
+                <h3 class="modal-experiences-title" data-i18n="dest.creel.exp">Experiencias destacadas:</h3>
+                <ul class="modal-experiences-list">
+                    <li data-i18n="dest.creel.exp1">Tour por la Sierra Tarahumara</li>
+                    <li data-i18n="dest.creel.exp2">Visita a Barrancas del Cobre</li>
+                    <li data-i18n="dest.creel.exp3">Recorrido por Valle de los Monjes</li>
+                    <li data-i18n="dest.creel.exp4">Lago de Arareko</li>
+                    <li data-i18n="dest.creel.exp5">Paseo en el tren Chepe</li>
+                    <li data-i18n="dest.creel.exp6">Experiencias culturales y gastronómicas locales</li>
+                </ul>
+                <a href="#cotizacion" class="btn-primary modal-btn" data-i18n="dest.cta">Diseñar mi experiencia</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal San Cristóbal de las Casas -->
+    <div class="modal-overlay" id="modal-sancristobal">
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Cerrar modal">&times;</button>
+            <div class="modal-image" style="background-image: url('images/modales/SAN CRISTOBAL DE LAS CASAS.jpg');"></div>
+            <div class="modal-body">
+                <h2 class="modal-title" data-i18n="dest.sancristobal.title">SAN CRISTÓBAL DE LAS CASAS</h2>
+                <p class="modal-description" data-i18n="dest.sancristobal.desc">Una ciudad colonial mágica enclavada en las montañas de Chiapas, donde la tradición indígena se mezcla con el ambiente bohemio. Sus calles coloridas, mercados artesanales y entorno natural la convierten en un destino único para los amantes de la cultura y la naturaleza.</p>
+                <h3 class="modal-experiences-title" data-i18n="dest.creel.exp">Experiencias destacadas:</h3>
+                <ul class="modal-experiences-list">
+                    <li data-i18n="dest.sancristobal.exp1">Recorrido por el centro histórico colonial</li>
+                    <li data-i18n="dest.sancristobal.exp2">Visita a comunidades indígenas tzotziles y tzeltales</li>
+                    <li data-i18n="dest.sancristobal.exp3">Mercados artesanales y gastronomía local</li>
+                    <li data-i18n="dest.sancristobal.exp4">Excursión a los Altos de Chiapas</li>
+                    <li data-i18n="dest.sancristobal.exp5">Tour por las iglesias y arquitectura colonial</li>
+                    <li data-i18n="dest.sancristobal.exp6">Experiencias de ecoturismo en la región</li>
+                </ul>
+                <a href="#cotizacion" class="btn-primary modal-btn" data-i18n="dest.cta">Diseñar mi experiencia</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Parras de la Fuente -->
+    <div class="modal-overlay" id="modal-parras">
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Cerrar modal">&times;</button>
+            <div class="modal-image" style="background-image: url('images/modales/PARRAS DE LA FUENTE.jpg');"></div>
+            <div class="modal-body">
+                <h2 class="modal-title" data-i18n="dest.parras.title">PARRAS DE LA FUENTE</h2>
+                <p class="modal-description" data-i18n="dest.parras.desc">El primer pueblo mágico de Coahuila, cuna de la vitivinicultura en América. Parras combina historia, tradición vinícola y paisajes desérticos únicos. Un destino perfecto para los amantes del vino, la historia y la tranquilidad de los pequeños pueblos mexicanos.</p>
+                <h3 class="modal-experiences-title" data-i18n="dest.creel.exp">Experiencias destacadas:</h3>
+                <ul class="modal-experiences-list">
+                    <li data-i18n="dest.parras.exp1">Tour por viñedos y bodegas históricas</li>
+                    <li data-i18n="dest.parras.exp2">Catas de vino y experiencias enológicas</li>
+                    <li data-i18n="dest.parras.exp3">Recorrido por el centro histórico</li>
+                    <li data-i18n="dest.parras.exp4">Visita a la Hacienda de Perote</li>
+                    <li data-i18n="dest.parras.exp5">Exploración de cuevas y formaciones naturales</li>
+                    <li data-i18n="dest.parras.exp6">Gastronomía regional y productos locales</li>
+                </ul>
+                <a href="#cotizacion" class="btn-primary modal-btn" data-i18n="dest.cta">Diseñar mi experiencia</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Cancún -->
+    <div class="modal-overlay" id="modal-cancun">
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Cerrar modal">&times;</button>
+            <div class="modal-image" style="background-image: url('images/modales/CANCUN.jpg');"></div>
+            <div class="modal-body">
+                <h2 class="modal-title" data-i18n="dest.cancun.title">CANCÚN</h2>
+                <p class="modal-description" data-i18n="dest.cancun.desc">El paraíso del Caribe mexicano, donde el mar turquesa se encuentra con la arena blanca. Cancún ofrece una combinación perfecta de playas espectaculares, vida nocturna vibrante, cultura maya y aventuras acuáticas. Un destino que tiene algo para cada viajero.</p>
+                <h3 class="modal-experiences-title" data-i18n="dest.creel.exp">Experiencias destacadas:</h3>
+                <ul class="modal-experiences-list">
+                    <li data-i18n="dest.cancun.exp1">Relajación en playas paradisíacas</li>
+                    <li data-i18n="dest.cancun.exp2">Snorkel y buceo en arrecifes de coral</li>
+                    <li data-i18n="dest.cancun.exp3">Tour a Chichén Itzá y ruinas mayas</li>
+                    <li data-i18n="dest.cancun.exp4">Paseos en catamarán y actividades acuáticas</li>
+                    <li data-i18n="dest.cancun.exp5">Experiencias gastronómicas de primer nivel</li>
+                    <li data-i18n="dest.cancun.exp6">Vida nocturna y entretenimiento</li>
+                </ul>
+                <a href="#cotizacion" class="btn-primary modal-btn" data-i18n="dest.cta">Diseñar mi experiencia</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Mazatlán -->
+    <div class="modal-overlay" id="modal-mazatlan">
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Cerrar modal">&times;</button>
+            <div class="modal-image" style="background-image: url('images/modales/MAZATLAN.jpg');"></div>
+            <div class="modal-body">
+                <h2 class="modal-title" data-i18n="dest.mazatlan.title">MAZATLÁN</h2>
+                <p class="modal-description" data-i18n="dest.mazatlan.desc">La Perla del Pacífico, una ciudad costera que combina tradición, modernidad y naturaleza. Con su malecón más largo de Latinoamérica, playas espectaculares y un centro histórico lleno de vida, Mazatlán ofrece autenticidad y diversión en un solo destino.</p>
+                <h3 class="modal-experiences-title" data-i18n="dest.creel.exp">Experiencias destacadas:</h3>
+                <ul class="modal-experiences-list">
+                    <li data-i18n="dest.mazatlan.exp1">Playas y actividades acuáticas</li>
+                    <li data-i18n="dest.mazatlan.exp2">Recorrido por el centro histórico y la zona dorada</li>
+                    <li data-i18n="dest.mazatlan.exp3">Avistamiento de ballenas (temporada)</li>
+                    <li data-i18n="dest.mazatlan.exp4">Gastronomía de mariscos y pescados frescos</li>
+                    <li data-i18n="dest.mazatlan.exp5">Isla de la Piedra y paseos en lancha</li>
+                    <li data-i18n="dest.mazatlan.exp6">Vida nocturna y entretenimiento familiar</li>
+                </ul>
+                <a href="#cotizacion" class="btn-primary modal-btn" data-i18n="dest.cta">Diseñar mi experiencia</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Tulum -->
+    <div class="modal-overlay" id="modal-tulum">
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Cerrar modal">&times;</button>
+            <div class="modal-image" style="background-image: url('images/modales/TULUM.jpg');"></div>
+            <div class="modal-body">
+                <h2 class="modal-title" data-i18n="dest.tulum.title">TULUM</h2>
+                <p class="modal-description" data-i18n="dest.tulum.desc">Un destino bohemio y ecológico donde las ruinas mayas se alzan frente al mar Caribe. Tulum es sinónimo de tranquilidad, bienestar y conexión con la naturaleza. Perfecto para quienes buscan una experiencia más íntima y auténtica en la Riviera Maya.</p>
+                <h3 class="modal-experiences-title" data-i18n="dest.creel.exp">Experiencias destacadas:</h3>
+                <ul class="modal-experiences-list">
+                    <li data-i18n="dest.tulum.exp1">Visita a las ruinas mayas frente al mar</li>
+                    <li data-i18n="dest.tulum.exp2">Playas vírgenes y cenotes naturales</li>
+                    <li data-i18n="dest.tulum.exp3">Hoteles boutique y experiencias de bienestar</li>
+                    <li data-i18n="dest.tulum.exp4">Snorkel en la Gran Barrera de Coral Mesoamericana</li>
+                    <li data-i18n="dest.tulum.exp5">Gastronomía orgánica y restaurantes de autor</li>
+                    <li data-i18n="dest.tulum.exp6">Experiencias eco-turísticas y sostenibles</li>
+                </ul>
+                <a href="#cotizacion" class="btn-primary modal-btn" data-i18n="dest.cta">Diseñar mi experiencia</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN: ¿QUIERES VIAJAR A OTRO LUGAR? -->
+    <section class="custom-destination" id="cotizacion">
+        <div class="container">
+            <h2 class="section-title" data-i18n="custom.title">¿Quieres viajar a otro lugar?</h2>
+            <p class="section-description" data-i18n="custom.description">¿Tienes otro destino en mente? Nosotros lo planeamos contigo.</p>
+            <form class="quote-form" id="quoteForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nombre" data-i18n="custom.nombre">Nombre completo</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono" data-i18n="custom.telefono">Número de teléfono</label>
+                        <input type="tel" id="telefono" name="telefono" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email" data-i18n="custom.email">Correo electrónico</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="personas" data-i18n="custom.personas">Número de personas</label>
+                        <input type="number" id="personas" name="personas" min="1" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fecha-inicio" data-i18n="custom.fecha-inicio">Fecha de inicio</label>
+                        <input type="date" id="fecha-inicio" name="fecha-inicio" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha-fin" data-i18n="custom.fecha-fin">Fecha de regreso</label>
+                        <input type="date" id="fecha-fin" name="fecha-fin" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <div id="fechas-display" class="fechas-display"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="mensaje" data-i18n="custom.mensaje">¿A dónde te gustaría viajar y qué tipo de experiencia buscas? (tours, hospedaje, experiencias, viajes familiares, etc.)</label>
+                    <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn-primary" data-i18n="custom.submit">Enviar solicitud</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- SECCIÓN: VIAJA CON CONFIANZA -->
+    <section class="confidence">
+        <div class="container">
+            <h2 class="section-title" data-i18n="confidence.title">Viaja con confianza</h2>
+            <p class="confidence-text" data-i18n="confidence.text">Gestión completa de principio a fin.</p>
+        </div>
+    </section>
+
+    <!-- SECCIÓN: QUIÉNES SOMOS -->
+    <section class="about" id="quienes-somos">
+        <div class="container">
+            <h2 class="section-title" data-i18n="about.title">Quiénes somos</h2>
+            <div class="about-content">
+                <p class="about-text" data-i18n="about.text">Somos una agencia de viajes dedicada a crear experiencias únicas, pensadas para cada persona, familia o grupo. En Rumbo Co. creemos que un gran viaje comienza con una excelente planeación.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN: RESEÑAS -->
+    <section class="reviews">
+        <div class="container">
+            <h2 class="section-title" data-i18n="reviews.title">Lo que dicen nuestros viajeros</h2>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">Valió totalmente la pena pagar un poco más, no tuvimos que preocuparnos por nada. Desde que salimos hasta que regresamos, todo estuvo coordinado perfectamente.</p>
+                    <div class="review-author">
+                        <span class="review-name">Ana</span>
+                        <span class="review-type">Viaje familiar</span>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">Las opciones que nos recomendaron fueron justo lo que buscábamos. El hotel que eligieron para nuestra luna de miel era exactamente lo que habíamos imaginado.</p>
+                    <div class="review-author">
+                        <span class="review-name">Carlos</span>
+                        <span class="review-type">Luna de miel</span>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">Se nota cuando alguien sí conoce los destinos y no solo vende. Nos sugirieron lugares que no habíamos considerado y resultaron ser los mejores momentos del viaje.</p>
+                    <div class="review-author">
+                        <span class="review-name">Fernanda</span>
+                        <span class="review-type">Viaje individual</span>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">Todo estuvo bien planeado, desde el inicio hasta el regreso. No tuvimos ningún imprevisto y cuando llamamos para una duda, nos atendieron de inmediato.</p>
+                    <div class="review-author">
+                        <span class="review-name">Luis</span>
+                        <span class="review-type">Viaje corporativo</span>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">Nos sentimos acompañados en todo momento. Antes del viaje nos explicaron cada detalle y durante el viaje siempre supieron dónde estábamos sin ser invasivos.</p>
+                    <div class="review-author">
+                        <span class="review-name">María</span>
+                        <span class="review-type">Viaje familiar</span>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">La tranquilidad de saber que todo estaba resuelto hizo que disfrutáramos mucho más. Solo nos ocupamos de vivir la experiencia sin pensar en logística.</p>
+                    <div class="review-author">
+                        <span class="review-name">Roberto</span>
+                        <span class="review-type">Viaje escolar</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer" id="contacto">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>RUMBO CO.</h3>
+                    <p data-i18n="footer.tagline">Diseñamos experiencias de viaje a tu medida</p>
+                </div>
+                <div class="footer-section">
+                    <h4 data-i18n="footer.navegacion">Navegación</h4>
+                    <ul>
+                        <li><a href="#quienes-somos" data-i18n="nav.quienes-somos">Quiénes somos</a></li>
+                        <li><a href="#cotizacion" data-i18n="nav.cotizacion">Cotización</a></li>
+                        <li><a href="#contacto" data-i18n="nav.contacto">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 data-i18n="footer.contacto">Contacto</h4>
+                    <p data-i18n="footer.contacto.desc">Contáctanos para diseñar tu próxima experiencia de viaje</p>
+                    <div class="contact-info">
+                        <a href="https://wa.me/6146018486" target="_blank" rel="noopener noreferrer" class="contact-item">
+                            <span class="contact-icon">💬</span>
+                            <span class="contact-text">614 601 8486</span>
+                        </a>
+                        <a href="https://www.instagram.com/rumboco_03" target="_blank" rel="noopener noreferrer" class="contact-item">
+                            <span class="contact-icon">📷</span>
+                            <span class="contact-text">@rumboco_03</span>
+                        </a>
+                        <a href="mailto:rumboco1@gmail.com" class="contact-item">
+                            <span class="contact-icon">✉️</span>
+                            <span class="contact-text">rumboco1@gmail.com</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-i18n="footer.copyright">&copy; 2024 Rumbo Co. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- BOTONES FLOTANTES -->
+    <div class="floating-buttons">
+        <a href="https://www.instagram.com/rumboco_03" target="_blank" rel="noopener noreferrer" class="floating-btn floating-btn-instagram" aria-label="Síguenos en Instagram">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" fill="currentColor"/>
+            </svg>
+        </a>
+        <a href="https://wa.me/6146018486" target="_blank" rel="noopener noreferrer" class="floating-btn floating-btn-whatsapp" aria-label="Contáctanos por WhatsApp">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" fill="currentColor"/>
+            </svg>
+        </a>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

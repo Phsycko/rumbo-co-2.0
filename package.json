@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "dev": "http-server -p 3000 -o"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "openai": "^6.16.0"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
