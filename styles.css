@@ -2732,6 +2732,37 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 @media (max-width: 768px) {
     .modal-footer {
         flex-direction: column;
+        gap: 0.75rem;
+        padding: 1rem;
+    }
+
+    .tours-modal {
+        max-height: 95vh;
+        margin: 10px;
+        width: calc(100% - 20px);
+    }
+
+    .modal-header {
+        padding: 1rem;
+    }
+
+    .modal-header h3 {
+        font-size: 1.4rem;
+    }
+
+    .modal-body {
+        padding: 1rem;
+    }
+
+    .tours-grid,
+    .transfers-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .tour-item,
+    .transfer-item {
+        padding: 0.75rem;
     }
 
     .premium-packages .btn-secondary,
@@ -2740,10 +2771,8 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
     .modal-footer .btn-secondary {
         width: 100%;
         text-align: center;
-    }
-
-    .tours-modal {
-        max-height: 95vh;
+        padding: 0.875rem;
+        font-size: 0.95rem;
     }
 }
 
