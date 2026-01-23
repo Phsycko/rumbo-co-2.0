@@ -478,22 +478,22 @@ const translations = {
 function setLanguage(lang) {
     document.documentElement.lang = lang;
     localStorage.setItem('rumbo-lang', lang);
-    
+
     // Actualizar meta description y title
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
-        metaDesc.content = lang === 'es' 
+        metaDesc.content = lang === 'es'
             ? 'Rumbo Co. - Diseñamos experiencias de viaje a tu medida. Planeación, hospedaje, tours y experiencias personalizadas.'
             : 'Rumbo Co. - We design travel experiences tailored to you. Planning, accommodation, tours and personalized experiences.';
     }
-    
+
     const title = document.querySelector('title');
     if (title) {
         title.textContent = lang === 'es'
             ? 'Rumbo Co. - Viajar bien planeado se disfruta el doble'
             : 'Rumbo Co. - Well-planned travel is twice as enjoyable';
     }
-    
+
     // Actualizar elementos con data-i18n
     const elements = document.querySelectorAll('[data-i18n]');
     elements.forEach(el => {
@@ -513,7 +513,7 @@ function setLanguage(lang) {
             }
         }
     });
-    
+
     // Actualizar labels que no tienen data-i18n pero están asociados a inputs
     document.querySelectorAll('label').forEach(label => {
         const key = label.getAttribute('data-i18n');
@@ -521,7 +521,7 @@ function setLanguage(lang) {
             label.textContent = translations[lang][key];
         }
     });
-    
+
     // Actualizar options en selects
     document.querySelectorAll('option[data-i18n]').forEach(option => {
         const key = option.getAttribute('data-i18n');
@@ -529,7 +529,7 @@ function setLanguage(lang) {
             option.textContent = translations[lang][key];
         }
     });
-    
+
     const langToggle = document.getElementById('langToggle');
     if (langToggle) {
         langToggle.textContent = lang.toUpperCase();
@@ -539,7 +539,7 @@ function setLanguage(lang) {
 function initLanguage() {
     const savedLang = localStorage.getItem('rumbo-lang') || 'es';
     setLanguage(savedLang);
-    
+
     const langToggle = document.getElementById('langToggle');
     if (langToggle) {
         langToggle.addEventListener('click', () => {
@@ -565,7 +565,7 @@ function setTheme(theme) {
         document.body.classList.remove('dark-mode');
     }
     localStorage.setItem('rumbo-theme-mode', theme);
-    
+
     const themeToggle = document.getElementById('themeToggle');
     if (themeToggle) {
         themeToggle.textContent = theme === 'light' ? '☀️' : '🌙';
@@ -575,15 +575,15 @@ function setTheme(theme) {
 function initTheme() {
     const savedMode = localStorage.getItem('rumbo-theme-mode');
     let theme;
-    
+
     if (savedMode === 'light' || savedMode === 'dark') {
         theme = savedMode;
     } else {
         theme = getTimeBasedTheme();
     }
-    
+
     setTheme(theme);
-    
+
     const themeToggle = document.getElementById('themeToggle');
     if (themeToggle) {
         themeToggle.addEventListener('click', () => {
@@ -602,13 +602,13 @@ let lastScroll = 0;
 
 window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
-    
+
     if (currentScroll > 100) {
         header.classList.add('scrolled');
     } else {
         header.classList.remove('scrolled');
     }
-    
+
     lastScroll = currentScroll;
 });
 
@@ -621,7 +621,7 @@ const navLinks = document.querySelectorAll('.nav-link');
 
 menuToggle.addEventListener('click', () => {
     navMenu.classList.toggle('active');
-    
+
     // Animación del botón hamburguesa
     const spans = menuToggle.querySelectorAll('span');
     if (navMenu.classList.contains('active')) {
@@ -653,11 +653,11 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
-        
+
         if (target) {
             const headerHeight = header.offsetHeight;
             const targetPosition = target.offsetTop - headerHeight;
-            
+
             window.scrollTo({
                 top: targetPosition,
                 behavior: 'smooth'
@@ -675,12 +675,12 @@ const destinationCards = document.querySelectorAll('.destination-card');
 tabButtons.forEach(button => {
     button.addEventListener('click', () => {
         const tabName = button.getAttribute('data-tab');
-        
+
         // Remover clase active de todos los botones
         tabButtons.forEach(btn => btn.classList.remove('active'));
         // Agregar clase active al botón clickeado
         button.classList.add('active');
-        
+
         // Mostrar/ocultar tarjetas según el tab
         destinationCards.forEach(card => {
             const cardContent = card.getAttribute('data-content');
@@ -762,7 +762,7 @@ destinationCardsWithModal.forEach(card => {
         const modal = document.getElementById(`modal-${destination}`);
         openModal(modal);
     });
-    
+
     // Cambiar cursor a pointer
     card.style.cursor = 'pointer';
 });
@@ -773,19 +773,19 @@ modalQuoteButtons.forEach(button => {
         e.preventDefault();
         const modal = button.closest('.modal-overlay');
         closeModal(modal);
-        
+
         // Scroll suave al formulario
         setTimeout(() => {
             const cotizacionSection = document.getElementById('cotizacion');
             if (cotizacionSection) {
                 const headerHeight = header.offsetHeight;
                 const targetPosition = cotizacionSection.offsetTop - headerHeight;
-                
+
                 window.scrollTo({
                     top: targetPosition,
                     behavior: 'smooth'
                 });
-                
+
                 // Opcional: focus en el primer campo del formulario
                 const firstInput = document.getElementById('nombre');
                 if (firstInput) {
@@ -818,9 +818,9 @@ const categoryQuoteForms = document.querySelectorAll('.category-quote-form');
 categoryQuoteForms.forEach(form => {
     form.addEventListener('submit', (e) => {
         e.preventDefault();
-        
+
         const category = form.getAttribute('data-category');
-        
+
         // Obtener número de personas (fijo para lunas de miel e individuales, input para otros)
         let personas;
         if (category === 'lunas-miel') {
@@ -831,20 +831,20 @@ categoryQuoteForms.forEach(form => {
             const personasInput = form.querySelector('input[name="personas"]');
             personas = personasInput ? personasInput.value : '';
         }
-        
+
         const dias = form.querySelector('input[name="dias"]').value;
         const servicios = Array.from(form.querySelectorAll('input[name="servicios"]:checked')).map(cb => cb.value);
-        
+
         // Obtener nombre de escuela/grupo si existe (solo para Tipo A)
         const escuelaInput = form.querySelector('input[name="escuela"]');
         const escuela = escuelaInput ? escuelaInput.value.trim() : '';
-        
+
         // Validar que al menos un servicio esté seleccionado
         if (servicios.length === 0) {
             alert('Por favor, selecciona al menos un servicio a cotizar.');
             return;
         }
-        
+
         // Mapear nombres de categorías
         const categoryNames = {
             'familiares': 'Viajes familiares',
@@ -854,7 +854,7 @@ categoryQuoteForms.forEach(form => {
             'individuales': 'Viaje individual',
             'grupos-especiales': 'Grupos especiales'
         };
-        
+
         // Mapear nombres de servicios
         const serviceNames = {
             'traslado-terrestre': 'Traslado terrestre',
@@ -864,40 +864,40 @@ categoryQuoteForms.forEach(form => {
             'tours-actividades': 'Tours / actividades',
             'tren': 'Tren'
         };
-        
+
         const categoryName = categoryNames[category] || category;
         const serviciosTexto = servicios.map(s => serviceNames[s] || s).join(', ');
-        
+
         // Crear mensaje para WhatsApp
         let mensajeWhatsApp = `Hola, me gustaría cotizar un viaje.\n\n`;
         mensajeWhatsApp += `*Tipo de viaje:* ${categoryName}\n`;
         mensajeWhatsApp += `*Personas:* ${personas}\n`;
         mensajeWhatsApp += `*Número de días:* ${dias}\n`;
-        
+
         if (escuela) {
             mensajeWhatsApp += `*Nombre de escuela/grupo:* ${escuela}\n`;
         }
-        
+
         mensajeWhatsApp += `*Servicios a cotizar:* ${serviciosTexto}`;
-        
+
         // Codificar mensaje para URL
         const mensajeCodificado = encodeURIComponent(mensajeWhatsApp);
-        
+
         // Número de WhatsApp
         const numeroWhatsApp = '6146018486';
-        
+
         // Crear URL de WhatsApp
         const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensajeCodificado}`;
-        
+
         // Abrir WhatsApp en nueva ventana
         window.open(urlWhatsApp, '_blank');
-        
+
         // Mostrar confirmación
         const submitButton = form.querySelector('.category-quote-submit');
         const originalText = submitButton.textContent;
         submitButton.textContent = '✓ Enviado';
         submitButton.disabled = true;
-        
+
         setTimeout(() => {
             submitButton.textContent = originalText;
             submitButton.disabled = false;
@@ -916,10 +916,10 @@ transportCards.forEach(card => {
     card.addEventListener('click', () => {
         const transport = card.getAttribute('data-transport');
         const modal = document.getElementById(`modal-${transport}`);
-        
+
         if (modal) {
             openModal(modal);
-            
+
             // Si es el modal de Chepe Regional, inicializar fechas
             if (transport === 'chepe-regional') {
                 setTimeout(() => {
@@ -927,7 +927,7 @@ transportCards.forEach(card => {
                     inicializarFechasChepeRegional();
                 }, 100);
             }
-            
+
             // Si es el modal de Chepe Express, inicializar fechas y lógica de días
             if (transport === 'chepe-express') {
                 setTimeout(() => {
@@ -975,14 +975,14 @@ const transportForms = document.querySelectorAll('.transport-form');
 transportForms.forEach(form => {
     form.addEventListener('submit', (e) => {
         e.preventDefault();
-        
+
         const formId = form.getAttribute('id');
         const submitButton = form.querySelector('.transport-submit');
         const originalText = submitButton.textContent;
-        
+
         // Construir mensaje según el tipo de formulario
         let message = '';
-        
+
         if (formId === 'form-autobuses') {
             const ciudadSalida = form.querySelector('#ciudad-salida').value;
             const ciudadDestino = form.querySelector('#ciudad-destino').value;
@@ -990,29 +990,29 @@ transportForms.forEach(form => {
             const tipoServicio = form.querySelector('#tipo-servicio').value;
             const fechaSalida = form.querySelector('#fecha-salida-autobuses').value;
             const fechaRegreso = form.querySelector('#fecha-regreso-autobuses').value;
-            
+
             if (!fechaSalida || !fechaRegreso) {
                 alert('Por favor selecciona fecha de salida y fecha de regreso');
                 return;
             }
-            
+
             if (fechaRegreso < fechaSalida) {
                 alert('La fecha de regreso debe ser posterior a la fecha de salida');
                 return;
             }
-            
+
             const fechaSalidaFormateada = formatearFecha(fechaSalida);
             const fechaRegresoFormateada = formatearFecha(fechaRegreso);
-            
+
             message = `Hola, me gustaría solicitar una cotización de autobuses a tu medida.\n\n` +
-                     `Servicio: Autobuses a tu medida\n` +
-                     `Origen: ${ciudadSalida}\n` +
-                     `Destino: ${ciudadDestino}\n` +
-                     `Tipo de viaje: Viaje redondo\n` +
-                     `Fecha de salida: ${fechaSalidaFormateada}\n` +
-                     `Fecha de regreso: ${fechaRegresoFormateada}\n` +
-                     `Número de personas: ${personas}\n` +
-                     `Tipo de servicio: ${tipoServicio}`;
+                `Servicio: Autobuses a tu medida\n` +
+                `Origen: ${ciudadSalida}\n` +
+                `Destino: ${ciudadDestino}\n` +
+                `Tipo de viaje: Viaje redondo\n` +
+                `Fecha de salida: ${fechaSalidaFormateada}\n` +
+                `Fecha de regreso: ${fechaRegresoFormateada}\n` +
+                `Número de personas: ${personas}\n` +
+                `Tipo de servicio: ${tipoServicio}`;
         } else if (formId === 'form-chepe-regional') {
             const estacionSalida = form.querySelector('#estacion-salida-regional').value;
             const estacionDestino = form.querySelector('#estacion-destino-regional').value;
@@ -1021,38 +1021,38 @@ transportForms.forEach(form => {
             const fechaInicio = form.querySelector('#fecha-inicio-regional').value;
             const fechaFin = form.querySelector('#fecha-fin-regional').value;
             const personas = form.querySelector('#personas-regional').value;
-            
+
             if (!estacionSalida || !estacionDestino) {
                 alert('Por favor selecciona estación de salida y destino');
                 return;
             }
-            
+
             if (estacionSalida === estacionDestino) {
                 alert('La estación de salida y destino no pueden ser la misma');
                 return;
             }
-            
+
             if (!claseRadio) {
                 alert('Por favor selecciona una clase');
                 return;
             }
-            
+
             if (!tipoViajeRadio) {
                 alert('Por favor selecciona el tipo de viaje');
                 return;
             }
-            
+
             if (!fechaInicio) {
                 alert('Por favor selecciona una fecha de salida');
                 return;
             }
-            
+
             const tipoViaje = tipoViajeRadio.value;
             if (tipoViaje === 'redondo' && !fechaFin) {
                 alert('Por favor selecciona una fecha de regreso');
                 return;
             }
-            
+
             // Validar días permitidos según estación de salida
             const diasPermitidos = obtenerDiasPermitidosChepeRegional(estacionSalida, estacionDestino);
             if (diasPermitidos && diasPermitidos.length > 0) {
@@ -1065,7 +1065,7 @@ transportForms.forEach(form => {
                     return;
                 }
             }
-            
+
             // Validar fecha de regreso si es redondo
             if (tipoViaje === 'redondo' && fechaFin) {
                 if (fechaFin < fechaInicio) {
@@ -1085,27 +1085,27 @@ transportForms.forEach(form => {
                     }
                 }
             }
-            
+
             const clase = claseRadio.value;
             const tipoViajeTexto = tipoViaje === 'solo-ida' ? 'Solo ida' : 'Viaje redondo';
             const fechaInicioFormateada = formatearFecha(fechaInicio);
             const temporadaInicio = obtenerTemporada(fechaInicio);
-            
+
             let fechasTexto = fechaInicioFormateada;
             if (tipoViaje === 'redondo' && fechaFin) {
                 const fechaFinFormateada = formatearFecha(fechaFin);
                 fechasTexto = `Salida: ${fechaInicioFormateada}, Regreso: ${fechaFinFormateada}`;
             }
-            
+
             message = `Hola, me gustaría solicitar disponibilidad para el Chepe Regional.\n\n` +
-                     `Servicio: Chepe Regional\n` +
-                     `Origen: ${estacionSalida}\n` +
-                     `Destino: ${estacionDestino}\n` +
-                     `Tipo de viaje: ${tipoViajeTexto}\n` +
-                     `Fechas: ${fechasTexto}\n` +
-                     `Clase: ${clase}\n` +
-                     `Temporada: ${temporadaInicio}\n` +
-                     `Número de personas: ${personas}`;
+                `Servicio: Chepe Regional\n` +
+                `Origen: ${estacionSalida}\n` +
+                `Destino: ${estacionDestino}\n` +
+                `Tipo de viaje: ${tipoViajeTexto}\n` +
+                `Fechas: ${fechasTexto}\n` +
+                `Clase: ${clase}\n` +
+                `Temporada: ${temporadaInicio}\n` +
+                `Número de personas: ${personas}`;
         } else if (formId === 'form-chepe-express') {
             const estacionSalida = form.querySelector('#estacion-salida-express').value;
             const estacionDestino = form.querySelector('#estacion-destino-express').value;
@@ -1114,38 +1114,38 @@ transportForms.forEach(form => {
             const fechaSalida = form.querySelector('#fecha-salida-express').value;
             const fechaRegreso = form.querySelector('#fecha-regreso-express').value;
             const personas = form.querySelector('#personas-express').value;
-            
+
             if (!estacionSalida || !estacionDestino) {
                 alert('Por favor selecciona estación de salida y destino');
                 return;
             }
-            
+
             if (estacionSalida === estacionDestino) {
                 alert('La estación de salida y destino no pueden ser la misma');
                 return;
             }
-            
+
             if (!claseRadio) {
                 alert('Por favor selecciona una clase');
                 return;
             }
-            
+
             if (!tipoViajeRadio) {
                 alert('Por favor selecciona el tipo de viaje');
                 return;
             }
-            
+
             if (!fechaSalida) {
                 alert('Por favor selecciona una fecha de salida');
                 return;
             }
-            
+
             const tipoViaje = tipoViajeRadio.value;
             if (tipoViaje === 'redondo' && !fechaRegreso) {
                 alert('Por favor selecciona una fecha de regreso');
                 return;
             }
-            
+
             // Validar días permitidos según estación de salida
             const diasPermitidos = obtenerDiasPermitidosChepeExpress(estacionSalida, estacionDestino);
             if (diasPermitidos && diasPermitidos.length > 0) {
@@ -1158,7 +1158,7 @@ transportForms.forEach(form => {
                     return;
                 }
             }
-            
+
             // Validar fecha de regreso si es redondo
             if (tipoViaje === 'redondo' && fechaRegreso) {
                 if (fechaRegreso < fechaSalida) {
@@ -1178,38 +1178,38 @@ transportForms.forEach(form => {
                     }
                 }
             }
-            
+
             const clase = claseRadio.value;
             const tipoViajeTexto = tipoViaje === 'solo-ida' ? 'Solo ida' : 'Viaje redondo';
             const fechaSalidaFormateada = formatearFecha(fechaSalida);
             const temporada = obtenerTemporada(fechaSalida);
-            
+
             let fechasTexto = fechaSalidaFormateada;
             if (tipoViaje === 'redondo' && fechaRegreso) {
                 const fechaRegresoFormateada = formatearFecha(fechaRegreso);
                 fechasTexto = `Salida: ${fechaSalidaFormateada}, Regreso: ${fechaRegresoFormateada}`;
             }
-            
+
             message = `Hola, me gustaría solicitar disponibilidad para el Chepe Express.\n\n` +
-                     `Servicio: Chepe Express\n` +
-                     `Origen: ${estacionSalida}\n` +
-                     `Destino: ${estacionDestino}\n` +
-                     `Tipo de viaje: ${tipoViajeTexto}\n` +
-                     `Fechas: ${fechasTexto}\n` +
-                     `Clase: ${clase}\n` +
-                     `Temporada: ${temporada}\n` +
-                     `Número de personas: ${personas}`;
+                `Servicio: Chepe Express\n` +
+                `Origen: ${estacionSalida}\n` +
+                `Destino: ${estacionDestino}\n` +
+                `Tipo de viaje: ${tipoViajeTexto}\n` +
+                `Fechas: ${fechasTexto}\n` +
+                `Clase: ${clase}\n` +
+                `Temporada: ${temporada}\n` +
+                `Número de personas: ${personas}`;
         }
-        
+
         // Abrir WhatsApp
         const whatsappNumber = '6146018486';
         const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
         window.open(whatsappUrl, '_blank');
-        
+
         // Mostrar confirmación
         submitButton.textContent = '✓ Enviado';
         submitButton.disabled = true;
-        
+
         setTimeout(() => {
             submitButton.textContent = originalText;
             submitButton.disabled = false;
@@ -1230,18 +1230,18 @@ function obtenerDiasPermitidosChepeRegional(estacionSalida, estacionDestino) {
     } else if (estacionSalida === 'Chihuahua') {
         return [2, 5, 0]; // Martes, Viernes, Domingo (hacia Los Mochis)
     }
-    
+
     // Estaciones intermedias - determinar según destino
     // Orden de estaciones de Chihuahua hacia Los Mochis
     const estacionesOrden = ['Chihuahua', 'Cuauhtémoc', 'San Juanito', 'Creel', 'Pitorreal', 'Divisadero', 'Posada', 'San Rafael', 'Cuiteco', 'Bahuichivo', 'Témoris', 'El Fuerte', 'Los Mochis'];
-    
+
     const indiceSalida = estacionesOrden.indexOf(estacionSalida);
     const indiceDestino = estacionesOrden.indexOf(estacionDestino);
-    
+
     if (indiceSalida === -1 || indiceDestino === -1) {
         return null; // Estación no encontrada
     }
-    
+
     // Si el destino está más cerca de Los Mochis (índice mayor)
     if (indiceDestino > indiceSalida) {
         return [2, 5, 0]; // Martes, Viernes, Domingo (sentido hacia Los Mochis - usa días de Chihuahua)
@@ -1257,12 +1257,12 @@ function obtenerDiasPermitidosChepeExpress(estacionSalida, estacionDestino) {
     } else if (estacionSalida === 'Creel') {
         return [2, 5, 0]; // Martes, Viernes, Domingo
     }
-    
+
     // Estaciones intermedias - determinar según destino
     const estacionesOrden = ['Creel', 'Divisadero', 'Bahuichivo', 'El Fuerte', 'Los Mochis'];
     const indiceSalida = estacionesOrden.indexOf(estacionSalida);
     const indiceDestino = estacionesOrden.indexOf(estacionDestino);
-    
+
     if (indiceDestino > indiceSalida) {
         // Viaje hacia Los Mochis - usar días de Creel (Martes, Viernes, Domingo)
         return [2, 5, 0];
@@ -1278,12 +1278,12 @@ function obtenerDiasPermitidosChepeExpress(estacionSalida, estacionDestino) {
 document.addEventListener('DOMContentLoaded', () => {
     const fechaSalidaAutobuses = document.getElementById('fecha-salida-autobuses');
     const fechaRegresoAutobuses = document.getElementById('fecha-regreso-autobuses');
-    
+
     if (fechaSalidaAutobuses && fechaRegresoAutobuses) {
         const today = new Date().toISOString().split('T')[0];
         fechaSalidaAutobuses.setAttribute('min', today);
         fechaRegresoAutobuses.setAttribute('min', today);
-        
+
         fechaSalidaAutobuses.addEventListener('change', () => {
             if (fechaSalidaAutobuses.value) {
                 fechaRegresoAutobuses.setAttribute('min', fechaSalidaAutobuses.value);
@@ -1292,7 +1292,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         });
-        
+
         fechaRegresoAutobuses.addEventListener('change', () => {
             if (fechaRegresoAutobuses.value && fechaSalidaAutobuses.value && fechaRegresoAutobuses.value < fechaSalidaAutobuses.value) {
                 alert('La fecha de regreso debe ser posterior a la fecha de salida.');
@@ -1311,7 +1311,7 @@ function inicializarFechasChepeRegional() {
     if (fechasRegionalInicializado) {
         return;
     }
-    
+
     const estacionSalida = document.getElementById('estacion-salida-regional');
     const estacionDestino = document.getElementById('estacion-destino-regional');
     const tipoViajeRadios = document.querySelectorAll('input[name="tipo-viaje-regional"]');
@@ -1320,34 +1320,34 @@ function inicializarFechasChepeRegional() {
     const fechaRegresoContainer = document.getElementById('fecha-regreso-regional-container');
     const diasDisponiblesInfo = document.getElementById('dias-disponibles-regional');
     const notaEstacionIntermedia = document.getElementById('nota-estacion-intermedia-regional');
-    
+
     if (!fechaInicioRegional || !fechaFinRegional) {
         return;
     }
-    
+
     fechasRegionalInicializado = true;
-    
+
     // Establecer fecha mínima como hoy
     const today = new Date().toISOString().split('T')[0];
     fechaInicioRegional.setAttribute('min', today);
     fechaFinRegional.setAttribute('min', today);
-    
+
     const temporadaIndicatorRegional = document.getElementById('temporada-indicator-regional');
-    
+
     // Función para mostrar días disponibles
     function mostrarDiasDisponibles() {
         if (!diasDisponiblesInfo || !estacionSalida || !estacionSalida.value) return;
-        
+
         const salida = estacionSalida.value;
         const destino = estacionDestino ? estacionDestino.value : '';
-        
+
         if (!destino) {
             diasDisponiblesInfo.style.display = 'none';
             return;
         }
-        
+
         const diasPermitidos = obtenerDiasPermitidosChepeRegional(salida, destino);
-        
+
         if (diasPermitidos && diasPermitidos.length > 0) {
             const nombresDias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
             const diasPermitidosNombres = diasPermitidos.map(d => nombresDias[d]).join(', ');
@@ -1356,7 +1356,7 @@ function inicializarFechasChepeRegional() {
         } else {
             diasDisponiblesInfo.style.display = 'none';
         }
-        
+
         // Mostrar nota para estaciones intermedias
         if (notaEstacionIntermedia) {
             if (salida !== 'Los Mochis' && salida !== 'Chihuahua' && destino) {
@@ -1366,21 +1366,21 @@ function inicializarFechasChepeRegional() {
             }
         }
     }
-    
+
     // Función para validar fecha según días permitidos
     function validarFechaRegional(fecha, mostrarAlerta = true) {
         if (!fecha || !estacionSalida || !estacionSalida.value || !estacionDestino || !estacionDestino.value) {
             return false;
         }
-        
+
         const diasPermitidos = obtenerDiasPermitidosChepeRegional(estacionSalida.value, estacionDestino.value);
         if (!diasPermitidos || diasPermitidos.length === 0) {
             return true; // No validar si no hay días específicos
         }
-        
+
         const fechaObj = new Date(fecha + 'T00:00:00');
         const diaSemana = fechaObj.getDay();
-        
+
         if (!diasPermitidos.includes(diaSemana)) {
             if (mostrarAlerta) {
                 const nombresDias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
@@ -1390,10 +1390,10 @@ function inicializarFechasChepeRegional() {
             }
             return false;
         }
-        
+
         return true;
     }
-    
+
     // Manejar cambio de tipo de viaje
     tipoViajeRadios.forEach(radio => {
         radio.addEventListener('change', () => {
@@ -1407,7 +1407,7 @@ function inicializarFechasChepeRegional() {
             }
         });
     });
-    
+
     // Manejar cambio de estación de salida
     if (estacionSalida) {
         estacionSalida.addEventListener('change', () => {
@@ -1416,7 +1416,7 @@ function inicializarFechasChepeRegional() {
             fechaFinRegional.value = '';
         });
     }
-    
+
     // Manejar cambio de estación de destino
     if (estacionDestino) {
         estacionDestino.addEventListener('change', () => {
@@ -1425,7 +1425,7 @@ function inicializarFechasChepeRegional() {
             fechaFinRegional.value = '';
         });
     }
-    
+
     // Validar fecha de salida (solo cuando el usuario selecciona una fecha)
     fechaInicioRegional.addEventListener('change', () => {
         if (fechaInicioRegional.value) {
@@ -1438,28 +1438,28 @@ function inicializarFechasChepeRegional() {
             }
         }
     });
-    
+
     // Validar fecha de regreso (solo cuando el usuario selecciona una fecha)
     fechaFinRegional.addEventListener('change', () => {
         // Solo validar si hay una fecha seleccionada
         if (!fechaFinRegional.value) {
             return;
         }
-        
+
         // Validar que haya fecha de salida
         if (!fechaInicioRegional.value) {
             alert('Por favor selecciona primero la fecha de salida.');
             fechaFinRegional.value = '';
             return;
         }
-        
+
         // Validar que la fecha de regreso sea posterior a la de salida
         if (fechaFinRegional.value < fechaInicioRegional.value) {
             alert('La fecha de regreso debe ser posterior a la fecha de salida.');
             fechaFinRegional.value = '';
             return;
         }
-        
+
         // Validar días permitidos para regreso (sentido contrario)
         const diasPermitidosRegreso = obtenerDiasPermitidosChepeRegional(estacionDestino.value, estacionSalida.value);
         if (diasPermitidosRegreso && diasPermitidosRegreso.length > 0) {
@@ -1493,7 +1493,7 @@ function inicializarChepeExpress() {
     if (chepeExpressInicializado) {
         return;
     }
-    
+
     const estacionSalida = document.getElementById('estacion-salida-express');
     const estacionDestino = document.getElementById('estacion-destino-express');
     const tipoViajeRadios = document.querySelectorAll('input[name="tipo-viaje-express"]');
@@ -1503,50 +1503,50 @@ function inicializarChepeExpress() {
     const fechasDisplayExpress = document.getElementById('fechas-display-express');
     const notaEstacion = document.getElementById('nota-estacion-intermedia');
     const diasDisponiblesInfo = document.getElementById('dias-disponibles-express');
-    
+
     if (!estacionSalida || !fechaSalidaExpress) {
         return;
     }
-    
+
     chepeExpressInicializado = true;
-    
+
     // Establecer fecha mínima como hoy
     const today = new Date().toISOString().split('T')[0];
     fechaSalidaExpress.setAttribute('min', today);
     if (fechaRegresoExpress) {
         fechaRegresoExpress.setAttribute('min', today);
     }
-    
+
     const temporadaIndicatorExpress = document.getElementById('temporada-indicator-express');
     const mapStatusMessage = document.getElementById('map-status-message');
-    
+
     // Función para actualizar el mapa visualmente
     function actualizarMapaChepeExpress() {
         const estacionSalidaVal = estacionSalida ? estacionSalida.value : '';
         const estacionDestinoVal = estacionDestino ? estacionDestino.value : '';
         const fechaVal = fechaSalidaExpress ? fechaSalidaExpress.value : '';
-        
+
         // Si no hay fecha o estaciones, resetear mapa
         if (!fechaVal || !estacionSalidaVal || !estacionDestinoVal) {
             resetearMapa();
             if (mapStatusMessage) mapStatusMessage.style.display = 'none';
             return;
         }
-        
+
         // Determinar si hay recorrido
         const diasPermitidos = obtenerDiasPermitidosChepeExpress(estacionSalidaVal, estacionDestinoVal);
         const fechaObj = new Date(fechaVal + 'T00:00:00');
         const diaSemana = fechaObj.getDay();
         const hayRecorrido = diasPermitidos && diasPermitidos.length > 0 && diasPermitidos.includes(diaSemana);
-        
+
         // Determinar temporada
         const temporada = esTemporadaAlta(fechaVal) ? 'alta' : 'baja';
-        
+
         // Determinar estaciones del recorrido
         const estacionesOrden = ['Creel', 'Divisadero', 'Bahuichivo', 'El Fuerte', 'Los Mochis'];
         const indiceSalida = estacionesOrden.indexOf(estacionSalidaVal);
         const indiceDestino = estacionesOrden.indexOf(estacionDestinoVal);
-        
+
         // Mapeo de nombres de estaciones a IDs en el SVG
         const estacionIdMap = {
             'Creel': 'creel',
@@ -1555,13 +1555,13 @@ function inicializarChepeExpress() {
             'El Fuerte': 'elfuerte',
             'Los Mochis': 'mochis'
         };
-        
+
         // Actualizar mapa
         if (hayRecorrido && indiceSalida !== -1 && indiceDestino !== -1) {
             // Activar estaciones y tramos del recorrido
             const inicio = Math.min(indiceSalida, indiceDestino);
             const fin = Math.max(indiceSalida, indiceDestino);
-            
+
             // Activar estaciones
             for (let i = inicio; i <= fin; i++) {
                 const estacionNombre = estacionesOrden[i];
@@ -1570,7 +1570,7 @@ function inicializarChepeExpress() {
                 // Buscar el label de texto correspondiente (está después del círculo en el SVG)
                 const svg = estacionElement ? estacionElement.closest('svg') : null;
                 const labelElement = svg ? svg.querySelector(`text[data-station="${estacionId}"], text:has-text("${estacionNombre}")`) : null;
-                
+
                 if (estacionElement) {
                     estacionElement.classList.remove('inactive');
                     estacionElement.classList.add('active', `temporada-${temporada}`);
@@ -1582,13 +1582,13 @@ function inicializarChepeExpress() {
                     const estacionX = estacionElement ? parseFloat(estacionElement.getAttribute('cx')) : null;
                     return estacionX && Math.abs(x - estacionX) < 1;
                 });
-                
+
                 if (labelText) {
                     labelText.classList.remove('inactive');
                     labelText.classList.add('active');
                 }
             }
-            
+
             // Desactivar estaciones fuera del recorrido
             for (let i = 0; i < estacionesOrden.length; i++) {
                 if (i < inicio || i > fin) {
@@ -1602,7 +1602,7 @@ function inicializarChepeExpress() {
                         const estacionX = estacionElement ? parseFloat(estacionElement.getAttribute('cx')) : null;
                         return estacionX && Math.abs(x - estacionX) < 1;
                     });
-                    
+
                     if (estacionElement) {
                         estacionElement.classList.remove('active', 'temporada-alta', 'temporada-baja');
                         estacionElement.classList.add('inactive');
@@ -1613,25 +1613,25 @@ function inicializarChepeExpress() {
                     }
                 }
             }
-            
+
             // Activar tramos del recorrido
             for (let i = inicio; i < fin; i++) {
                 const estacionActual = estacionIdMap[estacionesOrden[i]];
                 const estacionSiguiente = estacionIdMap[estacionesOrden[i + 1]];
                 const tramoElement = document.getElementById(`tramo-${estacionActual}-${estacionSiguiente}`);
-                
+
                 if (tramoElement) {
                     tramoElement.classList.remove('inactive');
                     tramoElement.classList.add('active', `temporada-${temporada}`);
                 }
             }
-            
+
             // Desactivar tramos fuera del recorrido
             const todosLosTramos = document.querySelectorAll('.route-segment');
             todosLosTramos.forEach(tramo => {
                 const tramoId = tramo.id;
                 let esTramoActivo = false;
-                
+
                 for (let i = inicio; i < fin; i++) {
                     const estacionActual = estacionIdMap[estacionesOrden[i]];
                     const estacionSiguiente = estacionIdMap[estacionesOrden[i + 1]];
@@ -1640,20 +1640,20 @@ function inicializarChepeExpress() {
                         break;
                     }
                 }
-                
+
                 if (!esTramoActivo) {
                     tramo.classList.remove('active', 'temporada-alta', 'temporada-baja');
                     tramo.classList.add('inactive');
                 }
             });
-            
+
             // Actualizar overlay de temporada
             const temporadaOverlay = document.getElementById('temporada-overlay');
             if (temporadaOverlay) {
                 temporadaOverlay.classList.remove('temporada-alta', 'temporada-baja');
                 temporadaOverlay.classList.add(`temporada-${temporada}`);
             }
-            
+
             // Mostrar mensaje de estado
             if (mapStatusMessage) {
                 const temporadaTexto = temporada === 'alta' ? 'alta' : 'baja';
@@ -1664,7 +1664,7 @@ function inicializarChepeExpress() {
         } else {
             // No hay recorrido
             resetearMapa();
-            
+
             // Mostrar mensaje de no disponibilidad
             if (mapStatusMessage) {
                 mapStatusMessage.textContent = 'No hay recorrido del tren en esta fecha.';
@@ -1673,51 +1673,51 @@ function inicializarChepeExpress() {
             }
         }
     }
-    
+
     // Función para resetear el mapa
     function resetearMapa() {
         const todasLasEstaciones = document.querySelectorAll('#modal-chepe-express .route-station');
         const todosLosTramos = document.querySelectorAll('#modal-chepe-express .route-segment');
         const todasLasLabels = document.querySelectorAll('#modal-chepe-express .route-station-label');
         const temporadaOverlay = document.getElementById('temporada-overlay');
-        
+
         todasLasEstaciones.forEach(estacion => {
             estacion.classList.remove('active', 'inactive', 'temporada-alta', 'temporada-baja');
             estacion.classList.add('inactive');
         });
-        
+
         todosLosTramos.forEach(tramo => {
             tramo.classList.remove('active', 'inactive', 'temporada-alta', 'temporada-baja');
             tramo.classList.add('inactive');
         });
-        
+
         todasLasLabels.forEach(label => {
             label.classList.remove('active', 'inactive');
             label.classList.add('inactive');
         });
-        
+
         if (temporadaOverlay) {
             temporadaOverlay.classList.remove('temporada-alta', 'temporada-baja');
         }
     }
-    
+
     // Exponer función para uso externo
     window.actualizarMapaChepeExpress = actualizarMapaChepeExpress;
-    
+
     // Función para mostrar días disponibles
     function mostrarDiasDisponibles() {
         if (!diasDisponiblesInfo || !estacionSalida || !estacionSalida.value) return;
-        
+
         const salida = estacionSalida.value;
         const destino = estacionDestino ? estacionDestino.value : '';
-        
+
         if (!destino) {
             diasDisponiblesInfo.style.display = 'none';
             return;
         }
-        
+
         const diasPermitidos = obtenerDiasPermitidosChepeExpress(salida, destino);
-        
+
         if (diasPermitidos && diasPermitidos.length > 0) {
             const nombresDias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
             const diasPermitidosNombres = diasPermitidos.map(d => nombresDias[d]).join(', ');
@@ -1726,7 +1726,7 @@ function inicializarChepeExpress() {
         } else {
             diasDisponiblesInfo.style.display = 'none';
         }
-        
+
         // Mostrar nota para estaciones intermedias
         if (notaEstacion) {
             if (salida !== 'Los Mochis' && salida !== 'Creel' && destino) {
@@ -1736,21 +1736,21 @@ function inicializarChepeExpress() {
             }
         }
     }
-    
+
     // Función para validar fecha según días permitidos
     function validarFechaExpress(fecha, mostrarAlerta = true) {
         if (!fecha || !estacionSalida || !estacionSalida.value || !estacionDestino || !estacionDestino.value) {
             return false;
         }
-        
+
         const diasPermitidos = obtenerDiasPermitidosChepeExpress(estacionSalida.value, estacionDestino.value);
         if (!diasPermitidos || diasPermitidos.length === 0) {
             return true; // No validar si no hay días específicos
         }
-        
+
         const fechaObj = new Date(fecha + 'T00:00:00');
         const diaSemana = fechaObj.getDay();
-        
+
         if (!diasPermitidos.includes(diaSemana)) {
             if (mostrarAlerta) {
                 const nombresDias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
@@ -1760,10 +1760,10 @@ function inicializarChepeExpress() {
             }
             return false;
         }
-        
+
         return true;
     }
-    
+
     // Manejar cambio de tipo de viaje
     tipoViajeRadios.forEach(radio => {
         radio.addEventListener('change', () => {
@@ -1779,7 +1779,7 @@ function inicializarChepeExpress() {
             }
         });
     });
-    
+
     // Manejar cambio de estación de salida
     if (estacionSalida) {
         estacionSalida.addEventListener('change', () => {
@@ -1790,7 +1790,7 @@ function inicializarChepeExpress() {
             if (mapStatusMessage) mapStatusMessage.style.display = 'none';
         });
     }
-    
+
     // Manejar cambio de estación de destino
     if (estacionDestino) {
         estacionDestino.addEventListener('change', () => {
@@ -1801,7 +1801,7 @@ function inicializarChepeExpress() {
             if (mapStatusMessage) mapStatusMessage.style.display = 'none';
         });
     }
-    
+
     // Validar fecha de salida (solo cuando el usuario selecciona una fecha)
     fechaSalidaExpress.addEventListener('change', () => {
         if (fechaSalidaExpress.value) {
@@ -1823,7 +1823,7 @@ function inicializarChepeExpress() {
             if (mapStatusMessage) mapStatusMessage.style.display = 'none';
         }
     });
-    
+
     // Validar fecha de regreso (solo cuando el usuario selecciona una fecha)
     if (fechaRegresoExpress) {
         fechaRegresoExpress.addEventListener('change', () => {
@@ -1831,21 +1831,21 @@ function inicializarChepeExpress() {
             if (!fechaRegresoExpress.value) {
                 return;
             }
-            
+
             // Validar que haya fecha de salida
             if (!fechaSalidaExpress.value) {
                 alert('Por favor selecciona primero la fecha de salida.');
                 fechaRegresoExpress.value = '';
                 return;
             }
-            
+
             // Validar que la fecha de regreso sea posterior a la de salida
             if (fechaRegresoExpress.value < fechaSalidaExpress.value) {
                 alert('La fecha de regreso debe ser posterior a la fecha de salida.');
                 fechaRegresoExpress.value = '';
                 return;
             }
-            
+
             // Validar días permitidos para regreso (sentido contrario)
             const diasPermitidosRegreso = obtenerDiasPermitidosChepeExpress(estacionDestino.value, estacionSalida.value);
             if (diasPermitidosRegreso && diasPermitidosRegreso.length > 0) {
@@ -1912,39 +1912,39 @@ function formatearFecha(fecha) {
         'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
         'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
     ];
-    
+
     const fechaObj = new Date(fecha + 'T00:00:00');
     const dia = fechaObj.getDate();
     const mes = meses[fechaObj.getMonth()];
     const año = fechaObj.getFullYear();
-    
+
     return `${dia} de ${mes} de ${año}`;
 }
 
 // Función para determinar si una fecha está en temporada alta
 function esTemporadaAlta(fecha) {
     if (!fecha) return false;
-    
+
     const fechaObj = new Date(fecha + 'T00:00:00');
     const mes = fechaObj.getMonth() + 1; // 1-12
     const dia = fechaObj.getDate();
-    
+
     // Enero - Temporada alta
     if (mes === 1) return true;
-    
+
     // Julio - Temporada alta
     if (mes === 7) return true;
-    
+
     // Agosto - Temporada alta
     if (mes === 8) return true;
-    
+
     // Diciembre - Temporada alta
     if (mes === 12) return true;
-    
+
     // Del 28 de marzo al 13 de abril - Temporada alta
     if (mes === 3 && dia >= 28) return true;
     if (mes === 4 && dia <= 13) return true;
-    
+
     // Todo lo demás es temporada baja
     return false;
 }
@@ -1960,7 +1960,7 @@ function actualizarIndicadorTemporada(fecha, indicadorElement) {
         if (indicadorElement) indicadorElement.style.display = 'none';
         return;
     }
-    
+
     const temporada = obtenerTemporada(fecha);
     indicadorElement.textContent = `Temporada ${temporada.toLowerCase()}`;
     indicadorElement.className = `temporada-indicator ${temporada.toLowerCase()}`;
@@ -1970,27 +1970,27 @@ function actualizarIndicadorTemporada(fecha, indicadorElement) {
 // Función para determinar si una fecha está en temporada alta
 function esTemporadaAlta(fecha) {
     if (!fecha) return false;
-    
+
     const fechaObj = new Date(fecha + 'T00:00:00');
     const mes = fechaObj.getMonth() + 1; // 1-12
     const dia = fechaObj.getDate();
-    
+
     // Enero - Temporada alta
     if (mes === 1) return true;
-    
+
     // Julio - Temporada alta
     if (mes === 7) return true;
-    
+
     // Agosto - Temporada alta
     if (mes === 8) return true;
-    
+
     // Diciembre - Temporada alta
     if (mes === 12) return true;
-    
+
     // Del 28 de marzo al 13 de abril - Temporada alta
     if (mes === 3 && dia >= 28) return true;
     if (mes === 4 && dia <= 13) return true;
-    
+
     // Todo lo demás es temporada baja
     return false;
 }
@@ -2004,7 +2004,7 @@ function obtenerTemporada(fecha) {
 function actualizarDisplayFechas() {
     const inicio = fechaInicio.value;
     const fin = fechaFin.value;
-    
+
     if (inicio && fin) {
         const fechaInicioFormateada = formatearFecha(inicio);
         const fechaFinFormateada = formatearFecha(fin);
@@ -2045,7 +2045,7 @@ const quoteForm = document.getElementById('quoteForm');
 
 quoteForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    
+
     // Validar campos
     const nombre = document.getElementById('nombre').value.trim();
     const telefono = document.getElementById('telefono').value.trim();
@@ -2054,30 +2054,30 @@ quoteForm.addEventListener('submit', (e) => {
     const fechaInicioVal = fechaInicio.value;
     const fechaFinVal = fechaFin.value;
     const mensaje = document.getElementById('mensaje').value.trim();
-    
+
     // Validación básica
     if (!nombre || !telefono || !email || !personas || !fechaInicioVal || !fechaFinVal || !mensaje) {
         alert('Por favor, completa todos los campos del formulario.');
         return;
     }
-    
+
     // Validar email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
         alert('Por favor, ingresa un correo electrónico válido.');
         return;
     }
-    
+
     // Validar fechas
     if (fechaFinVal < fechaInicioVal) {
         alert('La fecha de regreso debe ser posterior a la fecha de inicio.');
         return;
     }
-    
+
     // Formatear fechas para el mensaje
     const fechaInicioFormateada = formatearFecha(fechaInicioVal);
     const fechaFinFormateada = formatearFecha(fechaFinVal);
-    
+
     // Crear mensaje para WhatsApp
     const mensajeWhatsApp = `Hola, me gustaría cotizar un viaje.
 
@@ -2092,25 +2092,25 @@ Del ${fechaInicioFormateada} al ${fechaFinFormateada}
 
 *Detalles del viaje:*
 ${mensaje}`;
-    
+
     // Codificar mensaje para URL
     const mensajeCodificado = encodeURIComponent(mensajeWhatsApp);
-    
+
     // Número de WhatsApp (6146018486)
     const numeroWhatsApp = '6146018486';
-    
+
     // Crear URL de WhatsApp
     const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensajeCodificado}`;
-    
+
     // Abrir WhatsApp en nueva ventana
     window.open(urlWhatsApp, '_blank');
-    
+
     // Opcional: mostrar mensaje de confirmación
     const submitButton = quoteForm.querySelector('.btn-primary');
     const originalText = submitButton.textContent;
     submitButton.textContent = '✓ Enviado';
     submitButton.disabled = true;
-    
+
     setTimeout(() => {
         submitButton.textContent = originalText;
         submitButton.disabled = false;
@@ -2125,7 +2125,7 @@ if (hero) {
     window.addEventListener('scroll', () => {
         const scrolled = window.pageYOffset;
         const heroContent = hero.querySelector('.hero-content');
-        
+
         if (scrolled < hero.offsetHeight) {
             heroContent.style.transform = `translateY(${scrolled * 0.3}px)`;
             heroContent.style.opacity = 1 - (scrolled / hero.offsetHeight) * 0.5;
@@ -2160,10 +2160,191 @@ menuToggle.addEventListener('click', () => {
     }
 });
 
-// Restaurar scroll cuando se cierra el menú
-navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        document.body.style.overflow = '';
-        isMenuOpen = false;
+// ===================================
+// MODAL DE SELECCIÓN DE TOURS (PAQUETES)
+// ===================================
+function initToursModal() {
+    const modal = document.getElementById('modal-tours-selection');
+    if (!modal) return;
+
+    const openBtns = document.querySelectorAll('.open-tours-modal');
+    const closeBtn = document.getElementById('close-tours-modal');
+    const cancelBtn = document.getElementById('cancel-tours-selection');
+    const saveBtn = document.getElementById('save-tours-selection');
+    const toursCountInput = document.getElementById('tours-count');
+    const tourCheckboxes = document.querySelectorAll('input[name="tour"]');
+
+    // Store selected package
+    let currentPackage = '';
+    let currentLimit = 15;
+
+    // Open Modal
+    openBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            currentPackage = btn.dataset.package;
+            currentLimit = parseInt(btn.dataset.limit) || 15;
+
+            // Set input value and constraints
+            if (toursCountInput) {
+                toursCountInput.value = currentLimit;
+                toursCountInput.max = 15; // Always max 15 tours available
+
+                // Readonly if it's not Bespoke (custom)
+                if (currentPackage !== 'Bespoke') {
+                    toursCountInput.readOnly = true;
+                } else {
+                    toursCountInput.readOnly = false;
+                }
+            }
+
+            // Reset checkboxes
+            tourCheckboxes.forEach(cb => {
+                cb.checked = false;
+                cb.disabled = false;
+                cb.parentElement.style.opacity = '1';
+            });
+
+            // Open modal using unified function if available, otherwise manual
+            if (typeof openModal === 'function') {
+                openModal(modal);
+            } else {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            // Initial check
+            updateCheckboxState();
+        });
     });
-});
+
+    // Validar y limitar selección
+    function updateCheckboxState() {
+        const selectedCount = document.querySelectorAll('input[name="tour"]:checked').length;
+        const tourCheckboxes = document.querySelectorAll('input[name="tour"]');
+
+        // Logic for Prime Activity
+        const activitySection = document.getElementById('actividad-section');
+        if (currentPackage === 'Prime' && activitySection) {
+            const barrancasSelected = Array.from(document.querySelectorAll('input[name="tour"]:checked'))
+                .some(cb => cb.value === 'Tour Divisadero y Parque Aventura' || cb.value === 'Tour Cañón del Cobre Plus');
+
+            if (barrancasSelected) {
+                activitySection.style.display = 'block';
+                // Animación leve
+                if (activitySection.style.opacity !== '1') {
+                    activitySection.style.opacity = '0';
+                    activitySection.style.transition = 'opacity 0.5s ease';
+                    requestAnimationFrame(() => activitySection.style.opacity = '1');
+                }
+            } else {
+                activitySection.style.display = 'none';
+                activitySection.style.opacity = '0';
+            }
+        } else if (activitySection) {
+            activitySection.style.display = 'none';
+        }
+
+        // Disable unselected checkboxes if limit reached
+        if (selectedCount >= currentLimit) {
+            tourCheckboxes.forEach(cb => {
+                if (!cb.checked) {
+                    cb.disabled = true;
+                    cb.parentElement.style.opacity = '0.5';
+                }
+            });
+        } else {
+            tourCheckboxes.forEach(cb => {
+                cb.disabled = false;
+                cb.parentElement.style.opacity = '1';
+            });
+        }
+    }
+
+    // Add change listeners to checkboxes
+    tourCheckboxes.forEach(cb => {
+        cb.addEventListener('change', updateCheckboxState);
+    });
+
+    // Update limit if user changes input manually (for Bespoke)
+    if (toursCountInput) {
+        toursCountInput.addEventListener('change', (e) => {
+            let val = parseInt(e.target.value);
+            if (val < 1) val = 1;
+            if (val > 15) val = 15;
+            e.target.value = val;
+            currentLimit = val;
+            updateCheckboxState();
+        });
+    }
+
+    // Handle "Continuar" (Save Selection & Send to WhatsApp)
+    if (saveBtn) {
+        saveBtn.addEventListener('click', () => {
+            const selectedTours = Array.from(document.querySelectorAll('input[name="tour"]:checked')).map(cb => cb.value);
+            const selectedTransfers = Array.from(document.querySelectorAll('input[name="transfer"]:checked')).map(cb => cb.value);
+            const tourCount = toursCountInput ? toursCountInput.value : 'N/A';
+            const selectedActivityInput = document.querySelector('input[name="actividad_prime"]:checked');
+            const selectedActivity = selectedActivityInput ? selectedActivityInput.value : '';
+
+            // WhatsApp Logic
+            const phoneNumber = '526146018486';
+            let message = `Hola, me interesa el paquete: *${currentPackage}*\n\n`;
+
+            if (selectedTours.length > 0) {
+                message += `✅ *Tours seleccionados (${selectedTours.length}):*\n`;
+                selectedTours.forEach(tour => {
+                    message += `- ${tour}\n`;
+                });
+            } else {
+                message += `⚠️ No seleccioné tours específicos.\n`;
+            }
+
+            if (selectedTransfers.length > 0) {
+                message += `\n🚍 *Traslados:*\n`;
+                selectedTransfers.forEach(transfer => {
+                    message += `- ${transfer}\n`;
+                });
+            }
+
+            // Add Activity if Prime
+            if (currentPackage === 'Prime' && selectedActivity) {
+                message += `\n🎢 *Actividad Premium:* ${selectedActivity}\n`;
+            }
+
+            if (currentPackage === 'Bespoke') {
+                message += `\n🔢 *Número de tours sugerido:* ${tourCount}\n`;
+            }
+
+            message += `\nEspero su respuesta para coordinar desayunos y cenas. Gracias.`;
+
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+            // Open WhatsApp
+            window.open(whatsappUrl, '_blank');
+
+            // Close modal using unified function if available
+            if (typeof closeModal === 'function') {
+                closeModal(modal);
+            } else {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+
+    // Close buttons specific to this modal (if not handled by unified system)
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            if (typeof closeModal === 'function') closeModal(modal);
+        });
+    }
+    if (cancelBtn) {
+        cancelBtn.addEventListener('click', () => {
+            if (typeof closeModal === 'function') closeModal(modal);
+        });
+    }
+}
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', initToursModal);
