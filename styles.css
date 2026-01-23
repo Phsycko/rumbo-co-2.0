@@ -11,7 +11,7 @@
     --spacing-lg: 4rem;
     --spacing-xl: 6rem;
     --transition: all 0.3s ease;
-    
+
     /* Light theme (default) */
     --bg-main: #ffffff;
     --bg-section: #f5f3ef;
@@ -63,7 +63,12 @@ body {
 }
 
 /* Asegurar que todos los elementos de texto hereden el color correcto */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     color: var(--text-primary);
 }
 
@@ -804,7 +809,7 @@ p {
     cursor: pointer;
 }
 
-.transport-radio-label input[type="radio"]:checked + span {
+.transport-radio-label input[type="radio"]:checked+span {
     color: var(--text-primary);
     font-weight: 500;
 }
@@ -1933,6 +1938,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -2220,7 +2226,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
         font-size: 1.3rem;
         font-weight: 600;
     }
-    
+
     .hero-description {
         font-size: 1rem;
         font-weight: 500;
@@ -2360,3 +2366,504 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
         height: 20px;
     }
 }
+
+/* ===================================
+   SECCIÓN: PAQUETES TURÍSTICOS PREMIUM
+   =================================== */
+.premium-packages {
+    background: var(--bg-section);
+    padding: var(--spacing-xl) 0;
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.premium-packages .section-title {
+    color: #D4AF37;
+    margin-bottom: var(--spacing-xl);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.packages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: var(--spacing-lg);
+}
+
+.package-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 8px;
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.4s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.dark-mode .package-card {
+    background: #1a1a1a;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.package-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+    opacity: 0.6;
+}
+
+.package-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    border-color: #D4AF37;
+}
+
+.dark-mode .package-card:hover {
+    background: #222;
+}
+
+.package-header {
+    margin-bottom: 2rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 1.5rem;
+}
+
+.package-header h3 {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+}
+
+.package-duration {
+    display: block;
+    font-size: 0.9rem;
+    color: #D4AF37;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.package-body {
+    flex-grow: 1;
+    margin-bottom: 2rem;
+}
+
+.package-features {
+    list-style: none;
+    padding: 0;
+}
+
+.package-features li {
+    position: relative;
+    padding-left: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-weight: 300;
+}
+
+.package-features li::before {
+    content: "✦";
+    color: #D4AF37;
+    position: absolute;
+    left: 0;
+    font-size: 0.9rem;
+}
+
+.package-description {
+    text-align: center;
+    color: var(--text-secondary);
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.package-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: auto;
+}
+
+.premium-packages .btn-secondary {
+    display: inline-block;
+    padding: 1rem 1.5rem;
+    background: transparent;
+    color: #D4AF37;
+    border: 1px solid #D4AF37;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 4px;
+    transition: all 0.3s;
+    cursor: pointer;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.premium-packages .btn-secondary:hover {
+    background: #D4AF37;
+    color: #000;
+    transform: translateY(-2px);
+}
+
+.premium-packages .btn-primary {
+    display: inline-block;
+    padding: 1rem 1.5rem;
+    background: var(--color-primary);
+    color: #000;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: all 0.3s;
+    border: none;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.premium-packages .btn-primary:hover {
+    background: #c9a030;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+}
+
+/* Modal de Selección de Tours */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md);
+    backdrop-filter: blur(8px);
+}
+
+.modal-overlay.active {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.tours-modal {
+    background: var(--bg-card);
+    width: 100%;
+    max-width: 900px;
+    max-height: 90vh;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border-color);
+}
+
+.modal-header {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-section);
+    border-radius: 12px 12px 0 0;
+}
+
+.modal-header h3 {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.modal-close-btn {
+    background: none;
+    border: none;
+    font-size: 2.5rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+    line-height: 1;
+    transition: color 0.3s;
+}
+
+.modal-close-btn:hover {
+    color: var(--color-primary);
+}
+
+.modal-body {
+    padding: 2rem;
+    overflow-y: auto;
+    flex-grow: 1;
+    background: var(--bg-card);
+}
+
+.tours-list-container h4,
+.transfers-section h4 {
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    border-bottom: 2px solid var(--color-primary);
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.tours-grid,
+.transfers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.tour-item,
+.transfer-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--bg-main);
+}
+
+.tour-item:hover,
+.transfer-item:hover {
+    background: var(--bg-section);
+    border-color: var(--color-primary);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
+}
+
+.tour-item input,
+.transfer-item input {
+    margin-top: 0.3rem;
+    accent-color: var(--color-primary);
+    width: 1.2em;
+    height: 1.2em;
+}
+
+.modal-footer {
+    padding: 1.5rem 2rem;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    background: var(--bg-section);
+    border-radius: 0 0 12px 12px;
+}
+
+.form-control {
+    padding: 0.8rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 1.1rem;
+    width: 100px;
+    text-align: center;
+    background: var(--bg-main);
+    color: var(--text-primary);
+}
+
+/* --- NUEVOS BOTONES MODAL --- */
+.modal-footer .btn-primary {
+    background: linear-gradient(135deg, #D4AF37 0%, #C5A028 100%);
+    color: #000;
+    border: none;
+    padding: 1rem 2.5rem;
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+    transition: all 0.3s ease;
+}
+
+.modal-footer .btn-primary:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6);
+}
+
+.modal-footer .btn-secondary {
+    background: transparent;
+    color: var(--text-primary);
+    border: 2px solid var(--text-secondary);
+    padding: 1rem 2.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.modal-footer .btn-secondary:hover {
+    border-color: var(--text-primary);
+    background: var(--bg-main);
+    color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+    .modal-footer {
+        flex-direction: column;
+    }
+
+    .premium-packages .btn-secondary,
+    .premium-packages .btn-primary,
+    .modal-footer .btn-primary,
+    .modal-footer .btn-secondary {
+        width: 100%;
+        text-align: center;
+    }
+
+    .tours-modal {
+        max-height: 95vh;
+    }
+}
+
+/* --- CARRUSEL DE TOURS --- */
+.tours-gallery {
+    background: #0a0a0a;
+    /* Dark background to match premium feel */
+    padding: 4rem 0;
+    overflow: hidden;
+}
+
+.tours-gallery .section-title {
+    color: #D4AF37;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.carousel-container {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    padding: 2rem 0;
+    /* Hide scrollbar */
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE 10+ */
+}
+
+.carousel-container::-webkit-scrollbar {
+    display: none;
+    /* Chrome/Safari */
+}
+
+.carousel-track {
+    display: inline-flex;
+    gap: 20px;
+    padding: 0 2rem;
+    /* Side padding */
+}
+
+.carousel-card {
+    display: inline-block;
+    width: 300px;
+    height: 450px;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    transition: all 0.4s ease;
+    cursor: pointer;
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    white-space: normal;
+    /* Allow text wrapping inside */
+}
+
+.carousel-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+    border-color: #D4AF37;
+}
+
+.carousel-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.carousel-card:hover img {
+    transform: scale(1.1);
+}
+
+.carousel-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
+    padding: 2rem 1.5rem;
+    transform: translateY(0);
+    transition: all 0.3s ease;
+}
+
+.carousel-card h3 {
+    color: #fff;
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    line-height: 1.2;
+}
+
+.carousel-card p {
+    color: #ddd;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    opacity: 0.8;
+    display: none;
+    /* Hidden by default, show on hover maybe? or keep simple */
+}
+
+/* Animation for infinite scroll feel or just nice entrance */
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.carousel-card {
+    animation: slideInRight 0.6s ease-out backwards;
+}
+
+/* Staggered animation setup would require Nth-child in JS or repetitive CSS. Skipping for now. */
