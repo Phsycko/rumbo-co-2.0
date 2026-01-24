@@ -997,7 +997,7 @@ transportForms.forEach(form => {
             }
 
             if (fechaRegreso < fechaSalida) {
-                alert('La fecha de regreso debe ser posterior a la fecha de salida');
+                alert('La fecha de regreso debe ser posterior o igual a la fecha de salida');
                 return;
             }
 
@@ -1069,7 +1069,7 @@ transportForms.forEach(form => {
             // Validar fecha de regreso si es redondo
             if (tipoViaje === 'redondo' && fechaFin) {
                 if (fechaFin < fechaInicio) {
-                    alert('La fecha de regreso debe ser posterior a la fecha de salida');
+                    alert('La fecha de regreso debe ser posterior o igual a la fecha de salida');
                     return;
                 }
                 // Validar días permitidos para regreso (sentido contrario)
@@ -1162,7 +1162,7 @@ transportForms.forEach(form => {
             // Validar fecha de regreso si es redondo
             if (tipoViaje === 'redondo' && fechaRegreso) {
                 if (fechaRegreso < fechaSalida) {
-                    alert('La fecha de regreso debe ser posterior a la fecha de salida');
+                    alert('La fecha de regreso debe ser posterior o igual a la fecha de salida');
                     return;
                 }
                 // Validar días permitidos para regreso (sentido contrario)
@@ -1280,7 +1280,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const fechaRegresoAutobuses = document.getElementById('fecha-regreso-autobuses');
 
     if (fechaSalidaAutobuses && fechaRegresoAutobuses) {
-        const today = new Date().toISOString().split('T')[0];
+        // Usar fecha local para evitar problemas de zona horaria
+        const today = new Date().toLocaleDateString('en-CA'); // Formato YYYY-MM-DD
         fechaSalidaAutobuses.setAttribute('min', today);
         fechaRegresoAutobuses.setAttribute('min', today);
 
@@ -1295,7 +1296,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         fechaRegresoAutobuses.addEventListener('change', () => {
             if (fechaRegresoAutobuses.value && fechaSalidaAutobuses.value && fechaRegresoAutobuses.value < fechaSalidaAutobuses.value) {
-                alert('La fecha de regreso debe ser posterior a la fecha de salida.');
+                alert('La fecha de regreso debe ser posterior o igual a la fecha de salida.');
                 fechaRegresoAutobuses.value = '';
             }
         });
@@ -1327,8 +1328,8 @@ function inicializarFechasChepeRegional() {
 
     fechasRegionalInicializado = true;
 
-    // Establecer fecha mínima como hoy
-    const today = new Date().toISOString().split('T')[0];
+    // Establecer fecha mínima como hoy (fecha local)
+    const today = new Date().toLocaleDateString('en-CA');
     fechaInicioRegional.setAttribute('min', today);
     fechaFinRegional.setAttribute('min', today);
 
@@ -1455,7 +1456,7 @@ function inicializarFechasChepeRegional() {
 
         // Validar que la fecha de regreso sea posterior a la de salida
         if (fechaFinRegional.value < fechaInicioRegional.value) {
-            alert('La fecha de regreso debe ser posterior a la fecha de salida.');
+            alert('La fecha de regreso debe ser posterior o igual a la fecha de salida.');
             fechaFinRegional.value = '';
             return;
         }
@@ -1510,8 +1511,8 @@ function inicializarChepeExpress() {
 
     chepeExpressInicializado = true;
 
-    // Establecer fecha mínima como hoy
-    const today = new Date().toISOString().split('T')[0];
+    // Establecer fecha mínima como hoy (local)
+    const today = new Date().toLocaleDateString('en-CA');
     fechaSalidaExpress.setAttribute('min', today);
     if (fechaRegresoExpress) {
         fechaRegresoExpress.setAttribute('min', today);
@@ -1841,7 +1842,7 @@ function inicializarChepeExpress() {
 
             // Validar que la fecha de regreso sea posterior a la de salida
             if (fechaRegresoExpress.value < fechaSalidaExpress.value) {
-                alert('La fecha de regreso debe ser posterior a la fecha de salida.');
+                alert('La fecha de regreso debe ser posterior o igual a la fecha de salida.');
                 fechaRegresoExpress.value = '';
                 return;
             }
@@ -1901,8 +1902,8 @@ const fechaInicio = document.getElementById('fecha-inicio');
 const fechaFin = document.getElementById('fecha-fin');
 const fechasDisplay = document.getElementById('fechas-display');
 
-// Establecer fecha mínima como hoy
-const today = new Date().toISOString().split('T')[0];
+// Establecer fecha mínima como hoy (local)
+const today = new Date().toLocaleDateString('en-CA');
 fechaInicio.setAttribute('min', today);
 fechaFin.setAttribute('min', today);
 
@@ -2031,7 +2032,7 @@ fechaInicio.addEventListener('change', () => {
 
 fechaFin.addEventListener('change', () => {
     if (fechaFin.value && fechaInicio.value && fechaFin.value < fechaInicio.value) {
-        alert('La fecha de regreso debe ser posterior a la fecha de inicio.');
+        alert('La fecha de regreso debe ser posterior o igual a la fecha de inicio.');
         fechaFin.value = '';
         return;
     }
@@ -2070,7 +2071,7 @@ quoteForm.addEventListener('submit', (e) => {
 
     // Validar fechas
     if (fechaFinVal < fechaInicioVal) {
-        alert('La fecha de regreso debe ser posterior a la fecha de inicio.');
+        alert('La fecha de regreso debe ser posterior o igual a la fecha de inicio.');
         return;
     }
 
