@@ -73,7 +73,7 @@
 
 .packages-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: var(--spacing-md);
     margin-top: var(--spacing-lg);
 }
@@ -505,13 +505,19 @@
     }
 }
 
-@media (max-width: 480px) {
+/* Móvil: una sola columna a partir de 640px para evitar empalme */
+@media (max-width: 640px) {
     .routes-grid {
         grid-template-columns: 1fr;
     }
 
     .route-track {
-        justify-content: flex-start;
-        padding: 0 var(--spacing-sm);
+        justify-content: center;
+        gap: 0;
+    }
+
+    .route-city-name {
+        white-space: normal;
+        font-size: 0.68rem;
     }
 }
