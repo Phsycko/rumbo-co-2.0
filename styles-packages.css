@@ -3,6 +3,68 @@
    =================================== */
 .premium-packages {
     background: var(--bg-section);
+    position: relative;
+    overflow: hidden;
+}
+
+/* El container queda sobre el fondo de pinos */
+.premium-packages .container {
+    position: relative;
+    z-index: 1;
+}
+
+/* ---- Bosque decorativo ---- */
+.packages-forest {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.forest-svg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    fill: currentColor;
+    color: var(--text-primary);
+}
+
+/* Capas de pinos: opacidades distintas para crear profundidad */
+.pine-far {
+    opacity: 0.08;
+    animation: pineBrisa 14s ease-in-out infinite alternate;
+    transform-box: fill-box;
+    transform-origin: center bottom;
+}
+
+.pine-mid {
+    opacity: 0.11;
+    animation: pineBrisa 10s ease-in-out infinite alternate-reverse;
+    transform-box: fill-box;
+    transform-origin: center bottom;
+    animation-delay: -3.5s;
+}
+
+.pine-front {
+    opacity: 0.14;
+    animation: pineBrisa 7.5s ease-in-out infinite alternate;
+    transform-box: fill-box;
+    transform-origin: center bottom;
+    animation-delay: -1.8s;
+}
+
+@keyframes pineBrisa {
+    0% {
+        transform: rotate(-1.5deg) translateX(-3px);
+    }
+
+    100% {
+        transform: rotate(1.8deg) translateX(3px);
+    }
 }
 
 .section-padding {
@@ -11,7 +73,7 @@
 
 .packages-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: var(--spacing-md);
     margin-top: var(--spacing-lg);
 }
@@ -24,13 +86,13 @@
     display: flex;
     flex-direction: column;
     transition: var(--transition);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     height: 100%;
 }
 
 .package-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     border-color: var(--color-primary);
 }
 
@@ -92,6 +154,25 @@
     flex-direction: column;
     gap: var(--spacing-sm);
     margin-top: auto;
+}
+
+/* Bespoke: fila propia centrada */
+.package-bespoke-row {
+    grid-column: 1 / -1;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+/* Nota de precio */
+.package-price-note {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    text-align: center;
+    margin: 0;
+    opacity: 0.8;
 }
 
 .btn-secondary {
@@ -216,7 +297,7 @@
 
 .tour-item input,
 .transfer-item input {
-    margin-top: 0.3rem; 
+    margin-top: 0.3rem;
 }
 
 .modal-footer {
@@ -239,10 +320,198 @@
     .modal-footer {
         flex-direction: column;
     }
-    
+
     .btn-secondary,
     .btn-primary {
         width: 100%;
         text-align: center;
+    }
+}
+
+/* ===================================
+   SELECTOR DE RUTA BASE
+   =================================== */
+.route-selector {
+    margin-bottom: var(--spacing-xl);
+}
+
+.route-selector-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+    margin-bottom: var(--spacing-md);
+}
+
+.routes-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-sm);
+}
+
+/* Card de ruta — es un <label> que envuelve el radio */
+.route-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding: var(--spacing-md) var(--spacing-sm);
+    background: var(--bg-card);
+    border: 1.5px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+    user-select: none;
+}
+
+.route-card input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.route-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* Seleccionada */
+.route-card:has(input:checked) {
+    border-color: var(--color-primary);
+    background: color-mix(in srgb, var(--color-primary) 6%, var(--bg-card));
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 20%, transparent);
+}
+
+/* Badge Redondo / Sencillo */
+.route-badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+}
+
+.route-badge--redondo {
+    background: color-mix(in srgb, var(--color-primary) 15%, transparent);
+    color: var(--color-primary);
+    border: 1px solid color-mix(in srgb, var(--color-primary) 30%, transparent);
+}
+
+.route-badge--sencillo {
+    background: color-mix(in srgb, var(--text-secondary) 12%, transparent);
+    color: var(--text-secondary);
+    border: 1px solid color-mix(in srgb, var(--text-secondary) 25%, transparent);
+}
+
+/* Track visual de la ruta */
+.route-track {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 0;
+}
+
+.route-city {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    flex-shrink: 0;
+}
+
+.route-city-name {
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.route-card:has(input:checked) .route-city-name {
+    color: var(--text-primary);
+}
+
+.route-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--border-color);
+    border: 2px solid var(--text-secondary);
+    flex-shrink: 0;
+    transition: var(--transition);
+}
+
+.route-dot--highlight {
+    width: 12px;
+    height: 12px;
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.route-card:has(input:checked) .route-dot {
+    border-color: var(--color-primary);
+    background: color-mix(in srgb, var(--color-primary) 30%, var(--bg-card));
+}
+
+/* Línea conectora */
+.route-line {
+    flex: 1;
+    height: 9px;
+    /* alinear con el dot */
+    display: flex;
+    align-items: center;
+    padding: 0 2px;
+    min-width: 20px;
+}
+
+.route-line-inner {
+    display: block;
+    width: 100%;
+    height: 1.5px;
+    background: var(--border-color);
+    transition: var(--transition);
+}
+
+.route-line--return .route-line-inner {
+    background: repeating-linear-gradient(to right,
+            var(--border-color) 0px,
+            var(--border-color) 4px,
+            transparent 4px,
+            transparent 8px);
+}
+
+.route-card:has(input:checked) .route-line-inner {
+    background: var(--color-primary);
+}
+
+.route-card:has(input:checked) .route-line--return .route-line-inner {
+    background: repeating-linear-gradient(to right,
+            var(--color-primary) 0px,
+            var(--color-primary) 4px,
+            transparent 4px,
+            transparent 8px);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .routes-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .routes-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .route-track {
+        justify-content: flex-start;
+        padding: 0 var(--spacing-sm);
     }
 }

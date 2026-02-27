@@ -1224,51 +1224,49 @@ transportForms.forEach(form => {
 
 // Función para obtener días permitidos del Chepe Regional según estación y sentido
 function obtenerDiasPermitidosChepeRegional(estacionSalida, estacionDestino) {
-    // Estaciones terminales
-    if (estacionSalida === 'Los Mochis') {
-        return [1, 4, 6]; // Lunes, Jueves, Sábado (hacia Chihuahua)
-    } else if (estacionSalida === 'Chihuahua') {
-        return [2, 5, 0]; // Martes, Viernes, Domingo (hacia Los Mochis)
+    // Terminales: Chihuahua → Los Mochis (Mar, Sáb) | Los Mochis → Chihuahua (Mié, Dom)
+    if (estacionSalida === 'Chihuahua') {
+        return [2, 6]; // Martes, Sábado
+    } else if (estacionSalida === 'Los Mochis') {
+        return [3, 0]; // Miércoles, Domingo
     }
 
-    // Estaciones intermedias - determinar según destino
-    // Orden de estaciones de Chihuahua hacia Los Mochis
+    // Estaciones intermedias - determinar dirección según destino
+    // Orden: Chihuahua (0) → Los Mochis (12)
     const estacionesOrden = ['Chihuahua', 'Cuauhtémoc', 'San Juanito', 'Creel', 'Pitorreal', 'Divisadero', 'Posada', 'San Rafael', 'Cuiteco', 'Bahuichivo', 'Témoris', 'El Fuerte', 'Los Mochis'];
 
     const indiceSalida = estacionesOrden.indexOf(estacionSalida);
     const indiceDestino = estacionesOrden.indexOf(estacionDestino);
 
-    if (indiceSalida === -1 || indiceDestino === -1) {
-        return null; // Estación no encontrada
-    }
+    if (indiceSalida === -1 || indiceDestino === -1) return null;
 
-    // Si el destino está más cerca de Los Mochis (índice mayor)
     if (indiceDestino > indiceSalida) {
-        return [2, 5, 0]; // Martes, Viernes, Domingo (sentido hacia Los Mochis - usa días de Chihuahua)
+        return [2, 6]; // Martes, Sábado (hacia Los Mochis)
     } else {
-        return [1, 4, 6]; // Lunes, Jueves, Sábado (sentido hacia Chihuahua - usa días de Los Mochis)
+        return [3, 0]; // Miércoles, Domingo (hacia Chihuahua)
     }
 }
 
-// Función para obtener días permitidos del Chepe Express según estación y sentido
+// Función para obtener días BASE del Chepe Express según estación y sentido
+// La excepción de Mayo/Jun/Ago/Sep (sin Lun/Mar) se aplica en el disable de flatpickr
 function obtenerDiasPermitidosChepeExpress(estacionSalida, estacionDestino) {
-    if (estacionSalida === 'Los Mochis') {
-        return [1, 4, 6]; // Lunes, Jueves, Sábado
-    } else if (estacionSalida === 'Creel') {
-        return [2, 5, 0]; // Martes, Viernes, Domingo
+    if (estacionSalida === 'Creel') {
+        return [0, 2, 5]; // Domingo, Martes, Viernes (Creel → Los Mochis)
+    } else if (estacionSalida === 'Los Mochis') {
+        return [1, 4, 0]; // Lunes, Jueves, Domingo (Los Mochis → Creel)
     }
 
-    // Estaciones intermedias - determinar según destino
+    // Estaciones intermedias
     const estacionesOrden = ['Creel', 'Divisadero', 'Bahuichivo', 'El Fuerte', 'Los Mochis'];
     const indiceSalida = estacionesOrden.indexOf(estacionSalida);
     const indiceDestino = estacionesOrden.indexOf(estacionDestino);
 
+    if (indiceSalida === -1 || indiceDestino === -1) return null;
+
     if (indiceDestino > indiceSalida) {
-        // Viaje hacia Los Mochis - usar días de Creel (Martes, Viernes, Domingo)
-        return [2, 5, 0];
+        return [0, 2, 5]; // Domingo, Martes, Viernes (hacia Los Mochis)
     } else {
-        // Viaje hacia Creel - usar días de Los Mochis (Lunes, Jueves, Sábado)
-        return [1, 4, 6];
+        return [1, 4, 0]; // Lunes, Jueves, Domingo (hacia Creel)
     }
 }
 
@@ -1288,7 +1286,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fechaSalidaAutobuses.addEventListener('change', () => {
             if (fechaSalidaAutobuses.value) {
                 fechaRegresoAutobuses.setAttribute('min', fechaSalidaAutobuses.value);
-                if (fechaRegresoAutobuses.value && fechaRegresoAutobuses.value < fechaSalidaAutobuses.value) {
+                if (fechaRegresoAutobuses.value && fechaRegresoAutobuses.value <= fechaSalidaAutobuses.value) {
                     fechaRegresoAutobuses.value = '';
                 }
             }
@@ -1304,14 +1302,45 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ===================================
+// FECHAS FORMULARIO DE COTIZACIÓN
+// ===================================
+document.addEventListener('DOMContentLoaded', () => {
+    const fechaInicio = document.getElementById('fecha-inicio');
+    const fechaFin = document.getElementById('fecha-fin');
+
+    if (fechaInicio && fechaFin) {
+        const today = new Date().toLocaleDateString('en-CA');
+        fechaInicio.setAttribute('min', today);
+        fechaFin.setAttribute('min', today);
+
+        fechaInicio.addEventListener('change', () => {
+            if (fechaInicio.value) {
+                fechaFin.setAttribute('min', fechaInicio.value);
+                // Limpiar la fecha de regreso si es menor o igual a la nueva fecha de inicio
+                if (fechaFin.value && fechaFin.value <= fechaInicio.value) {
+                    fechaFin.value = '';
+                }
+            }
+        });
+
+        fechaFin.addEventListener('change', () => {
+            if (fechaFin.value && fechaInicio.value && fechaFin.value < fechaInicio.value) {
+                alert('La fecha de regreso debe ser posterior a la fecha de inicio.');
+                fechaFin.value = '';
+            }
+        });
+    }
+});
+
+// ===================================
 // MANEJO DE FECHAS EN MODAL CHEPE REGIONAL
 // ===================================
-let fechasRegionalInicializado = false;
+// Variables para instancias de flatpickr del Regional
+let fpInicioRegional = null;
+let fpFinRegional = null;
 
 function inicializarFechasChepeRegional() {
-    if (fechasRegionalInicializado) {
-        return;
-    }
+    if (fechasRegionalInicializado) return;
 
     const estacionSalida = document.getElementById('estacion-salida-regional');
     const estacionDestino = document.getElementById('estacion-destino-regional');
@@ -1321,81 +1350,81 @@ function inicializarFechasChepeRegional() {
     const fechaRegresoContainer = document.getElementById('fecha-regreso-regional-container');
     const diasDisponiblesInfo = document.getElementById('dias-disponibles-regional');
     const notaEstacionIntermedia = document.getElementById('nota-estacion-intermedia-regional');
+    const temporadaIndicatorRegional = document.getElementById('temporada-indicator-regional');
 
-    if (!fechaInicioRegional || !fechaFinRegional) {
-        return;
-    }
+    if (!fechaInicioRegional || !fechaFinRegional) return;
 
     fechasRegionalInicializado = true;
 
-    // Establecer fecha mínima como hoy (fecha local)
-    const today = new Date().toLocaleDateString('en-CA');
-    fechaInicioRegional.setAttribute('min', today);
-    fechaFinRegional.setAttribute('min', today);
-
-    const temporadaIndicatorRegional = document.getElementById('temporada-indicator-regional');
-
-    // Función para mostrar días disponibles
+    // Función para mostrar días disponibles en el info-box
     function mostrarDiasDisponibles() {
-        if (!diasDisponiblesInfo || !estacionSalida || !estacionSalida.value) return;
-
+        if (!diasDisponiblesInfo || !estacionSalida?.value) return;
         const salida = estacionSalida.value;
-        const destino = estacionDestino ? estacionDestino.value : '';
-
-        if (!destino) {
-            diasDisponiblesInfo.style.display = 'none';
-            return;
-        }
+        const destino = estacionDestino?.value || '';
+        if (!destino) { diasDisponiblesInfo.style.display = 'none'; return; }
 
         const diasPermitidos = obtenerDiasPermitidosChepeRegional(salida, destino);
-
-        if (diasPermitidos && diasPermitidos.length > 0) {
+        if (diasPermitidos?.length > 0) {
             const nombresDias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-            const diasPermitidosNombres = diasPermitidos.map(d => nombresDias[d]).join(', ');
-            diasDisponiblesInfo.innerHTML = `<strong>Días de salida disponibles:</strong> ${diasPermitidosNombres}`;
+            diasDisponiblesInfo.innerHTML = `<strong>Días de salida disponibles:</strong> ${diasPermitidos.map(d => nombresDias[d]).join(', ')}`;
             diasDisponiblesInfo.style.display = 'block';
         } else {
             diasDisponiblesInfo.style.display = 'none';
         }
-
-        // Mostrar nota para estaciones intermedias
         if (notaEstacionIntermedia) {
-            if (salida !== 'Los Mochis' && salida !== 'Chihuahua' && destino) {
-                notaEstacionIntermedia.style.display = 'block';
-            } else {
-                notaEstacionIntermedia.style.display = 'none';
-            }
+            notaEstacionIntermedia.style.display = (salida !== 'Los Mochis' && salida !== 'Chihuahua' && destino) ? 'block' : 'none';
         }
     }
 
-    // Función para validar fecha según días permitidos
-    function validarFechaRegional(fecha, mostrarAlerta = true) {
-        if (!fecha || !estacionSalida || !estacionSalida.value || !estacionDestino || !estacionDestino.value) {
-            return false;
-        }
-
-        const diasPermitidos = obtenerDiasPermitidosChepeRegional(estacionSalida.value, estacionDestino.value);
-        if (!diasPermitidos || diasPermitidos.length === 0) {
-            return true; // No validar si no hay días específicos
-        }
-
-        const fechaObj = new Date(fecha + 'T00:00:00');
-        const diaSemana = fechaObj.getDay();
-
-        if (!diasPermitidos.includes(diaSemana)) {
-            if (mostrarAlerta) {
-                const nombresDias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-                const diasPermitidosNombres = diasPermitidos.map(d => nombresDias[d]).join(', ');
-                alert(`Para salir desde ${estacionSalida.value}, el Chepe Regional solo opera los días: ${diasPermitidosNombres}. Por favor selecciona una fecha válida.`);
-                fechaInicioRegional.value = '';
-            }
-            return false;
-        }
-
-        return true;
+    // Función disable para flatpickr - bloquea visualmente los días no permitidos
+    function disableSalida(date) {
+        if (!estacionSalida?.value || !estacionDestino?.value) return false;
+        const dias = obtenerDiasPermitidosChepeRegional(estacionSalida.value, estacionDestino.value);
+        if (!dias) return false;
+        return !dias.includes(date.getDay());
     }
 
-    // Manejar cambio de tipo de viaje
+    function disableRegreso(date) {
+        if (!estacionDestino?.value || !estacionSalida?.value) return false;
+        const dias = obtenerDiasPermitidosChepeRegional(estacionDestino.value, estacionSalida.value);
+        if (!dias) return false;
+        return !dias.includes(date.getDay());
+    }
+
+    // Inicializar flatpickr - fecha de salida
+    fpInicioRegional = flatpickr(fechaInicioRegional, {
+        locale: flatpickr.l10ns.es,
+        minDate: 'today',
+        dateFormat: 'Y-m-d',
+        disable: [disableSalida],
+        onChange: function (selectedDates, dateStr) {
+            if (!dateStr) return;
+            if (fpFinRegional) {
+                fpFinRegional.set('minDate', dateStr);
+                if (fpFinRegional.selectedDates[0] && fpFinRegional.selectedDates[0] <= selectedDates[0]) {
+                    fpFinRegional.clear();
+                }
+            }
+            actualizarIndicadorTemporada(dateStr, temporadaIndicatorRegional);
+        }
+    });
+
+    // Inicializar flatpickr - fecha de regreso
+    fpFinRegional = flatpickr(fechaFinRegional, {
+        locale: flatpickr.l10ns.es,
+        minDate: 'today',
+        dateFormat: 'Y-m-d',
+        disable: [disableRegreso],
+        onChange: function (selectedDates, dateStr) {
+            if (!dateStr) return;
+            if (fpInicioRegional?.selectedDates[0] && selectedDates[0] <= fpInicioRegional.selectedDates[0]) {
+                alert('La fecha de regreso debe ser posterior a la fecha de salida.');
+                fpFinRegional.clear();
+            }
+        }
+    });
+
+    // Tipo de viaje: mostrar/ocultar fecha de regreso
     tipoViajeRadios.forEach(radio => {
         radio.addEventListener('change', () => {
             if (radio.value === 'redondo') {
@@ -1404,77 +1433,23 @@ function inicializarFechasChepeRegional() {
             } else {
                 fechaRegresoContainer.style.display = 'none';
                 fechaFinRegional.required = false;
-                fechaFinRegional.value = '';
+                fpFinRegional?.clear();
             }
         });
     });
 
-    // Manejar cambio de estación de salida
-    if (estacionSalida) {
-        estacionSalida.addEventListener('change', () => {
-            mostrarDiasDisponibles();
-            fechaInicioRegional.value = '';
-            fechaFinRegional.value = '';
-        });
+    // Cambio de estación: redibujar flatpickr con nuevos días permitidos
+    function onEstacionChange() {
+        fpInicioRegional?.set('disable', [disableSalida]);
+        fpFinRegional?.set('disable', [disableRegreso]);
+        fpInicioRegional?.clear();
+        fpFinRegional?.clear();
+        if (temporadaIndicatorRegional) temporadaIndicatorRegional.style.display = 'none';
+        mostrarDiasDisponibles();
     }
 
-    // Manejar cambio de estación de destino
-    if (estacionDestino) {
-        estacionDestino.addEventListener('change', () => {
-            mostrarDiasDisponibles();
-            fechaInicioRegional.value = '';
-            fechaFinRegional.value = '';
-        });
-    }
-
-    // Validar fecha de salida (solo cuando el usuario selecciona una fecha)
-    fechaInicioRegional.addEventListener('change', () => {
-        if (fechaInicioRegional.value) {
-            // Validar fecha de salida
-            const fechaValida = validarFechaRegional(fechaInicioRegional.value, true);
-            if (fechaValida && fechaInicioRegional.value) {
-                // Actualizar min de fecha de regreso solo después de validar
-                fechaFinRegional.setAttribute('min', fechaInicioRegional.value);
-                actualizarIndicadorTemporada(fechaInicioRegional.value, temporadaIndicatorRegional);
-            }
-        }
-    });
-
-    // Validar fecha de regreso (solo cuando el usuario selecciona una fecha)
-    fechaFinRegional.addEventListener('change', () => {
-        // Solo validar si hay una fecha seleccionada
-        if (!fechaFinRegional.value) {
-            return;
-        }
-
-        // Validar que haya fecha de salida
-        if (!fechaInicioRegional.value) {
-            alert('Por favor selecciona primero la fecha de salida.');
-            fechaFinRegional.value = '';
-            return;
-        }
-
-        // Validar que la fecha de regreso sea posterior a la de salida
-        if (fechaFinRegional.value < fechaInicioRegional.value) {
-            alert('La fecha de regreso debe ser posterior o igual a la fecha de salida.');
-            fechaFinRegional.value = '';
-            return;
-        }
-
-        // Validar días permitidos para regreso (sentido contrario)
-        const diasPermitidosRegreso = obtenerDiasPermitidosChepeRegional(estacionDestino.value, estacionSalida.value);
-        if (diasPermitidosRegreso && diasPermitidosRegreso.length > 0) {
-            const fechaRegresoObj = new Date(fechaFinRegional.value + 'T00:00:00');
-            const diaSemanaRegreso = fechaRegresoObj.getDay();
-            if (!diasPermitidosRegreso.includes(diaSemanaRegreso)) {
-                const nombresDias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-                const diasPermitidosNombres = diasPermitidosRegreso.map(d => nombresDias[d]).join(', ');
-                alert(`Para regresar desde ${estacionDestino.value}, el Chepe Regional solo opera los días: ${diasPermitidosNombres}. Por favor selecciona una fecha válida.`);
-                fechaFinRegional.value = '';
-                return;
-            }
-        }
-    });
+    estacionSalida?.addEventListener('change', onEstacionChange);
+    estacionDestino?.addEventListener('change', onEstacionChange);
 }
 
 // Inicializar cuando se carga la página
@@ -1765,6 +1740,34 @@ function inicializarChepeExpress() {
         return true;
     }
 
+    // Variables para instancias de flatpickr del Express
+    let fpSalidaExpress = null;
+    let fpRegresoExpress = null;
+
+    // Función disable para flatpickr - bloquea días no permitidos + excepción mensual
+    function disableSalidaExpress(date) {
+        if (!estacionSalida?.value || !estacionDestino?.value) return false;
+        let dias = obtenerDiasPermitidosChepeExpress(estacionSalida.value, estacionDestino.value);
+        if (!dias) return false;
+        // Excepción: Mayo(5), Junio(6), Agosto(8), Septiembre(9) → sin Lunes(1) ni Martes(2)
+        const mes = date.getMonth() + 1;
+        if ([5, 6, 8, 9].includes(mes)) {
+            dias = dias.filter(d => d !== 1 && d !== 2);
+        }
+        return !dias.includes(date.getDay());
+    }
+
+    function disableRegresoExpress(date) {
+        if (!estacionDestino?.value || !estacionSalida?.value) return false;
+        let dias = obtenerDiasPermitidosChepeExpress(estacionDestino.value, estacionSalida.value);
+        if (!dias) return false;
+        const mes = date.getMonth() + 1;
+        if ([5, 6, 8, 9].includes(mes)) {
+            dias = dias.filter(d => d !== 1 && d !== 2);
+        }
+        return !dias.includes(date.getDay());
+    }
+
     // Manejar cambio de tipo de viaje
     tipoViajeRadios.forEach(radio => {
         radio.addEventListener('change', () => {
@@ -1775,89 +1778,61 @@ function inicializarChepeExpress() {
                 fechaRegresoContainer.style.display = 'none';
                 if (fechaRegresoExpress) {
                     fechaRegresoExpress.required = false;
-                    fechaRegresoExpress.value = '';
+                    fpRegresoExpress?.clear();
                 }
             }
         });
     });
 
-    // Manejar cambio de estación de salida
-    if (estacionSalida) {
-        estacionSalida.addEventListener('change', () => {
-            mostrarDiasDisponibles();
-            fechaSalidaExpress.value = '';
-            if (fechaRegresoExpress) fechaRegresoExpress.value = '';
-            resetearMapa();
-            if (mapStatusMessage) mapStatusMessage.style.display = 'none';
-        });
+    // Cambio de estación → actualizar flatpickr y limpiar fechas
+    function onEstacionChangeExpress() {
+        fpSalidaExpress?.set('disable', [disableSalidaExpress]);
+        fpRegresoExpress?.set('disable', [disableRegresoExpress]);
+        fpSalidaExpress?.clear();
+        fpRegresoExpress?.clear();
+        resetearMapa();
+        if (mapStatusMessage) mapStatusMessage.style.display = 'none';
+        mostrarDiasDisponibles();
     }
 
-    // Manejar cambio de estación de destino
-    if (estacionDestino) {
-        estacionDestino.addEventListener('change', () => {
-            mostrarDiasDisponibles();
-            fechaSalidaExpress.value = '';
-            if (fechaRegresoExpress) fechaRegresoExpress.value = '';
-            resetearMapa();
-            if (mapStatusMessage) mapStatusMessage.style.display = 'none';
-        });
-    }
+    estacionSalida?.addEventListener('change', onEstacionChangeExpress);
+    estacionDestino?.addEventListener('change', onEstacionChangeExpress);
 
-    // Validar fecha de salida (solo cuando el usuario selecciona una fecha)
-    fechaSalidaExpress.addEventListener('change', () => {
-        if (fechaSalidaExpress.value) {
-            // Validar fecha de salida
-            const fechaValida = validarFechaExpress(fechaSalidaExpress.value, true);
-            if (fechaValida && fechaSalidaExpress.value) {
-                // Actualizar min de fecha de regreso solo después de validar
-                if (fechaRegresoExpress) {
-                    fechaRegresoExpress.setAttribute('min', fechaSalidaExpress.value);
-                }
-                actualizarIndicadorTemporada(fechaSalidaExpress.value, temporadaIndicatorExpress);
-                actualizarMapaChepeExpress();
-            } else {
+    // Inicializar flatpickr - fecha de salida
+    fpSalidaExpress = flatpickr(fechaSalidaExpress, {
+        locale: flatpickr.l10ns.es,
+        minDate: 'today',
+        dateFormat: 'Y-m-d',
+        disable: [disableSalidaExpress],
+        onChange: function (selectedDates, dateStr) {
+            if (!dateStr) {
                 resetearMapa();
                 if (mapStatusMessage) mapStatusMessage.style.display = 'none';
+                return;
             }
-        } else {
-            resetearMapa();
-            if (mapStatusMessage) mapStatusMessage.style.display = 'none';
+            if (fpRegresoExpress) {
+                fpRegresoExpress.set('minDate', dateStr);
+                if (fpRegresoExpress.selectedDates[0] && fpRegresoExpress.selectedDates[0] <= selectedDates[0]) {
+                    fpRegresoExpress.clear();
+                }
+            }
+            actualizarIndicadorTemporada(dateStr, temporadaIndicatorExpress);
+            actualizarMapaChepeExpress();
         }
     });
 
-    // Validar fecha de regreso (solo cuando el usuario selecciona una fecha)
+    // Inicializar flatpickr - fecha de regreso (si existe)
     if (fechaRegresoExpress) {
-        fechaRegresoExpress.addEventListener('change', () => {
-            // Solo validar si hay una fecha seleccionada
-            if (!fechaRegresoExpress.value) {
-                return;
-            }
-
-            // Validar que haya fecha de salida
-            if (!fechaSalidaExpress.value) {
-                alert('Por favor selecciona primero la fecha de salida.');
-                fechaRegresoExpress.value = '';
-                return;
-            }
-
-            // Validar que la fecha de regreso sea posterior a la de salida
-            if (fechaRegresoExpress.value < fechaSalidaExpress.value) {
-                alert('La fecha de regreso debe ser posterior o igual a la fecha de salida.');
-                fechaRegresoExpress.value = '';
-                return;
-            }
-
-            // Validar días permitidos para regreso (sentido contrario)
-            const diasPermitidosRegreso = obtenerDiasPermitidosChepeExpress(estacionDestino.value, estacionSalida.value);
-            if (diasPermitidosRegreso && diasPermitidosRegreso.length > 0) {
-                const fechaRegresoObj = new Date(fechaRegresoExpress.value + 'T00:00:00');
-                const diaSemanaRegreso = fechaRegresoObj.getDay();
-                if (!diasPermitidosRegreso.includes(diaSemanaRegreso)) {
-                    const nombresDias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-                    const diasPermitidosNombres = diasPermitidosRegreso.map(d => nombresDias[d]).join(', ');
-                    alert(`Para regresar desde ${estacionDestino.value}, el Chepe Express solo opera los días: ${diasPermitidosNombres}. Por favor selecciona una fecha válida.`);
-                    fechaRegresoExpress.value = '';
-                    return;
+        fpRegresoExpress = flatpickr(fechaRegresoExpress, {
+            locale: flatpickr.l10ns.es,
+            minDate: 'today',
+            dateFormat: 'Y-m-d',
+            disable: [disableRegresoExpress],
+            onChange: function (selectedDates, dateStr) {
+                if (!dateStr) return;
+                if (fpSalidaExpress?.selectedDates[0] && selectedDates[0] <= fpSalidaExpress.selectedDates[0]) {
+                    alert('La fecha de regreso debe ser posterior a la fecha de salida.');
+                    fpRegresoExpress.clear();
                 }
             }
         });
@@ -1923,6 +1898,8 @@ function formatearFecha(fecha) {
 }
 
 // Función para determinar si una fecha está en temporada alta
+// Temporada ALTA: 1-11 ene | 28 mar - 12 abr | 2 jul - 30 ago | 17 dic - 10 ene (siguiente)
+// Temporada BAJA: 12 ene - 27 mar | 16 abr - 28 jun | 3 sep - 15 dic
 function esTemporadaAlta(fecha) {
     if (!fecha) return false;
 
@@ -1930,21 +1907,19 @@ function esTemporadaAlta(fecha) {
     const mes = fechaObj.getMonth() + 1; // 1-12
     const dia = fechaObj.getDate();
 
-    // Enero - Temporada alta
-    if (mes === 1) return true;
+    // 1-11 de enero → Alta (incluye el overlap con Navidad/Año Nuevo)
+    if (mes === 1 && dia <= 11) return true;
 
-    // Julio - Temporada alta
-    if (mes === 7) return true;
-
-    // Agosto - Temporada alta
-    if (mes === 8) return true;
-
-    // Diciembre - Temporada alta
-    if (mes === 12) return true;
-
-    // Del 28 de marzo al 13 de abril - Temporada alta
+    // 28 de marzo - 12 de abril (Semana Santa) → Alta
     if (mes === 3 && dia >= 28) return true;
-    if (mes === 4 && dia <= 13) return true;
+    if (mes === 4 && dia <= 12) return true;
+
+    // 2 de julio - 30 de agosto (Verano) → Alta
+    if (mes === 7 && dia >= 2) return true;
+    if (mes === 8 && dia <= 30) return true;
+
+    // 17 de diciembre - 31 de diciembre (Navidad/Año Nuevo) → Alta
+    if (mes === 12 && dia >= 17) return true;
 
     // Todo lo demás es temporada baja
     return false;
@@ -1968,40 +1943,7 @@ function actualizarIndicadorTemporada(fecha, indicadorElement) {
     indicadorElement.style.display = 'block';
 }
 
-// Función para determinar si una fecha está en temporada alta
-function esTemporadaAlta(fecha) {
-    if (!fecha) return false;
 
-    const fechaObj = new Date(fecha + 'T00:00:00');
-    const mes = fechaObj.getMonth() + 1; // 1-12
-    const dia = fechaObj.getDate();
-
-    // Enero - Temporada alta
-    if (mes === 1) return true;
-
-    // Julio - Temporada alta
-    if (mes === 7) return true;
-
-    // Agosto - Temporada alta
-    if (mes === 8) return true;
-
-    // Diciembre - Temporada alta
-    if (mes === 12) return true;
-
-    // Del 28 de marzo al 13 de abril - Temporada alta
-    if (mes === 3 && dia >= 28) return true;
-    if (mes === 4 && dia <= 13) return true;
-
-    // Todo lo demás es temporada baja
-    return false;
-}
-
-// Función para obtener el tipo de temporada
-function obtenerTemporada(fecha) {
-    return esTemporadaAlta(fecha) ? 'Alta' : 'Baja';
-}
-
-// Función para actualizar el display de fechas
 function actualizarDisplayFechas() {
     const inicio = fechaInicio.value;
     const fin = fechaFin.value;
@@ -2349,3 +2291,122 @@ function initToursModal() {
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', initToursModal);
+
+// ============================================================
+// BOSQUE DE PINOS ANIMADO — sección de paquetes
+// ============================================================
+function initPineBosque() {
+    const section = document.querySelector('.premium-packages');
+    if (!section) return;
+
+    // Crear canvas
+    const canvas = document.createElement('canvas');
+    Object.assign(canvas.style, {
+        position: 'absolute',
+        top: '0', left: '0',
+        width: '100%', height: '100%',
+        pointerEvents: 'none',
+        zIndex: '0',
+    });
+    section.insertBefore(canvas, section.firstChild);
+
+    const ctx = canvas.getContext('2d');
+
+    // Ajustar tamaño al redimensionar
+    const ro = new ResizeObserver(() => {
+        canvas.width = section.offsetWidth;
+        canvas.height = section.offsetHeight;
+    });
+    ro.observe(section);
+    canvas.width = section.offsetWidth;
+    canvas.height = section.offsetHeight;
+
+    // Paleta de verde bosque
+    const GREENS = [
+        [47, 85, 38],
+        [58, 100, 47],
+        [65, 112, 52],
+        [38, 72, 32],
+        [55, 95, 44],
+    ];
+
+    // Generar 30 árboles
+    const trees = Array.from({ length: 30 }, (_, i) => {
+        // Distribución: concentrar en los laterales (márgenes left/right)
+        // y espolvorear algunos en el centro
+        let xFrac;
+        if (i < 10) {
+            xFrac = Math.random() * 0.18;          // margen izquierdo
+        } else if (i < 20) {
+            xFrac = 0.82 + Math.random() * 0.18;  // margen derecho
+        } else {
+            xFrac = 0.15 + Math.random() * 0.70;  // centro
+        }
+        const g = GREENS[i % GREENS.length];
+        return {
+            xFrac,
+            yFrac: 0.05 + Math.random() * 0.90,
+            scale: 0.40 + Math.random() * 0.45,
+            alpha: 0.22 + Math.random() * 0.16,
+            phase: Math.random() * Math.PI * 2,
+            freq: 0.35 + Math.random() * 0.55,
+            amp: 0.025 + Math.random() * 0.030,
+            color: g,
+        };
+    });
+
+    // Dibujar un pino: base en (0,0), crece hacia arriba
+    function drawPine(scale, alpha, rgb) {
+        const [r, g, b] = rgb;
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = `rgb(${r},${g},${b})`;
+        ctx.scale(scale, scale);
+
+        // Tier inferior
+        ctx.beginPath();
+        ctx.moveTo(0, -35); ctx.lineTo(-35, 0); ctx.lineTo(35, 0);
+        ctx.closePath(); ctx.fill();
+
+        // Tier medio
+        ctx.beginPath();
+        ctx.moveTo(0, -68); ctx.lineTo(-27, -28); ctx.lineTo(27, -28);
+        ctx.closePath(); ctx.fill();
+
+        // Tier superior
+        ctx.beginPath();
+        ctx.moveTo(0, -105); ctx.lineTo(-17, -62); ctx.lineTo(17, -62);
+        ctx.closePath(); ctx.fill();
+
+        // Tronco
+        ctx.globalAlpha = alpha * 0.6;
+        ctx.fillStyle = `rgb(70,50,30)`;
+        ctx.fillRect(-4, 0, 8, 14);
+
+        ctx.restore();
+    }
+
+    function render(ts) {
+        const t = ts * 0.001;
+        const W = canvas.width;
+        const H = canvas.height;
+        ctx.clearRect(0, 0, W, H);
+
+        trees.forEach(tr => {
+            const x = tr.xFrac * W;
+            const y = tr.yFrac * H;
+            const angle = Math.sin(t * tr.freq + tr.phase) * tr.amp;
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(angle);
+            drawPine(tr.scale, tr.alpha, tr.color);
+            ctx.restore();
+        });
+
+        requestAnimationFrame(render);
+    }
+
+    requestAnimationFrame(render);
+}
+
+document.addEventListener('DOMContentLoaded', initPineBosque);

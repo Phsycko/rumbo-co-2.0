@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Rumbo Co. - Diseñamos experiencias de viaje a tu medida. Planeación, hospedaje, tours y experiencias personalizadas.">
-    <title>Rumbo Co. - Viajar bien planeado se disfruta el doble</title>
+        content="Rumbo Co. – Paquetes de viaje a la Sierra Tarahumara, Creel y Barrancas del Cobre. Viaja en el Chepe Express o Regional con todo incluido: hospedaje, tours, traslados y experiencias personalizadas en Chihuahua, México.">
+    <meta name="keywords"
+        content="paquetes Sierra Tarahumara, viajes Creel Chihuahua, Barrancas del Cobre tour, Chepe Express paquete, viaje Creel Los Mochis, agencia viajes Chihuahua, tours Sierra Tarahumara">
+    <title>Rumbo Co. - Paquetes a la Sierra Tarahumara | Creel, Chepe &amp; Barrancas del Cobre</title>
 
     <!-- Favicon -->
     <!-- Formato ICO para máxima compatibilidad -->
@@ -22,6 +24,9 @@
     <link rel="icon" type="image/jpeg" href="images/favicon logo.jpeg">
 
     <link rel="stylesheet" href="styles.css?v=2">
+    <link rel="stylesheet" href="styles-packages.css">
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -747,12 +752,14 @@
                         <div class="transport-form-group">
                             <label for="fecha-inicio-regional" data-i18n="transport.chepe-regional.fecha-salida">Fecha
                                 de salida</label>
-                            <input type="date" id="fecha-inicio-regional" name="fecha-inicio" required>
+                            <input type="text" id="fecha-inicio-regional" name="fecha-inicio"
+                                placeholder="Selecciona una fecha" readonly required>
                         </div>
                         <div class="transport-form-group" id="fecha-regreso-regional-container" style="display: none;">
                             <label for="fecha-fin-regional" data-i18n="transport.chepe-regional.fecha-regreso">Fecha de
                                 regreso</label>
-                            <input type="date" id="fecha-fin-regional" name="fecha-fin">
+                            <input type="text" id="fecha-fin-regional" name="fecha-fin"
+                                placeholder="Selecciona una fecha" readonly>
                         </div>
                     </div>
                     <div class="transport-form-group">
@@ -903,14 +910,16 @@
                         <div class="transport-form-group">
                             <label for="fecha-salida-express" data-i18n="transport.chepe-express.fecha">Fecha de
                                 salida</label>
-                            <input type="date" id="fecha-salida-express" name="fecha-salida" required>
+                            <input type="text" id="fecha-salida-express" name="fecha-salida"
+                                placeholder="Selecciona una fecha" readonly required>
                             <div id="fechas-display-express" class="fechas-display"></div>
                             <div id="temporada-indicator-express" class="temporada-indicator" style="display: none;">
                             </div>
                         </div>
                         <div class="transport-form-group" id="fecha-regreso-express-container" style="display: none;">
                             <label for="fecha-regreso-express">Fecha de regreso</label>
-                            <input type="date" id="fecha-regreso-express" name="fecha-regreso">
+                            <input type="text" id="fecha-regreso-express" name="fecha-regreso"
+                                placeholder="Selecciona una fecha" readonly>
                         </div>
                     </div>
                     <div class="temporada-leyenda">
@@ -936,8 +945,112 @@
 
     <!-- SECCIÓN: PAQUETES TURÍSTICOS PREMIUM (REEMPLAZO) -->
     <section class="premium-packages section-padding" id="destinos">
+
         <div class="container">
             <h2 class="section-title">Paquetes Turísticos Premium</h2>
+            <p class="section-seo-description">Diseñamos viajes extraordinarios a la Sierra Tarahumara. Creel, Barrancas
+                del Cobre, el Chepe y la magia rarámuri — todo planeado para que tú solo vivas la experiencia.</p>
+
+            <!-- Selector de ruta base -->
+            <div class="route-selector">
+                <p class="route-selector-label">Primero, elige tu ruta base:</p>
+                <div class="routes-grid">
+
+                    <!-- Ruta 1: Chihuahua – Creel – Chihuahua -->
+                    <label class="route-card" for="ruta-chih-creel-chih">
+                        <input type="radio" name="ruta-base" id="ruta-chih-creel-chih"
+                            value="Chihuahua – Creel – Chihuahua">
+                        <div class="route-badge route-badge--redondo">Redondo</div>
+                        <div class="route-track">
+                            <div class="route-city">
+                                <span class="route-dot"></span>
+                                <span class="route-city-name">Chihuahua</span>
+                            </div>
+                            <div class="route-line"><span class="route-line-inner"></span></div>
+                            <div class="route-city route-city--middle">
+                                <span class="route-dot route-dot--highlight"></span>
+                                <span class="route-city-name">Creel</span>
+                            </div>
+                            <div class="route-line route-line--return"><span class="route-line-inner"></span></div>
+                            <div class="route-city">
+                                <span class="route-dot"></span>
+                                <span class="route-city-name">Chihuahua</span>
+                            </div>
+                        </div>
+                    </label>
+
+                    <!-- Ruta 2: Chihuahua – Creel – Los Mochis -->
+                    <label class="route-card" for="ruta-chih-creel-mochis">
+                        <input type="radio" name="ruta-base" id="ruta-chih-creel-mochis"
+                            value="Chihuahua – Creel – Los Mochis">
+                        <div class="route-badge route-badge--sencillo">Sencillo</div>
+                        <div class="route-track">
+                            <div class="route-city">
+                                <span class="route-dot"></span>
+                                <span class="route-city-name">Chihuahua</span>
+                            </div>
+                            <div class="route-line"><span class="route-line-inner"></span></div>
+                            <div class="route-city route-city--middle">
+                                <span class="route-dot route-dot--highlight"></span>
+                                <span class="route-city-name">Creel</span>
+                            </div>
+                            <div class="route-line"><span class="route-line-inner"></span></div>
+                            <div class="route-city">
+                                <span class="route-dot"></span>
+                                <span class="route-city-name">Los Mochis</span>
+                            </div>
+                        </div>
+                    </label>
+
+                    <!-- Ruta 3: Los Mochis – Creel – Los Mochis -->
+                    <label class="route-card" for="ruta-mochis-creel-mochis">
+                        <input type="radio" name="ruta-base" id="ruta-mochis-creel-mochis"
+                            value="Los Mochis – Creel – Los Mochis">
+                        <div class="route-badge route-badge--redondo">Redondo</div>
+                        <div class="route-track">
+                            <div class="route-city">
+                                <span class="route-dot"></span>
+                                <span class="route-city-name">Los Mochis</span>
+                            </div>
+                            <div class="route-line"><span class="route-line-inner"></span></div>
+                            <div class="route-city route-city--middle">
+                                <span class="route-dot route-dot--highlight"></span>
+                                <span class="route-city-name">Creel</span>
+                            </div>
+                            <div class="route-line route-line--return"><span class="route-line-inner"></span></div>
+                            <div class="route-city">
+                                <span class="route-dot"></span>
+                                <span class="route-city-name">Los Mochis</span>
+                            </div>
+                        </div>
+                    </label>
+
+                    <!-- Ruta 4: Los Mochis – Creel – Chihuahua -->
+                    <label class="route-card" for="ruta-mochis-creel-chih">
+                        <input type="radio" name="ruta-base" id="ruta-mochis-creel-chih"
+                            value="Los Mochis – Creel – Chihuahua">
+                        <div class="route-badge route-badge--sencillo">Sencillo</div>
+                        <div class="route-track">
+                            <div class="route-city">
+                                <span class="route-dot"></span>
+                                <span class="route-city-name">Los Mochis</span>
+                            </div>
+                            <div class="route-line"><span class="route-line-inner"></span></div>
+                            <div class="route-city route-city--middle">
+                                <span class="route-dot route-dot--highlight"></span>
+                                <span class="route-city-name">Creel</span>
+                            </div>
+                            <div class="route-line"><span class="route-line-inner"></span></div>
+                            <div class="route-city">
+                                <span class="route-dot"></span>
+                                <span class="route-city-name">Chihuahua</span>
+                            </div>
+                        </div>
+                    </label>
+
+                </div>
+            </div>
+
             <div class="packages-grid">
                 <!-- Card 1: Creel Signature -->
                 <div class="package-card">
@@ -957,6 +1070,7 @@
                         <button class="btn-secondary open-tours-modal" data-package="Signature"
                             data-limit="2">Seleccionar
                             tours</button>
+                        <p class="package-price-note">* Precios varían según ocupación y clase del tren</p>
                     </div>
                 </div>
 
@@ -978,6 +1092,7 @@
                     <div class="package-footer">
                         <button class="btn-secondary open-tours-modal" data-package="Select" data-limit="3">Seleccionar
                             tours</button>
+                        <p class="package-price-note">* Precios varían según ocupación y clase del tren</p>
                     </div>
                 </div>
 
@@ -1000,11 +1115,12 @@
                     <div class="package-footer">
                         <button class="btn-secondary open-tours-modal" data-package="Prime" data-limit="4">Seleccionar
                             tours</button>
+                        <p class="package-price-note">* Precios varían según ocupación y clase del tren</p>
                     </div>
                 </div>
 
                 <!-- Card 4: Creel Bespoke -->
-                <div class="package-card package-bespoke">
+                <div class="package-card package-bespoke package-bespoke-row">
                     <div class="package-header">
                         <h3>Creel Bespoke</h3>
                     </div>
@@ -1016,6 +1132,7 @@
                         <button class="btn-secondary open-tours-modal" data-package="Bespoke"
                             data-limit="15">Seleccionar tours</button>
                         <a href="#cotizacion" class="btn-primary">Solicitar cotización personalizada</a>
+                        <p class="package-price-note">* Precios varían según ocupación y clase del tren</p>
                     </div>
                 </div>
             </div>
@@ -1447,6 +1564,9 @@
         </div>
     </div>
 
+    <!-- Flatpickr JS + Locale español -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
     <script src="script.js"></script>
 </body>
 

@@ -1217,6 +1217,17 @@ p {
     margin-right: auto;
 }
 
+.section-seo-description {
+    text-align: center;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    max-width: 680px;
+    margin: -0.5rem auto var(--spacing-xl) auto;
+    line-height: 1.7;
+    font-style: italic;
+    opacity: 0.85;
+}
+
 .quote-form {
     max-width: 800px;
     margin: 0 auto;
