@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-cream text-charcoal antialiased;
+  font-family: "Inter", system-ui, sans-serif;
+  transition: background-color 0.6s ease, color 0.6s ease, filter 0.6s ease;
+}
+
+body.theme-day {
+  background-color: #f5f1eb !important;
+  color: #1a1a1a !important;
+  filter: brightness(1.03);
+}
+
+body.theme-night {
+  background-color: #ede6dc !important;
+  color: #1a1a1a !important;
+  filter: brightness(1);
+}
+
+.glass-border {
+  border: 1px solid rgba(26, 26, 26, 0.08);
+}
