@@ -133,7 +133,7 @@ export const LEX: Record<string, { es: string; en: string }> = {
   tours_eyebrow: { es: "Tours", en: "Tours" },
   tours_title: { es: "Tours y experiencias por Barrancas", en: "Tours & experiences in the canyons" },
   tours_subtitle: {
-    es: "Despliega el tour que te interese para ver duración, lugares y recomendaciones. Así tienes el catálogo completo sin saturar la página.",
+    es: "Despliega el tour que te interese para ver duración, lugares y recomendaciones.",
     en: "Expand any tour to see duration, stops and tips—the full catalogue without overwhelming the page."
   },
   tours_select: { es: "Seleccionar tour", en: "Select tour" },
