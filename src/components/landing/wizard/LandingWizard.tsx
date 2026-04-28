@@ -47,6 +47,10 @@ export function LandingWizard({
   const { trigger } = useChepeEffect();
   const [state, setState] = useState<WizardState>(initial);
 
+  const packagePresetKey = packagePreset
+    ? `${packagePreset.duration}-${packagePreset.chepeClass}`
+    : "";
+
   useEffect(() => {
     if (!open) return;
     const chepeFromPackage = packagePreset
@@ -59,7 +63,7 @@ export function LandingWizard({
         : {}),
       step: 0
     });
-  }, [open, packagePreset?.duration, packagePreset?.chepeClass]);
+  }, [open, packagePresetKey, packagePreset]);
 
   const progress = useMemo(() => {
     const max = wizardSteps.length - 1;

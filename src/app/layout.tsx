@@ -4,6 +4,22 @@ import "@/styles/globals.css";
 import { AppProviders } from "@/app/providers";
 import { Cormorant_Garamond, Outfit } from "next/font/google";
 
+/** URLs absolutas (OG, canonical). Prioridad: NEXT_PUBLIC_SITE_URL → Vercel → dominio por defecto. */
+function getMetadataBase(): URL {
+  const fromEnv = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (fromEnv) {
+    try {
+      return new URL(fromEnv.startsWith("http") ? fromEnv : `https://${fromEnv}`);
+    } catch {
+      /* ignore */
+    }
+  }
+  if (process.env.VERCEL_URL) {
+    return new URL(`https://${process.env.VERCEL_URL}`);
+  }
+  return new URL("https://rumboco.com");
+}
+
 const serif = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
@@ -22,7 +38,7 @@ export const metadata: Metadata = {
   title: "Rumbo Co · Travel design en Barrancas del Cobre y Chepe Express",
   description:
     "Casa de travel design en la Sierra Tarahumara. Barrancas del Cobre y Chepe Express con curaduría, ritmo y ejecución premium.",
-  metadataBase: new URL("https://www.rumbo.co"),
+  metadataBase: getMetadataBase(),
   icons: {
     icon: "/favicon.png",
     shortcut: "/favicon.png",
