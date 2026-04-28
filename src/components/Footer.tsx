@@ -3,6 +3,7 @@
 import React from "react";
 import { scrollToSection } from "@/lib/scroll";
 import { openWhatsApp } from "@/lib/whatsapp";
+import { CONTACT } from "@/lib/contact";
 import { useToast } from "@/lib/toast";
 
 export function Footer() {
@@ -82,13 +83,35 @@ export function Footer() {
                 }}
                 className="block text-sm hover:text-terracotta transition"
               >
-                WhatsApp: +52 55 1234 5678
+                WhatsApp: +52 {CONTACT.whatsAppDisplay}
               </button>
               <a
-                href="mailto:hola@rumbo.co"
+                href={`tel:+${CONTACT.phoneDigits}`}
                 className="block text-sm hover:text-terracotta transition"
               >
-                Correo: hola@rumbo.co
+                Llamadas: +52 {CONTACT.phoneDisplay}
+              </a>
+              <a
+                href={`mailto:${CONTACT.email}`}
+                className="block text-sm hover:text-terracotta transition"
+              >
+                Correo: {CONTACT.email}
+              </a>
+              <a
+                href={CONTACT.facebookUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="block text-sm hover:text-terracotta transition"
+              >
+                Facebook
+              </a>
+              <a
+                href={CONTACT.instagramUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="block text-sm hover:text-terracotta transition"
+              >
+                Instagram
               </a>
               <p className="text-sm">Rutas destacadas: Chihuahua, Los Mochis, Creel</p>
             </div>

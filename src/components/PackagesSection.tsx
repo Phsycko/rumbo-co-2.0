@@ -13,8 +13,8 @@ const durationDescriptions = {
 };
 
 export function PackagesSection() {
-  const [selectedDuration, setSelectedDuration] = useState(packageDurations[0].label);
-  const [selectedClass, setSelectedClass] = useState(chepeClasses[1].label);
+  const [selectedDuration, setSelectedDuration] = useState<string>(packageDurations[0].label);
+  const [selectedClass, setSelectedClass] = useState<string>(chepeClasses[1].label);
   const [detailModalOpen, setDetailModalOpen] = useState(false);
   const [selectedPackageData, setSelectedPackageData] = useState<any>(null);
 

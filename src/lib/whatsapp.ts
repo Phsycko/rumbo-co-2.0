@@ -1,4 +1,6 @@
-const WHATSAPP_NUMBER = "5215512345678";
+import { CONTACT } from "@/lib/contact";
+
+const WHATSAPP_NUMBER = CONTACT.whatsAppDigits;
 const DEFAULT_MESSAGE = "Hola Rumbo Co, quiero recibir una propuesta para mi viaje premium a Barrancas del Cobre.";
 
 export function buildWhatsAppUrl(message?: string) {
