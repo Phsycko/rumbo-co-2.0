@@ -66,6 +66,22 @@ export const LEX: Record<string, { es: string; en: string }> = {
   hero_atelier_brand: { es: "Atelier Rumbo", en: "Rumbo Atelier" },
   hero_label_route: { es: "Ruta", en: "Route" },
   hero_label_dates: { es: "Fechas", en: "Dates" },
+  date_picker_departure: { es: "Salida", en: "Departure" },
+  date_picker_return: { es: "Regreso", en: "Return" },
+  date_picker_placeholder: { es: "Seleccionar", en: "Select" },
+  date_picker_hint_departure: { es: "Elige tu fecha de salida", en: "Choose your departure date" },
+  date_picker_hint_return: { es: "Elige tu fecha de regreso", en: "Choose your return date" },
+  date_picker_prev_month: { es: "Mes anterior", en: "Previous month" },
+  date_picker_next_month: { es: "Mes siguiente", en: "Next month" },
+  date_picker_clear: { es: "Limpiar fechas", en: "Clear dates" },
+  date_picker_done: { es: "Listo", en: "Done" },
+  date_week_mon: { es: "Lu", en: "Mo" },
+  date_week_tue: { es: "Ma", en: "Tu" },
+  date_week_wed: { es: "Mi", en: "We" },
+  date_week_thu: { es: "Ju", en: "Th" },
+  date_week_fri: { es: "Vi", en: "Fr" },
+  date_week_sat: { es: "Sa", en: "Sa" },
+  date_week_sun: { es: "Do", en: "Su" },
   hero_label_people: { es: "Personas", en: "Guests" },
   hero_label_experience: { es: "Experiencia", en: "Experience" },
   hero_label_chepe: { es: "Chepe", en: "Chepe" },
@@ -133,9 +149,10 @@ export const LEX: Record<string, { es: string; en: string }> = {
   tours_eyebrow: { es: "Tours", en: "Tours" },
   tours_title: { es: "Tours y experiencias por Barrancas", en: "Tours & experiences in the canyons" },
   tours_subtitle: {
-    es: "Despliega el tour que te interese para ver duración, lugares y recomendaciones.",
-    en: "Expand any tour to see duration, stops and tips—the full catalogue without overwhelming the page."
+    es: "Elige un tour para ver lugares, duración y cotizar por WhatsApp.",
+    en: "Pick a tour to see stops, duration and request a quote on WhatsApp."
   },
+  tours_card_stops: { es: "{n} lugares", en: "{n} stops" },
   tours_select: { es: "Seleccionar tour", en: "Select tour" },
   tours_tip: { es: "Recomendacion: llevar calzado y ropa comoda.", en: "Tip: comfortable shoes and clothing." },
   tours_disclaimer: {
@@ -158,6 +175,367 @@ export const LEX: Record<string, { es: string; en: string }> = {
   },
   tours_wa_submit: { es: "Enviar a WhatsApp", en: "Send to WhatsApp" },
   tours_close: { es: "Cerrar", en: "Close" },
+
+  beaches_eyebrow: { es: "Destinos playeros", en: "Beach destinations" },
+  beaches_title: {
+    es: "Playas diseñadas para desconectarte",
+    en: "Beaches designed for you to disconnect"
+  },
+  beaches_subtitle: {
+    es: "Desde escapadas todo incluido hasta viajes grupales frente al mar, armamos experiencias con hoteles, traslados y actividades cuidadas de principio a fin.",
+    en: "From all-inclusive escapes to group trips by the sea, we craft experiences with hotels, transfers and activities cared for from start to finish."
+  },
+  beaches_cta: { es: "Cotizar mi playa ideal", en: "Quote my ideal beach" },
+  beaches_collage_caption: {
+    es: "Caribe y Pacífico, mismo criterio editorial",
+    en: "Caribbean and Pacific, same editorial standard"
+  },
+  beaches_collage_chip_caribbean: { es: "Caribe", en: "Caribbean" },
+  beaches_collage_chip_pacific: { es: "Pacífico", en: "Pacific" },
+  beaches_card_cta: { es: "Cotizar este destino", en: "Quote this destination" },
+  beaches_wa_message: {
+    es: "Hola Rumbo Co, me interesa un viaje a {destination} ¿Me ayudan con fechas, hospedaje y una propuesta a medida? Gracias.",
+    en: "Hello Rumbo Co, I'm interested in a trip to {destination}. Could you help with dates, lodging and a tailored proposal? Thank you."
+  },
+  beaches_wa_generic_dest: { es: "la playa (por definir)", en: "the beach (to be defined)" },
+  beaches_card_explore: { es: "Explorar destino", en: "Explore destination" },
+  beaches_modal_close: { es: "Cerrar", en: "Close" },
+  beaches_modal_eyebrow: { es: "Guía del destino", en: "Destination guide" },
+  beaches_modal_activities: { es: "Qué hacer", en: "What to do" },
+  beaches_modal_tours: { es: "Tours sugeridos", en: "Suggested tours" },
+  beaches_modal_hotels: { es: "Hoteles según presupuesto", en: "Hotels by budget" },
+  beaches_modal_hotels_sub: {
+    es: "Selección orientativa por persona — sujeta a disponibilidad y temporada.",
+    en: "Indicative per-person selection — subject to availability and season."
+  },
+  beaches_modal_hotels_empty: {
+    es: "Pronto más opciones para este destino; tu asesor arma la propuesta a medida.",
+    en: "More options for this destination coming soon; your advisor will tailor a proposal."
+  },
+
+  custom_eyebrow: { es: "A tu medida", en: "Tailored for you" },
+  custom_title: {
+    es: "Diseñamos viajes para cada tipo de historia",
+    en: "We design trips for every kind of story"
+  },
+  custom_subtitle: {
+    es: "Grupales, bodas, lunas de miel, individuales y experiencias educativas o corporativas de alto nivel. Cuéntanos tu idea y armamos una propuesta clara y cuidada.",
+    en: "Groups, weddings, honeymoons, solo travel and high-level educational or corporate experiences. Share your idea and we craft a clear, thoughtful proposal."
+  },
+  custom_group_core: { es: "Viajes y celebraciones", en: "Trips & celebrations" },
+  custom_group_professional: {
+    es: "Educación y mundo profesional",
+    en: "Education & professional travel"
+  },
+  custom_group_professional_sub: {
+    es: "Organización premium para universidades, escuelas y empresas — sin look genérico ni improvisado.",
+    en: "Premium organization for universities, schools and companies — never generic or improvised."
+  },
+  custom_badge_university: { es: "Académico", en: "Academic" },
+  custom_badge_school: { es: "Educativo", en: "Educational" },
+  custom_badge_corporate: { es: "Corporativo", en: "Corporate" },
+  custom_badge_celebration: { es: "Celebración", en: "Celebration" },
+  custom_field_subcategory: { es: "Enfoque del viaje", en: "Trip focus" },
+  custom_field_institution: { es: "Universidad o institución", en: "University or institution" },
+  custom_ph_institution: { es: "Ej. UNAM, Tec, IPN…", en: "e.g. university name" },
+  custom_field_univ_needs: { es: "Necesidades del congreso o viaje", en: "Congress or trip needs" },
+  custom_ph_univ_needs: {
+    es: "Congreso, competencia, fechas, sede deseada…",
+    en: "Congress, competition, dates, preferred venue…"
+  },
+  custom_sub_univ_medicina: { es: "Medicina", en: "Medicine" },
+  custom_sub_univ_odontologia: { es: "Odontología", en: "Dentistry" },
+  custom_sub_univ_negocios: { es: "Negocios", en: "Business" },
+  custom_sub_univ_arquitectura: { es: "Arquitectura", en: "Architecture" },
+  custom_sub_univ_ingenieria: { es: "Ingeniería", en: "Engineering" },
+  custom_sub_univ_derecho: { es: "Derecho", en: "Law" },
+  custom_sub_univ_intercambios: { es: "Intercambios", en: "Exchanges" },
+  custom_sub_univ_convenciones: { es: "Convenciones estudiantiles", en: "Student conventions" },
+  custom_sub_school_secundarias: { es: "Secundarias", en: "Middle school" },
+  custom_sub_school_preparatorias: { es: "Preparatorias", en: "High school" },
+  custom_sub_school_culturales: { es: "Viajes culturales", en: "Cultural trips" },
+  custom_sub_school_museos: { es: "Museos", en: "Museums" },
+  custom_sub_school_historia: { es: "Historia", en: "History" },
+  custom_sub_school_campamentos: { es: "Campamentos", en: "Camps" },
+  custom_sub_school_educativas: { es: "Experiencias educativas", en: "Educational experiences" },
+  custom_sub_corp_incentivos: { es: "Incentivos", en: "Incentives" },
+  custom_sub_corp_team: { es: "Team building", en: "Team building" },
+  custom_sub_corp_convenciones: { es: "Convenciones", en: "Conventions" },
+  custom_sub_corp_congresos: { es: "Congresos", en: "Congresses" },
+  custom_sub_corp_networking: { es: "Networking", en: "Networking" },
+  custom_sub_corp_ejecutivas: { es: "Experiencias ejecutivas", en: "Executive experiences" },
+  custom_card_cta: { es: "Armar cotización", en: "Start a quote" },
+  custom_cta: { es: "Diseñar mi viaje", en: "Design my trip" },
+  custom_note: {
+    es: "Elige un perfil y completa el brief en pocos pasos. Al final te llevamos al formulario de grupos con tu información lista.",
+    en: "Pick a profile and complete a short brief. We then take you to the groups form with your details ready."
+  },
+  custom_scale_legend: {
+    es: "Escala de grupos",
+    en: "Group scale"
+  },
+  custom_scale_legend_semigrupo: {
+    es: "5–19 personas · Semigrupo",
+    en: "5–19 guests · Semi-group"
+  },
+  custom_scale_legend_grupal: {
+    es: "20+ personas · Viajes grupales",
+    en: "20+ guests · Group travel"
+  },
+  custom_steps_title: {
+    es: "Cómo funciona",
+    en: "How it works"
+  },
+  custom_step_1: {
+    es: "Elige el tipo de viaje",
+    en: "Choose your trip type"
+  },
+  custom_step_2: {
+    es: "Cuéntanos fechas, personas y presupuesto",
+    en: "Share dates, guests and budget"
+  },
+  custom_step_3: {
+    es: "Selecciona destino y hoteles sugeridos",
+    en: "Pick destination and suggested hotels"
+  },
+  custom_step_4: {
+    es: "Tus datos y envío por WhatsApp",
+    en: "Your details and send via WhatsApp"
+  },
+  custom_people_title: { es: "Número de personas", en: "Number of guests" },
+  custom_people_sub: {
+    es: "Indica cuántas personas viajan para armar tu cotización.",
+    en: "How many guests are traveling? We will tailor your quote."
+  },
+  custom_people_label: { es: "No. de personas", en: "No. of guests" },
+  custom_people_aria: { es: "Número de personas", en: "Number of guests" },
+  custom_people_continue: { es: "Continuar al brief", en: "Continue to brief" },
+  custom_wizard_next: { es: "Siguiente", en: "Next" },
+  custom_wizard_back: { es: "Atrás", en: "Back" },
+  custom_wizard_step_trip: { es: "Tu viaje", en: "Your trip" },
+  custom_wizard_step_dest: { es: "Destino", en: "Destination" },
+  custom_wizard_step_detail: { es: "Detalle", en: "Detail" },
+  custom_wizard_step_contact: { es: "Tus datos", en: "Your details" },
+  custom_wizard_contact_title: { es: "¿Quién cotiza?", en: "Who is requesting the quote?" },
+  custom_wizard_contact_sub: {
+    es: "Con esto armamos tu propuesta y te contactamos por el canal que prefieras.",
+    en: "This lets us build your proposal and reach you on your preferred channel."
+  },
+  custom_quote_send_wa: { es: "Enviar cotización por WhatsApp", en: "Send quote via WhatsApp" },
+  custom_quote_contact_required: {
+    es: "Indica tu nombre y WhatsApp para enviar la cotización.",
+    en: "Please enter your name and WhatsApp to send the quote."
+  },
+  custom_wizard_dest_title: { es: "¿Qué tipo de destino imaginas?", en: "What kind of destination do you have in mind?" },
+  custom_wizard_dest_sub: {
+    es: "Elige una categoría. En el siguiente paso afinamos lugar y hospedaje.",
+    en: "Pick a category. Next we refine place and lodging."
+  },
+  custom_wizard_place_title: { es: "¿A dónde te gustaría ir?", en: "Where would you like to go?" },
+  custom_wizard_place_sub_playa: {
+    es: "Selecciona tu playa. Te mostramos hoteles acordes a la inversión que indicaste.",
+    en: "Choose your beach. We show hotels aligned with the investment you selected."
+  },
+  custom_wizard_place_sub_default: {
+    es: "Selecciona el lugar que más te interese.",
+    en: "Select the place that interests you most."
+  },
+  custom_wizard_hotels_title: { es: "Hoteles sugeridos para tu inversión", en: "Suggested hotels for your investment" },
+  custom_wizard_hotels_sub: {
+    es: "Referencias orientativas según tu rango. Confirmamos disponibilidad y tarifa al cotizar.",
+    en: "Indicative options for your range. We confirm availability and rate when quoting."
+  },
+  custom_wizard_hotels_empty: {
+    es: "Te enviaremos opciones de hospedaje personalizadas según tu inversión.",
+    en: "We will send tailored lodging options based on your investment."
+  },
+  custom_wizard_mix_label: { es: "Describe tu ruta combinada", en: "Describe your combined route" },
+  custom_wizard_mix_ph: {
+    es: "Ej. Sierra 3 noches + Cancún 4 noches…",
+    en: "e.g. Mountains 3 nights + Cancun 4 nights…"
+  },
+  custom_wizard_other_label: { es: "¿Qué destino tienes en mente?", en: "What destination do you have in mind?" },
+  custom_wizard_other_ph: { es: "Cuéntanos la idea", en: "Tell us your idea" },
+  custom_people_cancel: { es: "Cancelar", en: "Cancel" },
+  custom_people_close: { es: "Cerrar", en: "Close" },
+  custom_brief_title: { es: "Empecemos tu propuesta", en: "Let's start your proposal" },
+  custom_brief_selected: { es: "Tipo de viaje", en: "Trip type" },
+  custom_scale_semigrupo: { es: "Semigrupo", en: "Semi-group" },
+  custom_scale_grupal: { es: "Viajes grupales", en: "Group travel" },
+  custom_scale_hint_semigrupo: {
+    es: "Con 5 a 19 personas tu viaje se cotiza como semigrupo.",
+    en: "With 5 to 19 guests, your trip is quoted as a semi-group."
+  },
+  custom_scale_hint_grupal: {
+    es: "Con 20 personas o más tu viaje se cotiza como grupal.",
+    en: "With 20 guests or more, your trip is quoted as a full group."
+  },
+  custom_scale_hint_below_min: {
+    es: "Semigrupo desde 5 personas; viajes grupales desde 20.",
+    en: "Semi-groups start at 5 guests; full group travel from 20."
+  },
+  custom_brief_sub_grupales: {
+    es: "Cuéntanos quién viaja, qué buscan vivir y cómo imaginen el ritmo. Nosotros armamos el resto.",
+    en: "Tell us who is traveling, what they want to experience and the pace you imagine. We handle the rest."
+  },
+  custom_brief_sub_bodas: {
+    es: "Tu boda merece una propuesta cuidada: invitados, presupuesto total, ambiente y cada detalle que importa.",
+    en: "Your wedding deserves a thoughtful proposal: guests, total budget, atmosphere and every detail that matters."
+  },
+  custom_brief_sub_universitarios: {
+    es: "Cuéntanos facultad, congreso o competencia. Coordinamos hoteles business, traslados y agenda eficiente.",
+    en: "Tell us faculty, congress or competition. We coordinate business hotels, transfers and an efficient agenda."
+  },
+  custom_brief_sub_escolares_culturales: {
+    es: "Salida educativa con seguridad, acompañamiento y logística clara para alumnos y responsables.",
+    en: "Educational trip with safety, escorts and clear logistics for students and chaperones."
+  },
+  custom_brief_sub_escolares: {
+    es: "Alumnos, acompañantes y enfoque educativo con logística segura.",
+    en: "Students, chaperones and educational focus with safe logistics."
+  },
+  custom_brief_sub_individuales: {
+    es: "Presupuesto, ritmo e intereses: sin plantillas, solo tu viaje.",
+    en: "Budget, pace and interests—no templates, just your trip."
+  },
+  custom_brief_sub_luna_miel: {
+    es: "Define el tono, presupuesto y sorpresas para una luna de miel memorable.",
+    en: "Set the tone, budget and surprises for a memorable honeymoon."
+  },
+  custom_brief_sub_corporativos: {
+    es: "Incentivos, convenciones o integración. Operación impecable y estándar ejecutivo.",
+    en: "Incentives, conventions or integration. Flawless operations and executive standards."
+  },
+  custom_field_people: { es: "No. de personas", en: "No. of guests" },
+  custom_field_guests: { es: "Invitados aproximados", en: "Approx. guests" },
+  custom_field_students: { es: "No. de alumnos", en: "No. of students" },
+  custom_field_chaperones: { es: "Adultos acompañantes", en: "Chaperones" },
+  custom_field_budget_pp: { es: "Inversión aproximada por persona (MXN)", en: "Approx. investment per person (MXN)" },
+  custom_field_budget_day: { es: "Inversión orientativa por día (MXN)", en: "Approx. daily investment (MXN)" },
+  custom_budget_hint: {
+    es: "Esto nos ayuda a proponerte hoteles, experiencias y ritmo de viaje adecuados a tu grupo.",
+    en: "This helps us suggest hotels, experiences and pace suited to your group."
+  },
+  travel_hotels_title: {
+    es: "Hoteles sugeridos para tu experiencia",
+    en: "Hotels suggested for your experience"
+  },
+  travel_hotels_sub: {
+    es: "Selección orientativa según tu inversión y prioridad — sujeta a disponibilidad.",
+    en: "Indicative selection by investment and priority — subject to availability."
+  },
+  travel_select_place_hint: {
+    es: "Elige tu destino arriba para ver hoteles sugeridos según tu presupuesto y prioridad.",
+    en: "Pick your destination above to see suggested hotels for your budget and priorities."
+  },
+  travel_no_hotels_place: {
+    es: "Aún no tenemos sugerencias de hotel para {place}; tu asesor armará opciones a la medida.",
+    en: "We don't have hotel suggestions for {place} yet; your advisor will tailor options for you."
+  },
+  travel_tag_boutique: { es: "Boutique", en: "Boutique" },
+  travel_tag_all_inclusive: { es: "Todo incluido", en: "All-inclusive" },
+  travel_tag_adults_only: { es: "Adults only", en: "Adults only" },
+  travel_tag_oceanfront: { es: "Frente al mar", en: "Oceanfront" },
+  travel_tag_luxury: { es: "Luxury", en: "Luxury" },
+  travel_tag_groups: { es: "Ideal grupos", en: "Great for groups" },
+  travel_tag_gastronomy: { es: "Gastronomía", en: "Gastronomy" },
+  travel_tag_spa: { es: "Spa", en: "Spa" },
+  travel_tag_rooftop: { es: "Rooftop", en: "Rooftop" },
+  travel_tag_design: { es: "Diseño", en: "Design" },
+  travel_tag_nature: { es: "Naturaleza", en: "Nature" },
+  travel_tag_historic: { es: "Histórico", en: "Historic" },
+  custom_field_decor: { es: "¿Te interesa decoración?", en: "Interested in décor?" },
+  custom_field_decor_detail: { es: "Detalle de decoración o ceremonia", en: "Décor or ceremony details" },
+  custom_field_ceremony: { es: "Tipo de ceremonia", en: "Ceremony type" },
+  custom_field_wedding_dest: { es: "Destino o zona soñada", en: "Dream destination or area" },
+  custom_field_wedding_budget_total: {
+    es: "Presupuesto total para la boda (MXN)",
+    en: "Total wedding budget (MXN)"
+  },
+  custom_wedding_budget_total_hint: {
+    es: "Inversión global estimada de la celebración (ceremonia, recepción, viaje de invitados y adornos).",
+    en: "Estimated total investment for the celebration (ceremony, reception, guest travel and décor)."
+  },
+  custom_wedding_budget_150k: { es: "$150,000 – $300,000 MXN", en: "$150,000 – $300,000 MXN" },
+  custom_wedding_budget_300k: { es: "$300,000 – $500,000 MXN", en: "$300,000 – $500,000 MXN" },
+  custom_wedding_budget_500k: { es: "$500,000 – $800,000 MXN", en: "$500,000 – $800,000 MXN" },
+  custom_wedding_budget_800k: { es: "$800,000 – $1,200,000 MXN", en: "$800,000 – $1,200,000 MXN" },
+  custom_wedding_budget_1200k: { es: "Más de $1,200,000 MXN", en: "Over $1,200,000 MXN" },
+  custom_confidentiality_notice: {
+    es: "Al contratar con nosotros la organización del viaje y la coordinación de adornos, se formaliza un contrato de confidencialidad que protege la información de tu evento, proveedores, invitados y detalles sensibles de la celebración.",
+    en: "When you hire us for travel coordination and décor, we execute a confidentiality agreement that protects your event information, vendors, guests and sensitive celebration details."
+  },
+  custom_confidentiality_ack: {
+    es: "Entiendo y acepto que, al contratar viaje y organización de adornos, se establecerá un contrato de confidencialidad.",
+    en: "I understand and accept that travel and décor services will include a confidentiality agreement."
+  },
+  custom_confidentiality_ack_yes: { es: "Aceptado", en: "Accepted" },
+  custom_field_extra: { es: "Detalles extra", en: "Extra details" },
+  custom_field_group_vibe: { es: "¿Quién viaja?", en: "Who is traveling?" },
+  custom_field_priority: { es: "¿Qué quieren priorizar?", en: "What do you want to prioritize?" },
+  custom_field_destination: { es: "Destino o idea de ruta", en: "Destination or route idea" },
+  custom_field_grade: { es: "Grado o nivel escolar", en: "Grade or school level" },
+  custom_field_school_focus: { es: "Enfoque del viaje", en: "Trip focus" },
+  custom_field_school_needs: { es: "Necesidades del grupo", en: "Group requirements" },
+  custom_field_rhythm: { es: "Ritmo del viaje", en: "Trip pace" },
+  custom_field_interests: { es: "Intereses y prioridades", en: "Interests and priorities" },
+  custom_field_honeymoon_mood: { es: "Estilo de luna de miel", en: "Honeymoon style" },
+  custom_field_surprises: { es: "¿Sorpresas y detalles especiales?", en: "Surprises & special touches?" },
+  custom_field_honeymoon_dest: { es: "Destino soñado", en: "Dream destination" },
+  custom_field_company: { es: "Empresa u organización", en: "Company or organization" },
+  custom_field_event_type: { es: "Tipo de evento", en: "Event type" },
+  custom_field_branding: { es: "Branding o material corporativo", en: "Branding or corporate materials" },
+  custom_field_corp_goals: { es: "Objetivo del viaje", en: "Trip objective" },
+  custom_ph_decor: { es: "Ej. rústico, elegante, playa, jardín…", en: "e.g. rustic, elegant, beach, garden…" },
+  custom_ph_wedding_dest: { es: "Ej. Barrancas, playa, pueblo mágico…", en: "e.g. canyons, beach, magic town…" },
+  custom_ph_wedding_extra: { es: "Música, cena, hospedaje invitados, foto/video…", en: "Music, dinner, guest lodging, photo/video…" },
+  custom_ph_destination: { es: "Ej. Creel, Cancún, ruta mixta…", en: "e.g. Creel, Cancun, mixed route…" },
+  custom_ph_grade: { es: "Ej. secundaria, prepa, universidad…", en: "e.g. middle school, high school, college…" },
+  custom_ph_school_needs: { es: "Accesibilidad, horarios, seguro, menores…", en: "Accessibility, schedules, insurance, minors…" },
+  custom_ph_interests: { es: "Ej. naturaleza, gastronomía, cultura…", en: "e.g. nature, food, culture…" },
+  custom_ph_honeymoon_dest: { es: "Ej. playa, sierra, ciudad…", en: "e.g. beach, mountains, city…" },
+  custom_ph_company: { es: "Nombre de la empresa", en: "Company name" },
+  custom_ph_corp_goals: { es: "Ej. integrar equipo, premiar ventas, convivencia…", en: "e.g. team bonding, sales reward, retreat…" },
+  custom_budget_3k: { es: "$3,000 – $5,000 MXN", en: "$3,000 – $5,000 MXN" },
+  custom_budget_5k: { es: "$5,000 – $8,000 MXN", en: "$5,000 – $8,000 MXN" },
+  custom_budget_8k: { es: "$8,000 – $12,000 MXN", en: "$8,000 – $12,000 MXN" },
+  custom_budget_12k: { es: "Más de $12,000 MXN", en: "Over $12,000 MXN" },
+  custom_budget_unsure: { es: "Aún no lo tengo claro", en: "Not sure yet" },
+  custom_decor_full: { es: "Sí, decoración a medida", en: "Yes, custom décor" },
+  custom_decor_basic: { es: "Coordinación básica", en: "Basic coordination" },
+  custom_decor_none: { es: "No es prioridad", en: "Not a priority" },
+  custom_ceremony_symbolic: { es: "Ceremonia simbólica", en: "Symbolic ceremony" },
+  custom_ceremony_civil: { es: "Ceremonia civil", en: "Civil ceremony" },
+  custom_ceremony_religious: { es: "Ceremonia religiosa", en: "Religious ceremony" },
+  custom_ceremony_unsure: { es: "Aún por definir", en: "To be defined" },
+  custom_vibe_friends: { es: "Amigos", en: "Friends" },
+  custom_vibe_family: { es: "Familia", en: "Family" },
+  custom_vibe_mixed: { es: "Mixto", en: "Mixed" },
+  custom_priority_adventure: { es: "Aventura", en: "Adventure" },
+  custom_priority_relax: { es: "Relax total", en: "Total relaxation" },
+  custom_priority_hotels: { es: "Hoteles y comodidad", en: "Hotels & comfort" },
+  custom_priority_premium: { es: "Experiencias premium", en: "Premium experiences" },
+  custom_priority_balanced: { es: "Precio equilibrado", en: "Balanced value" },
+  custom_priority_all_inclusive: { es: "Todo incluido", en: "All-inclusive" },
+  custom_priority_culture: { es: "Cultura y experiencias", en: "Culture & experiences" },
+  custom_priority_mix: { es: "Mix equilibrado", en: "Balanced mix" },
+  custom_school_nature: { es: "Naturaleza y sierra", en: "Nature & mountains" },
+  custom_school_culture: { es: "Cultura y comunidad", en: "Culture & community" },
+  custom_school_adventure: { es: "Aventura moderada", en: "Moderate adventure" },
+  custom_rhythm_intense: { es: "Intenso, muchas actividades", en: "Packed, many activities" },
+  custom_rhythm_relaxed: { es: "Relajado, sin prisa", en: "Relaxed, unhurried" },
+  custom_mood_romantic: { es: "Romántico e íntimo", en: "Romantic & intimate" },
+  custom_mood_luxury: { es: "Lujo discreto", en: "Understated luxury" },
+  custom_surprises_yes: { es: "Sí, sorpresas bien pensadas", en: "Yes, thoughtful surprises" },
+  custom_surprises_some: { es: "Algunos detalles especiales", en: "Some special touches" },
+  custom_surprises_no: { es: "Sin extras por ahora", en: "No extras for now" },
+  custom_event_incentive: { es: "Viaje de incentivo", en: "Incentive trip" },
+  custom_event_convention: { es: "Convención o congreso", en: "Convention or conference" },
+  custom_event_team: { es: "Team building", en: "Team building" },
+  custom_event_other: { es: "Otro", en: "Other" },
+  custom_branding_yes: { es: "Sí, con branding", en: "Yes, with branding" },
+  custom_branding_no: { es: "No necesario", en: "Not needed" },
+  custom_branding_ask: { es: "Quiero asesoría", en: "I'd like advice" },
 
   beyond_eyebrow: { es: "Tu ruta", en: "Your route" },
   beyond_title: { es: "Creel no es tu destino", en: "Creel is not your only destination" },
@@ -248,8 +626,7 @@ export const LEX: Record<string, { es: string; en: string }> = {
     es: "Sin calendario fijo del tren: coordinamos autobús o traslado privado según tu fecha, origen y destino.",
     en: "No fixed train calendar: we coordinate bus or private transfer for your dates, origin and destination."
   },
-  design_lbl_date: { es: "Fecha", en: "Date" },
-  design_lbl_return: { es: "Fecha de regreso", en: "Return date" },
+  design_lbl_date: { es: "Fechas del viaje", en: "Trip dates" },
   design_lbl_people: { es: "Cuantas personas", en: "How many guests" },
   design_lbl_from: { es: "Lugar de salida", en: "Departure place" },
   design_lbl_to: { es: "Lugar de destino", en: "Destination" },
@@ -295,14 +672,15 @@ export const LEX: Record<string, { es: string; en: string }> = {
   groups_eyebrow: { es: "Grupos", en: "Groups" },
   groups_title: { es: "Viajes privados, sin fórmulas", en: "Private trips, no formulas" },
   groups_subtitle: {
-    es: "Cotización cerrada según fechas, tamaño y estilo. Chepe, hoteles, traslados y tours bajo un solo criterio.",
-    en: "Closed quotes by dates, size and style. Chepe, hotels, transfers and tours under one standard."
+    es: "Bodas, escolares, lunas de miel, corporativos, grupales o individuales: cotización cerrada según fechas, tamaño y estilo.",
+    en: "Weddings, schools, honeymoons, corporate, groups or solo: closed quotes by dates, size and style."
   },
   groups_brief_title: { es: "Brief grupal", en: "Group brief" },
   groups_brief_sub: { es: "Escala y fechas. Te respondemos con escenarios.", en: "Scale and dates. We reply with scenarios." },
   groups_lbl_city: { es: "Ciudad de salida", en: "Departure city" },
-  groups_lbl_dates: { es: "Fechas", en: "Dates" },
-  groups_ph_dates: { es: "Ej. mayo 2026", en: "e.g. May 2026" },
+  groups_lbl_dates: { es: "Fechas del viaje", en: "Trip dates" },
+  groups_wa_departure: { es: "Salida:", en: "Departure:" },
+  groups_wa_return: { es: "Regreso:", en: "Return:" },
   groups_lbl_type: { es: "Tipo de grupo", en: "Group type" },
   groups_mail: { es: "Correo", en: "Email" },
   groups_gp0_t: { es: "Amigos y familia", en: "Friends & family" },
@@ -331,7 +709,7 @@ export const LEX: Record<string, { es: string; en: string }> = {
   groups_wa_email: { es: "Correo:", en: "Email:" },
   groups_wa_people: { es: "Personas:", en: "Guests:" },
   groups_wa_city: { es: "Ciudad de salida:", en: "Departure city:" },
-  groups_wa_dates: { es: "Fechas aproximadas:", en: "Approximate dates:" },
+  groups_wa_dates: { es: "Fechas:", en: "Dates:" },
   groups_wa_type: { es: "Tipo de grupo:", en: "Group type:" },
   groups_wa_notes: { es: "Comentarios:", en: "Comments:" },
   groups_opt_amigos: { es: "Amigos", en: "Friends" },
@@ -339,6 +717,15 @@ export const LEX: Record<string, { es: string; en: string }> = {
   groups_opt_escuelas: { es: "Escuelas", en: "Schools" },
   groups_opt_familias: { es: "Familias grandes", en: "Large families" },
   groups_opt_privado: { es: "Grupo privado", en: "Private group" },
+  groups_opt_grupales: { es: "Viajes grupales", en: "Group travel" },
+  groups_opt_semigrupo: { es: "Semigrupo", en: "Semi-group" },
+  groups_opt_bodas: { es: "Bodas", en: "Weddings" },
+  groups_opt_universitarios: { es: "Universitarios y congresos", en: "University & congresses" },
+  groups_opt_escolares_culturales: { es: "Escolares y culturales", en: "School & cultural" },
+  groups_opt_escolares: { es: "Escolares", en: "School trips" },
+  groups_opt_individuales: { es: "Individuales", en: "Solo travelers" },
+  groups_opt_luna_miel: { es: "Lunas de miel", en: "Honeymoons" },
+  groups_opt_corporativos: { es: "Corporativos e incentivos", en: "Corporate & incentives" },
   groups_seo_kicker: { es: "Landing SEO (stub)", en: "SEO landing (stub)" },
   groups_seo_title: { es: "Grupos Barrancas del Cobre", en: "Copper Canyon groups" },
 

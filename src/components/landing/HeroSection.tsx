@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import { Container } from "@/components/landing/ui/Container";
 import { Button } from "@/components/landing/ui/Button";
 import { Label, Input, Select } from "@/components/landing/ui/Field";
+import { TripDateRangePicker } from "@/components/landing/ui/TripDateRangePicker";
+import { emptyTripDateRange, formatTripDate, type TripDateRange } from "@/lib/tripDates";
 import { Sparkles, Train, ArrowRight, ChevronDown } from "lucide-react";
 import { useChepeEffect } from "@/components/landing/chepe/ChepeEffect";
 import { cn } from "@/lib/cn";
@@ -13,21 +15,11 @@ import { useI18n } from "@/lib/i18n/context";
 
 export type MiniConfiguratorValue = {
   route: "Chihuahua → Creel → Chihuahua" | "Chihuahua → Creel → Los Mochis" | "Los Mochis → Creel → Los Mochis" | "Los Mochis → Creel → Chihuahua";
-  dates: string;
+  dateRange: TripDateRange;
   people: number;
   experience: "Relax" | "Aventura" | "Cultural" | "Premium" | "Fotografía" | "Familiar";
   chepeClass: "No incluir tren" | "Turista" | "Ejecutiva" | "Primera";
 };
-
-function formatLocaleDate(dateValue: string, locale: SiteLocale) {
-  if (!dateValue) return "";
-  const parsed = new Date(`${dateValue}T12:00:00`);
-  if (Number.isNaN(parsed.getTime())) return dateValue;
-  return new Intl.DateTimeFormat(locale === "en" ? "en-US" : "es-MX", {
-    day: "numeric",
-    month: "long"
-  }).format(parsed);
-}
 
 function buildNextDateSuggestions(
   dateValue: string,
@@ -64,8 +56,13 @@ function AtelierFields({
   const { locale, t } = useI18n();
   const neonLabelClass =
     "text-white [text-shadow:0_0_8px_rgba(255,255,255,0.45),0_0_18px_rgba(120,220,255,0.28)] [filter:drop-shadow(0_0_6px_rgba(130,220,255,0.35))]";
-  const selectedDateLabel = formatLocaleDate(value.dates, locale);
-  const nextDateSuggestions = buildNextDateSuggestions(value.dates, locale, t);
+  const selectedDateLabel = value.dateRange.departure
+    ? formatTripDate(value.dateRange.departure, locale)
+    : "";
+  const selectedReturnLabel = value.dateRange.return
+    ? formatTripDate(value.dateRange.return, locale)
+    : "";
+  const nextDateSuggestions = buildNextDateSuggestions(value.dateRange.departure, locale, t);
 
   return (
     <div className="grid gap-6 lg:grid-cols-12 lg:items-end">
@@ -85,26 +82,24 @@ function AtelierFields({
         </Select>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 lg:col-span-4">
-        <div>
-          <Label className={neonLabelClass}>{t("hero_label_dates")}</Label>
-          <Input
-            className="mt-2 border-cream/30 bg-ink/45 !text-cream placeholder:text-cream/80"
-            type="date"
-            value={value.dates}
-            onChange={(e) => setValue((v) => ({ ...v, dates: e.target.value }))}
-          />
-        </div>
-        <div>
-          <Label className={neonLabelClass}>{t("hero_label_people")}</Label>
-          <Input
-            className="mt-2 border-cream/30 bg-ink/45 !text-cream"
-            type="number"
-            min={1}
-            value={value.people}
-            onChange={(e) => setValue((v) => ({ ...v, people: Number(e.target.value || 1) }))}
-          />
-        </div>
+      <div className="lg:col-span-4">
+        <Label className={neonLabelClass}>{t("hero_label_dates")}</Label>
+        <TripDateRangePicker
+          className="mt-2"
+          variant="hero"
+          value={value.dateRange}
+          onChange={(dateRange) => setValue((v) => ({ ...v, dateRange }))}
+        />
+      </div>
+      <div className="lg:col-span-2">
+        <Label className={neonLabelClass}>{t("hero_label_people")}</Label>
+        <Input
+          className="mt-2 border-cream/30 bg-ink/45 !text-cream"
+          type="number"
+          min={1}
+          value={value.people}
+          onChange={(e) => setValue((v) => ({ ...v, people: Number(e.target.value || 1) }))}
+        />
       </div>
 
       <div className="grid grid-cols-2 gap-4 lg:col-span-3">
@@ -155,12 +150,14 @@ function AtelierFields({
         </div>
       </div>
 
-      {value.dates ? (
+      {value.dateRange.departure ? (
         <div className="lg:col-span-12">
           <div className="mt-1 border border-copper/45 bg-ink/45 p-4 backdrop-blur-sm">
             <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-copper/95">{t("hero_map_title")}</p>
             <p className="mt-2 text-sm text-cream/90">
-              {t("hero_map_sub", { date: selectedDateLabel })}
+              {selectedReturnLabel
+                ? `${t("date_picker_departure")}: ${selectedDateLabel} · ${t("date_picker_return")}: ${selectedReturnLabel}`
+                : t("hero_map_sub", { date: selectedDateLabel })}
             </p>
             <div className="mt-3 grid gap-2 sm:grid-cols-3">
               {nextDateSuggestions.map((item) => (
@@ -168,7 +165,12 @@ function AtelierFields({
                   key={item.label}
                   type="button"
                   className="border border-cream/20 bg-ink/40 px-3 py-2 text-left transition hover:border-copper/60 hover:bg-ink/60"
-                  onClick={() => setValue((v) => ({ ...v, dates: item.value }))}
+                  onClick={() =>
+                    setValue((v) => ({
+                      ...v,
+                      dateRange: { departure: v.dateRange.departure, return: item.value }
+                    }))
+                  }
                 >
                   <p className="text-sm font-semibold text-cream">{item.label}</p>
                   <p className="mt-1 text-xs text-cream/70">{item.copy}</p>
@@ -200,7 +202,7 @@ export function HeroSection({
   const { trigger } = useChepeEffect();
   const [value, setValue] = useState<MiniConfiguratorValue>({
     route: "Chihuahua → Creel → Chihuahua",
-    dates: "",
+    dateRange: emptyTripDateRange(),
     people: 2,
     experience: "Premium",
     chepeClass: "Ejecutiva"
@@ -213,7 +215,7 @@ export function HeroSection({
 
   return (
     <section className="relative min-h-[100svh] overflow-hidden" aria-labelledby="hero-heading">
-      <div className="absolute inset-0">
+      <div className="pointer-events-none absolute inset-0">
         <div
           className="absolute inset-0 bg-cover bg-center md:bg-[center_28%]"
           style={{ backgroundImage: `url('${heroImage}')` }}

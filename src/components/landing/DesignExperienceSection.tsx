@@ -7,6 +7,8 @@ import { Container } from "@/components/landing/ui/Container";
 import { Button } from "@/components/landing/ui/Button";
 import { SectionHeading } from "@/components/landing/ui/SectionHeading";
 import { Input, Label, Select } from "@/components/landing/ui/Field";
+import { TripDateRangePicker } from "@/components/landing/ui/TripDateRangePicker";
+import { emptyTripDateRange, formatTripDate } from "@/lib/tripDates";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import { Sparkles, X } from "lucide-react";
 import { useI18n } from "@/lib/i18n/context";
@@ -46,10 +48,9 @@ function transportDetailLexKey(mode: TransportMode): string {
 }
 
 export function DesignExperienceSection({ onOpenWizard }: { onOpenWizard: () => void }) {
-  const { t } = useI18n();
+  const { locale, t } = useI18n();
   const [selectedTransport, setSelectedTransport] = useState<TransportMode | null>(null);
-  const [date, setDate] = useState("");
-  const [returnDate, setReturnDate] = useState("");
+  const [dateRange, setDateRange] = useState(emptyTripDateRange());
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
   const [people, setPeople] = useState("");
@@ -67,14 +68,14 @@ export function DesignExperienceSection({ onOpenWizard }: { onOpenWizard: () => 
     const message =
       `Hola Rumbo Co, quiero cotizar transporte.\n` +
       `Servicio: ${selectedTransport}\n` +
-      `Fecha: ${date || "-"}\n` +
-      `Fecha de regreso: ${returnDate || "-"}\n` +
+      `${t("groups_wa_departure")} ${dateRange.departure ? formatTripDate(dateRange.departure, locale) : "-"}\n` +
+      `${t("groups_wa_return")} ${dateRange.return ? formatTripDate(dateRange.return, locale) : "-"}\n` +
       `Lugar de salida: ${origin || "-"}\n` +
       `Lugar de destino: ${destination || "-"}\n` +
       `Numero de personas: ${people || "-"}\n` +
       `${selectedTransport === "Chepe Express" ? `Clase Chepe Express: ${chepeClass}\n` : ""}`;
     return buildWhatsAppUrl(message);
-  }, [selectedTransport, date, returnDate, origin, destination, people, chepeClass]);
+  }, [selectedTransport, dateRange, locale, origin, destination, people, chepeClass, t]);
 
   return (
     <section
@@ -117,8 +118,7 @@ export function DesignExperienceSection({ onOpenWizard }: { onOpenWizard: () => 
                     className="mt-4 w-full"
                     onClick={() => {
                       setSelectedTransport(card.mode);
-                      setDate("");
-                      setReturnDate("");
+                      setDateRange(emptyTripDateRange());
                       setOrigin("");
                       setDestination("");
                       setPeople("");
@@ -166,8 +166,19 @@ export function DesignExperienceSection({ onOpenWizard }: { onOpenWizard: () => 
       </Container>
 
       {selectedTransport ? (
-        <div className="fixed inset-0 z-[70] flex items-center justify-center bg-ink/70 px-4 py-8 backdrop-blur-sm">
-          <div className="w-full max-w-2xl border border-ink/10 bg-parchment p-6 sm:p-8">
+        <div
+          className="fixed inset-0 z-[70] flex items-center justify-center bg-ink/70 px-4 py-8 backdrop-blur-sm"
+          role="presentation"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setSelectedTransport(null);
+          }}
+        >
+          <div
+            className="w-full max-w-2xl border border-ink/10 bg-parchment p-6 sm:p-8"
+            role="dialog"
+            aria-modal="true"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="flex items-start justify-between gap-6">
               <div>
                 <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-copper/90">{t("design_modal_transport")}</p>
@@ -198,13 +209,13 @@ export function DesignExperienceSection({ onOpenWizard }: { onOpenWizard: () => 
               {t("design_modal_trip_fields")}
             </p>
             <div className="mt-3 grid gap-4 sm:grid-cols-2">
-              <div>
+              <div className="sm:col-span-2">
                 <Label>{t("design_lbl_date")}</Label>
-                <Input className="mt-2" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
-              </div>
-              <div>
-                <Label>{t("design_lbl_return")}</Label>
-                <Input className="mt-2" type="date" value={returnDate} onChange={(e) => setReturnDate(e.target.value)} />
+                <TripDateRangePicker
+                  className="mt-2"
+                  value={dateRange}
+                  onChange={setDateRange}
+                />
               </div>
               <div>
                 <Label>{t("design_lbl_people")}</Label>

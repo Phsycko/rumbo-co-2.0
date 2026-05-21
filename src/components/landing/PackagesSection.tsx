@@ -64,7 +64,10 @@ export function PackagesSection({
       aria-labelledby="paquetes-heading"
     >
       <div className="pointer-events-none absolute inset-0 bg-grain-dark opacity-20 mix-blend-overlay" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_80%_0%,rgba(184,115,74,0.1),transparent_50%)]" />
+      <div
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_80%_0%,rgba(184,115,74,0.1),transparent_50%)]"
+        aria-hidden
+      />
 
       <Container className="relative">
         <div className="flex flex-col gap-8 border border-cream/10 bg-gradient-to-r from-cream/[0.05] via-transparent to-cream/[0.03] p-5 sm:p-7 lg:flex-row lg:items-end lg:justify-between">

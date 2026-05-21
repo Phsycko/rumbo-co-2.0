@@ -8,6 +8,8 @@ import { ManifestoSection } from "@/components/landing/ManifestoSection";
 import { BrandPrinciplesSection } from "@/components/landing/BrandPrinciplesSection";
 import { RoutesSection } from "@/components/landing/RoutesSection";
 import { ToursSection } from "@/components/landing/ToursSection";
+import { BeachDestinationsSection } from "@/components/landing/BeachDestinationsSection";
+import { CustomTripsSection } from "@/components/landing/CustomTripsSection";
 import { BeyondCreelSection } from "@/components/landing/BeyondCreelSection";
 import { PackagesSection } from "@/components/landing/PackagesSection";
 import { DesignExperienceSection } from "@/components/landing/DesignExperienceSection";
@@ -46,6 +48,11 @@ export function LandingHome() {
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
 
+  const onScrollToGroups = useCallback(() => {
+    const el = document.getElementById("grupos");
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, []);
+
   return (
     <ChepeEffectProvider>
       <LandingHeader onOpenWizard={onOpenWizard} />
@@ -56,6 +63,9 @@ export function LandingHome() {
         <RoutesSection onOpenWizard={onOpenWizard} />
         <ToursSection />
         <BeyondCreelSection />
+        <BeachDestinationsSection />
+        <CustomTripsSection onScrollToGroups={onScrollToGroups} />
+        <GroupsSection />
         <PackagesSection onOpenWizard={onOpenWizard} onConfigurePackage={onConfigurePackage} />
         <DesignExperienceSection onOpenWizard={onOpenWizard} />
         <InclusionsSection />
@@ -63,11 +73,12 @@ export function LandingHome() {
         <BarrancasEditorialSection />
         <TestimonialsSection />
         <FaqSection />
-        <GroupsSection />
         <FinalCtaSection onOpenWizard={onOpenWizard} />
       </main>
       <LandingFooter />
-      <LandingWizard open={wizardOpen} onClose={onCloseWizard} packagePreset={wizardPackagePreset} />
+      {wizardOpen ? (
+        <LandingWizard open onClose={onCloseWizard} packagePreset={wizardPackagePreset} />
+      ) : null}
     </ChepeEffectProvider>
   );
 }

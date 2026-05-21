@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Container } from "@/components/landing/ui/Container";
 import { SectionHeading } from "@/components/landing/ui/SectionHeading";
@@ -8,9 +8,16 @@ import { Card } from "@/components/landing/ui/Card";
 import { Button } from "@/components/landing/ui/Button";
 import { Label, Input, Select, Textarea } from "@/components/landing/ui/Field";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
+import { TripDateRangePicker } from "@/components/landing/ui/TripDateRangePicker";
+import { emptyTripDateRange, formatTripDate, type TripDateRange } from "@/lib/tripDates";
 import { CONTACT } from "@/lib/contact";
 import { MessageCircle, ArrowRight } from "lucide-react";
 import { useI18n } from "@/lib/i18n/context";
+import {
+  GROUP_VALUE_GRUPAL,
+  GROUP_VALUE_SEMIGRUPO,
+  resolveGroupScale
+} from "@/lib/customTripBrief";
 
 type GroupForm = {
   name: string;
@@ -18,7 +25,7 @@ type GroupForm = {
   email: string;
   people: string;
   city: string;
-  dates: string;
+  dateRange: TripDateRange;
   groupType: string;
   notes: string;
 };
@@ -30,17 +37,52 @@ const perfiles = [
 ] as const;
 
 export function GroupsSection() {
-  const { t } = useI18n();
+  const { locale, t } = useI18n();
   const [form, setForm] = useState<GroupForm>({
     name: "",
     whatsapp: "",
     email: "",
     people: "",
     city: "",
-    dates: "",
-    groupType: "Amigos",
+    dateRange: emptyTripDateRange(),
+    groupType: "Viajes grupales",
     notes: ""
   });
+
+  useEffect(() => {
+    const preset = window.sessionStorage.getItem("rumbo-group-type");
+    const presetPeople = window.sessionStorage.getItem("rumbo-group-people");
+    const presetBrief = window.sessionStorage.getItem("rumbo-group-brief-notes");
+    if (!preset && !presetPeople && !presetBrief) return;
+    setForm((f) => ({
+      ...f,
+      ...(preset ? { groupType: preset } : {}),
+      ...(presetPeople ? { people: presetPeople } : {}),
+      ...(presetBrief
+        ? { notes: f.notes.trim() ? `${presetBrief}\n\n${f.notes}` : presetBrief }
+        : {})
+    }));
+    if (preset) window.sessionStorage.removeItem("rumbo-group-type");
+    if (presetPeople) window.sessionStorage.removeItem("rumbo-group-people");
+    if (presetBrief) window.sessionStorage.removeItem("rumbo-group-brief-notes");
+  }, []);
+
+  const peopleCount = Number.parseInt(form.people, 10) || 0;
+  const groupScale = resolveGroupScale(peopleCount);
+  const groupScaleHintKey =
+    groupScale === "semigrupo"
+      ? "custom_scale_hint_semigrupo"
+      : groupScale === "grupal"
+        ? "custom_scale_hint_grupal"
+        : peopleCount > 0 && peopleCount < 5
+          ? "custom_scale_hint_below_min"
+          : null;
+
+  useEffect(() => {
+    if (!groupScale) return;
+    const nextType = groupScale === "grupal" ? GROUP_VALUE_GRUPAL : GROUP_VALUE_SEMIGRUPO;
+    setForm((f) => (f.groupType === nextType ? f : { ...f, groupType: nextType }));
+  }, [groupScale]);
 
   const { whatsappHref, mailtoHref } = useMemo(() => {
     const body =
@@ -50,17 +92,18 @@ export function GroupsSection() {
       `${t("groups_wa_email")} ${form.email || "-"}\n` +
       `${t("groups_wa_people")} ${form.people || "-"}\n` +
       `${t("groups_wa_city")} ${form.city || "-"}\n` +
-      `${t("groups_wa_dates")} ${form.dates || "-"}\n` +
+      `${t("groups_wa_departure")} ${form.dateRange.departure ? formatTripDate(form.dateRange.departure, locale) : "-"}\n` +
+      `${t("groups_wa_return")} ${form.dateRange.return ? formatTripDate(form.dateRange.return, locale) : "-"}\n` +
       `${t("groups_wa_type")} ${form.groupType || "-"}\n` +
       `${t("groups_wa_notes")} ${form.notes || "-"}`;
     return {
       whatsappHref: buildWhatsAppUrl(body),
       mailtoHref: `mailto:${CONTACT.email}?subject=${encodeURIComponent(t("groups_mail_subject"))}&body=${encodeURIComponent(body)}`
     };
-  }, [form, t]);
+  }, [form, locale, t]);
 
   return (
-    <section id="grupos" className="border-t border-ink/8 bg-parchment py-16 sm:py-24" aria-labelledby="grupos-heading">
+    <section id="grupos" className="border-t border-ink/8 bg-parchment pt-8 pb-12 sm:pt-10 sm:pb-16" aria-labelledby="grupos-heading">
       <Container>
         <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-14">
           <div>
@@ -106,24 +149,41 @@ export function GroupsSection() {
                 </div>
                 <div>
                   <Label>{t("groups_lbl_people")}</Label>
-                  <Input className="mt-2" value={form.people} onChange={(e) => setForm((f) => ({ ...f, people: e.target.value }))} />
+                  <Input
+                    className="mt-2"
+                    type="number"
+                    min={5}
+                    value={form.people}
+                    onChange={(e) => setForm((f) => ({ ...f, people: e.target.value }))}
+                  />
+                  {groupScaleHintKey ? (
+                    <p className="mt-2 text-xs leading-relaxed text-copper-dim/90">{t(groupScaleHintKey)}</p>
+                  ) : null}
                 </div>
                 <div>
                   <Label>{t("groups_lbl_city")}</Label>
                   <Input className="mt-2" value={form.city} onChange={(e) => setForm((f) => ({ ...f, city: e.target.value }))} />
                 </div>
-                <div>
+                <div className="sm:col-span-2">
                   <Label>{t("groups_lbl_dates")}</Label>
-                  <Input
+                  <TripDateRangePicker
                     className="mt-2"
-                    placeholder={t("groups_ph_dates")}
-                    value={form.dates}
-                    onChange={(e) => setForm((f) => ({ ...f, dates: e.target.value }))}
+                    value={form.dateRange}
+                    onChange={(dateRange) => setForm((f) => ({ ...f, dateRange }))}
                   />
                 </div>
                 <div className="sm:col-span-2">
                   <Label>{t("groups_lbl_type")}</Label>
                   <Select className="mt-2" value={form.groupType} onChange={(e) => setForm((f) => ({ ...f, groupType: e.target.value }))}>
+                    <option value="Viajes grupales">{t("groups_opt_grupales")}</option>
+                    <option value="Semigrupo">{t("groups_opt_semigrupo")}</option>
+                    <option value="Bodas">{t("groups_opt_bodas")}</option>
+                    <option value="Universitarios y congresos">{t("groups_opt_universitarios")}</option>
+                    <option value="Escolares y culturales">{t("groups_opt_escolares_culturales")}</option>
+                    <option value="Escolares">{t("groups_opt_escolares")}</option>
+                    <option value="Individuales">{t("groups_opt_individuales")}</option>
+                    <option value="Lunas de miel">{t("groups_opt_luna_miel")}</option>
+                    <option value="Corporativos">{t("groups_opt_corporativos")}</option>
                     <option value="Amigos">{t("groups_opt_amigos")}</option>
                     <option value="Empresas">{t("groups_opt_empresas")}</option>
                     <option value="Escuelas">{t("groups_opt_escuelas")}</option>

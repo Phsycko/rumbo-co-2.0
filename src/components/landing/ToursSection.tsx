@@ -1,16 +1,28 @@
 "use client";
 
-import { useCallback, useId, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useCallback, useState } from "react";
+import Image from "next/image";
+import { motion } from "framer-motion";
 import { Container } from "@/components/landing/ui/Container";
 import { SectionHeading } from "@/components/landing/ui/SectionHeading";
 import { Button } from "@/components/landing/ui/Button";
-import { X, ChevronDown } from "lucide-react";
+import { X } from "lucide-react";
 import { useI18n } from "@/lib/i18n/context";
-import { cn } from "@/lib/cn";
 import { CONTACT } from "@/lib/contact";
 
-const tours = [
+type TourItem = {
+  id: string;
+  name: string;
+  duration: string;
+  places: readonly string[];
+  image: string;
+};
+
+function tourImage(id: string) {
+  return `/images/tours/${id}.png`;
+}
+
+const tours: TourItem[] = [
   {
     id: "creel-pueblo-magico",
     name: "Tour Creel Pueblo Magico",
@@ -50,7 +62,7 @@ const tours = [
     name: "Tour Divisadero y Parque de Aventura",
     duration: "Medio dia",
     places: [
-      "Canon de Oteros",
+      "Cañón de Oteros",
       "Cueva de Catalina",
       "Piedra de la Fertilidad",
       "Mirador Divisadero",
@@ -94,7 +106,7 @@ const tours = [
       "Cascada de Cusarare",
       "Lago de Arareko",
       "Catedral perdida de Satevo",
-      "Canon del Cobre",
+      "Cañón del Cobre",
       "Mirador Barranca de la Bufa",
       "Ex Hacienda San Miguel",
       "Acueducto de Batopilas"
@@ -131,7 +143,7 @@ const tours = [
   },
   {
     id: "canon-cobre-plus",
-    name: "Tour Canon del Cobre Plus",
+    name: "Tour Cañón del Cobre Plus",
     duration: "7 a 8 horas",
     places: [
       "Valle de los Monjes",
@@ -139,7 +151,7 @@ const tours = [
       "Iglesia de San Ignacio",
       "Cascada de Cusarare",
       "Cinturon de Basihuare",
-      "Canon del Cobre",
+      "Cañón del Cobre",
       "Puente de Humira",
       "La Herradura"
     ]
@@ -148,7 +160,7 @@ const tours = [
     id: "guachochi-sinforosa",
     name: "Tour Guachochi-Sinforosa",
     duration: "9 a 10 horas",
-    places: ["Canon del Jaguar", "Mirador La Sinforosa", "Lago de las Garzas", "Cascada del Salto", "Letras Guachochi"]
+    places: ["Cañón del Jaguar", "Mirador La Sinforosa", "Lago de las Garzas", "Cascada del Salto", "Letras Guachochi"]
   },
   {
     id: "sisoguichi",
@@ -175,20 +187,14 @@ const tours = [
     duration: "Servicio de traslado",
     places: ["Hotel o aeropuerto en Chihuahua", "Creel y puntos acordados de salida/llegada"]
   }
-] as const;
+].map((tour) => ({ ...tour, image: tourImage(tour.id) }));
 
-type Tour = (typeof tours)[number];
+type Tour = TourItem;
 
 export function ToursSection() {
   const { t } = useI18n();
-  const sectionId = useId();
-  const [expandedId, setExpandedId] = useState<string | null>(null);
   const [modalTour, setModalTour] = useState<Tour | null>(null);
   const [people, setPeople] = useState("1");
-
-  const toggle = useCallback((id: string) => {
-    setExpandedId((cur) => (cur === id ? null : id));
-  }, []);
 
   const openModal = useCallback((tour: Tour) => {
     setModalTour(tour);
@@ -213,7 +219,7 @@ export function ToursSection() {
   }, [modalTour, people, t]);
 
   return (
-    <section id="tours" className="relative border-t border-ink/8 bg-parchment py-16 sm:py-24" aria-labelledby="tours-heading">
+    <section id="tours" className="relative border-t border-ink/8 bg-parchment pt-12 pb-8 sm:pt-16 sm:pb-10" aria-labelledby="tours-heading">
       <Container>
         <SectionHeading
           titleId="tours-heading"
@@ -222,83 +228,42 @@ export function ToursSection() {
           subtitle={t("tours_subtitle")}
         />
 
-        <div className="mx-auto mt-10 max-w-3xl border border-ink/10 bg-cream">
-          {tours.map((tour, idx) => {
-            const open = expandedId === tour.id;
-            const panelId = `${sectionId}-panel-${tour.id}`;
-            const triggerId = `${sectionId}-trigger-${tour.id}`;
-            return (
-              <motion.div
-                key={tour.id}
-                initial={false}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1], delay: Math.min(idx * 0.02, 0.2) }}
-                className="border-b border-ink/10 last:border-b-0"
-              >
-                <h3 className="m-0">
-                  <button
-                    id={triggerId}
-                    type="button"
-                    className="flex w-full items-start justify-between gap-4 px-5 py-4 text-left transition hover:bg-ink/[0.03] sm:px-6 sm:py-5"
-                    aria-expanded={open}
-                    aria-controls={panelId}
-                    onClick={() => toggle(tour.id)}
-                  >
-                    <span className="min-w-0">
-                      <span className="block font-serif text-lg leading-snug text-ink sm:text-xl">{tour.name}</span>
-                      <span className="mt-1 block text-sm text-ink/60">
-                        {t("tours_modal_duration")} {tour.duration}
-                      </span>
-                    </span>
-                    <ChevronDown
-                      className={cn(
-                        "mt-1 h-5 w-5 shrink-0 text-copper-dim transition duration-300",
-                        open && "rotate-180"
-                      )}
-                      aria-hidden
-                    />
-                  </button>
-                </h3>
-
-                <AnimatePresence initial={false}>
-                  {open ? (
-                    <motion.div
-                      id={panelId}
-                      role="region"
-                      aria-labelledby={triggerId}
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <div className="space-y-5 border-t border-ink/8 px-5 pb-5 pt-4 sm:px-6 sm:pb-6">
-                        <div>
-                          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/55">{t("tours_modal_places")}</p>
-                          <ul className="mt-3 grid gap-2 text-sm leading-relaxed text-ink/80 sm:grid-cols-2">
-                            {tour.places.map((place) => (
-                              <li key={place} className="flex items-start gap-2">
-                                <span className="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-copper/80" />
-                                <span>{place}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                        <p className="text-xs text-ink/65">{t("tours_tip")}</p>
-                        <Button type="button" variant="outline" size="sm" className="w-full sm:w-auto" onClick={() => openModal(tour)}>
-                          {t("tours_select")}
-                        </Button>
-                      </div>
-                    </motion.div>
-                  ) : null}
-                </AnimatePresence>
-              </motion.div>
-            );
-          })}
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
+          {tours.map((tour, idx) => (
+            <motion.article
+              key={tour.id}
+              initial={false}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1], delay: Math.min(idx * 0.03, 0.24) }}
+              className="flex flex-col overflow-hidden border border-ink/10 bg-cream"
+            >
+              <div className="relative h-36 w-full bg-ink/[0.04] sm:h-40">
+                <Image
+                  src={tour.image}
+                  alt={tour.name}
+                  fill
+                  className="object-cover object-center"
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                />
+              </div>
+              <div className="flex flex-1 flex-col p-5">
+                <h3 className="font-serif text-base leading-snug text-ink">{tour.name}</h3>
+                <p className="mt-2 text-xs text-ink/65">
+                  {t("tours_modal_duration")} {tour.duration}
+                </p>
+                <p className="mt-2.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-ink/50">
+                  {t("tours_card_stops", { n: tour.places.length })}
+                </p>
+                <Button type="button" variant="outline" size="sm" className="mt-4 h-9 w-full text-xs" onClick={() => openModal(tour)}>
+                  {t("tours_select")}
+                </Button>
+              </div>
+            </motion.article>
+          ))}
         </div>
 
-        <p className="mx-auto mt-8 max-w-3xl border border-ink/10 bg-cream/70 px-5 py-4 text-center text-xs font-medium uppercase tracking-[0.08em] text-ink/70">
+        <p className="mx-auto mt-6 max-w-3xl border border-ink/10 bg-cream/70 px-5 py-3 text-center text-xs font-medium uppercase tracking-[0.08em] text-ink/70">
           {t("tours_disclaimer")}
         </p>
       </Container>

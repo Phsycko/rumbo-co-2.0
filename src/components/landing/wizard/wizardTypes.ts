@@ -44,7 +44,8 @@ export type WizardUserData = {
   name: string;
   whatsapp: string;
   email: string;
-  tentativeDate: string;
+  departureDate: string;
+  returnDate: string;
   people: string;
   notes: string;
 };

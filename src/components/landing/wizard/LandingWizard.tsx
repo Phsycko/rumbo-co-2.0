@@ -12,6 +12,8 @@ import { ArrowLeft, ArrowRight, CheckCircle2, Sparkles, TrainFront, X } from "lu
 import { useChepeEffect } from "@/components/landing/chepe/ChepeEffect";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import { useI18n } from "@/lib/i18n/context";
+import { TripDateRangePicker } from "@/components/landing/ui/TripDateRangePicker";
+import { formatTripDate } from "@/lib/tripDates";
 
 const initial: WizardState = {
   step: 0,
@@ -27,7 +29,8 @@ const initial: WizardState = {
     name: "",
     whatsapp: "",
     email: "",
-    tentativeDate: "",
+    departureDate: "",
+    returnDate: "",
     people: "2",
     notes: ""
   }
@@ -43,7 +46,7 @@ export function LandingWizard({
   /** Si viene de una tarjeta de paquete, precarga duración y clase Chepe. */
   packagePreset?: WizardPackagePreset | null;
 }) {
-  const { t } = useI18n();
+  const { locale, t } = useI18n();
   const { trigger } = useChepeEffect();
   const [state, setState] = useState<WizardState>(initial);
 
@@ -84,11 +87,12 @@ export function LandingWizard({
       `Nombre: ${state.user.name || "-"}\n` +
       `WhatsApp: ${state.user.whatsapp || "-"}\n` +
       `Correo: ${state.user.email || "-"}\n` +
-      `Fecha tentativa: ${state.user.tentativeDate || "-"}\n` +
+      `${t("groups_wa_departure")} ${state.user.departureDate ? formatTripDate(state.user.departureDate, locale) : "-"}\n` +
+      `${t("groups_wa_return")} ${state.user.returnDate ? formatTripDate(state.user.returnDate, locale) : "-"}\n` +
       `Personas: ${state.user.people || "-"}\n` +
       `Comentarios: ${state.user.notes || "-"}`;
     return buildWhatsAppUrl(msg);
-  }, [state]);
+  }, [locale, state, t]);
 
   const canNext = state.step < wizardSteps.length - 1;
   const canPrev = state.step > 0;
@@ -192,7 +196,7 @@ function StepBody({
   setState: (_fn: (_prev: WizardState) => WizardState) => void;
   onChepeSelection: () => void;
 }) {
-  const { t } = useI18n();
+  const { locale, t } = useI18n();
   switch (state.step) {
     case 0:
       return (
@@ -396,14 +400,23 @@ function StepBody({
                 }
               />
             </div>
-            <div>
-              <Label>{t("wizard_lbl_tentative")}</Label>
-              <Input
+            <div className="sm:col-span-2">
+              <Label>{t("groups_lbl_dates")}</Label>
+              <TripDateRangePicker
                 className="mt-2"
-                placeholder={t("wizard_ph_tentative")}
-                value={state.user.tentativeDate}
-                onChange={(e) =>
-                  setState((s) => ({ ...s, user: { ...s.user, tentativeDate: e.target.value } }))
+                value={{
+                  departure: state.user.departureDate,
+                  return: state.user.returnDate
+                }}
+                onChange={(range) =>
+                  setState((s) => ({
+                    ...s,
+                    user: {
+                      ...s.user,
+                      departureDate: range.departure,
+                      returnDate: range.return
+                    }
+                  }))
                 }
               />
             </div>
@@ -471,8 +484,12 @@ function StepBody({
                 <span className="font-semibold text-charcoal">{t("wizard_sum_email")}</span> {state.user.email || "-"}
               </p>
               <p>
-                <span className="font-semibold text-charcoal">{t("wizard_sum_tentative")}</span>{" "}
-                {state.user.tentativeDate || "-"}
+                <span className="font-semibold text-charcoal">{t("date_picker_departure")}</span>{" "}
+                {state.user.departureDate ? formatTripDate(state.user.departureDate, locale) : "-"}
+              </p>
+              <p>
+                <span className="font-semibold text-charcoal">{t("date_picker_return")}</span>{" "}
+                {state.user.returnDate ? formatTripDate(state.user.returnDate, locale) : "-"}
               </p>
               <p>
                 <span className="font-semibold text-charcoal">{t("wizard_sum_people")}</span> {state.user.people || "-"}
